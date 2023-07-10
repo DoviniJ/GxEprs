@@ -1,0 +1,19 @@
+Package: GxEprs
+Title: GxE Interaction in Polygenic Risk Score Models for Quantitative and Binary Traits
+Version: 1.0
+Authors@R: c(person("Dovini", "Jayasinghe", role = c("aut", "cre","cph"), email = "dovini.jayasinghe@mymail.unisa.edu.au"),
+             person("Hong", "Lee", role = c("aut","cph"),email = "Hong.Lee@unisa.edu.au"),
+             person("Moksedul", "Momin", role = c("aut","cph"), email = "md_moksedul.momin@mymail.unisa.edu.au"))
+Description: The 'GxEprs' is an R package to detect and estimate GxE.It uses a novel PRS model that can 
+             enhance the prediction accuracy by utilising GxE effects. It performs Genome Wide 
+             Association Studies (GWAS) and Genome Wide Environment Interaction Studies (GWEIS) using 
+             a discovery dataset. The package has the ability to obtain polygenic risk scores (PRSs) for  
+             a target sample. Finally it predicts the risk values of each individual in the target sample.
+URL: https://github.com/DoviniJ/GxEprsDummy/tree/main
+License: GPL (>=3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
+LazyData: true
