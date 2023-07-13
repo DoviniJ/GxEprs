@@ -9,7 +9,7 @@ Description: The 'GxEprs' is an R package to detect and estimate GxE.It uses a n
              Association Studies (GWAS) and Genome Wide Environment Interaction Studies (GWEIS) using 
              a discovery dataset. The package has the ability to obtain polygenic risk scores (PRSs) for  
              a target sample. Finally it predicts the risk values of each individual in the target sample.
-URL: https://github.com/DoviniJ/GxEprsDummy/tree/main
+URL: https://github.com/DoviniJ/GxEprs
 License: GPL (>=3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
