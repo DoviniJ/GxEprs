@@ -165,7 +165,7 @@ install_github("DoviniJ/GxEprs")
 ```
 # Load the library
 ```
-library(GxEprsDummy)
+library(GxEprs)
 ```
 
 # Quick start
@@ -249,10 +249,10 @@ As explained above, “mydata” is the prefix of the PLINK format files, “Bpd
 **Output**
 ```
 V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
-1 754182 snp_53131969 G A A N ADD 7867 0.10380130071374 0.112336 0.923983 0.355495 .
-1 761732 snp_52286139 T C C N ADD 7583 0.119914096665338 0.111597 1.07452 0.282589 .
-1 768448 snp_512562034 G A A N ADD 7916 0.223183550514231 0.11595 1.92486 0.0542468 .
-1 779322 snp_54040617 A G G N ADD 7916 0.0978342643483546 0.111966 0.873763 0.382247 .
+1 768448 SNP_1 G A A N ADD 800 -0.0912494357966473 0.421016 -0.216738 0.828413 .
+1 853954 SNP_2 A C C N ADD 800 0.580991407122803 0.266219 2.18239 0.0290808 .
+1 880390 SNP_3 C A A N ADD 800 0.446184697385182 0.744786 0.599076 0.549122 .
+1 940203 SNP_4 G A A N ADD 800 0.476159642057072 0.456313 1.0435 0.296718 .
 ```
 B_out.trd.sum - This contains GWAS summary statistics of all additive SNP effects, when the outcome is binary. V1 to V14 denote the following columns in order. Note that all .sum files follow the same structure.
 * chromosome 
@@ -281,19 +281,19 @@ This performs GWEIS using a logistic regression, and outputs GWEIS summary stati
 **Output**
 ```
 V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
-1 754182 snp_53131969 G A A N ADD 7867 0.0957646219843793 0.143743 0.66621 0.505277 .
-1 761732 snp_52286139 T C C N ADD 7583 0.0992931463425387 0.142772 0.695495 0.486745 .
-1 768448 snp_512562034 G A A N ADD 7916 0.14841138439146 0.149001 0.996065 0.319219 .
-1 779322 snp_54040617 A G G N ADD 7916 0.0952647242257811 0.142304 0.669477 0.503192 .
+1 768448 SNP_1 G A A N ADD 800 -0.0429377728682119 0.546246 -0.0786059 0.937346 .
+1 853954 SNP_2 A C C N ADD 800 0.691871367055893 0.338615 2.04325 0.0410281 .
+1 880390 SNP_3 C A A N ADD 800 -0.0243828605684827 1.27677 -0.0190971 0.984764 .
+1 940203 SNP_4 G A A N ADD 800 0.532238718269307 0.57697 0.922471 0.356283 .
 ```
 B_out.add.sum - This contains GWEIS summary statistics of all additive SNP effects, when the outcome is binary. 
 
 ```
 V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
-1 754182 snp_53131969 G A A N ADDxCOVAR1 7867 0.0291703772997799 0.0941336 0.30992 0.756622 .
-1 761732 snp_52286139 T C C N ADDxCOVAR1 7583 0.0235993322503244 0.0939593 0.25121 0.801651 .
-1 768448 snp_512562034 G A A N ADDxCOVAR1 7916 0.0201849071590975 0.0863014 0.233834 0.815114 .
-1 779322 snp_54040617 A G G N ADDxCOVAR1 7916 0.0132222001691214 0.0938807 0.140788 0.888037 .
+1 768448 SNP_1 G A A N ADDxCOVAR1 800 -0.15253365458422 0.37862 -0.402868 0.687045 .
+1 853954 SNP_2 A C C N ADDxCOVAR1 800 -0.114150142610688 0.211225 -0.540423 0.588905 .
+1 880390 SNP_3 C A A N ADDxCOVAR1 800 0.612983215535033 0.936868 0.654292 0.512924 .
+1 940203 SNP_4 G A A N ADDxCOVAR1 800 -0.311823137172646 0.390234 -0.799069 0.424251 .
 ```
 B_out.gxe.sum - This contains GWEIS summary statistics of all interaction SNP effects, when the outcome is binary. 
 
@@ -310,10 +310,10 @@ As explained above, “mydata” is the prefix of the PLINK format files, “B_o
 **Output**
 ```
 #FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-1001019	1001019	19814	4772	-0.000330369
-1001022	1001022	19822	4441	-0.0012421
-1001035	1001035	19856	4648	-0.00277161
-1001054	1001054	19868	4552	-0.00163487
+ID_1	ID_1	1970	459	-0.0112131
+ID_2	ID_2	1990	535	0.00675556
+ID_3	ID_3	1970	432	-0.00961485
+ID_4	ID_4	1976	469	-0.00708284
 ```
 B_trd.sscore - This contains the following columns in order.
 * FID 
@@ -325,10 +325,10 @@ B_trd.sscore - This contains the following columns in order.
 
 ```
 #FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-1001019	1001019	19814	4772	-0.000325805
-1001022	1001022	19822	4441	-0.000530173
-1001035	1001035	19856	4648	-0.00417207
-1001054	1001054	19868	4552	-0.00294334
+ID_1	ID_1	1970	459	-0.00728841
+ID_2	ID_2	1990	535	0.0298431
+ID_3	ID_3	1970	432	-0.000156035
+ID_4	ID_4	1976	469	-0.00745457
 ```
 B_add.sscore - This contains the the following columns in order.
 * FID 
@@ -340,10 +340,10 @@ B_add.sscore - This contains the the following columns in order.
 
 ```
 #FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-1001019	1001019	19814	4772	-0.000316507
-1001022	1001022	19822	4441	-0.000688814
-1001035	1001035	19856	4648	0.00188325
-1001054	1001054	19868	4552	0.00115625
+ID_1	ID_1	1970	459	-0.00572028
+ID_2	ID_2	1990	535	-0.0262972
+ID_3	ID_3	1970	432	-0.0126608
+ID_4	ID_4	1976	469	-0.00128371
 ```
 B_gxe.sscore - This contains the the following columns in order.
 * FID 
@@ -373,49 +373,49 @@ glm(formula = out ~ ., family = binomial(link = logit), data = df_new)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--1.0629  -0.3430  -0.2324  -0.1492   3.2762  
+-1.2110  -0.3911  -0.2364  -0.1357   2.5362  
 
 Coefficients:
-                Estimate Std. Error z value Pr(>|z|)    
-(Intercept)   -6.4270500  1.3285932  -4.837 1.31e-06 ***
-E              1.1326786  0.1943609   5.828 5.62e-09 ***
-`E squared`   -0.3047671  0.1228849  -2.480 0.013134 *  
-PRS_add        0.1121382  0.1310665   0.856 0.392229    
-PRS_gxe       -0.0289305  0.1537238  -0.188 0.850722    
-`PRS_gxe x E` -0.0339760  0.1254533  -0.271 0.786525    
-V7             0.1264787  0.0330392   3.828 0.000129 ***
-V8             0.0396320  0.0143769   2.757 0.005840 ** 
-V9            -0.0198777  0.0722361  -0.275 0.783180    
-V10           -0.0237545  0.0729273  -0.326 0.744630    
-V11           -0.0043770  0.0719826  -0.061 0.951513    
-V12            0.0269025  0.0547924   0.491 0.623435    
-V13           -0.0126348  0.0244999  -0.516 0.606060    
-V14           -0.0766658  0.0654078  -1.172 0.241149    
-V15            0.0004197  0.0630981   0.007 0.994692    
-V16           -0.0918403  0.0597228  -1.538 0.124103    
-V17           -0.0280825  0.0229614  -1.223 0.221318    
-V18           -0.0926273  0.0532256  -1.740 0.081810 .  
-V19            0.3436252  0.2209192   1.555 0.119843    
-V20            0.0349171  0.0214295   1.629 0.103230    
+               Estimate Std. Error z value Pr(>|z|)  
+(Intercept)    4.058401   3.526630   1.151   0.2498  
+E              0.112498   0.424978   0.265   0.7912  
+`E squared`   -0.255133   0.629549  -0.405   0.6853  
+PRS_add       -1.323038   0.867841  -1.525   0.1274  
+PRS_gxe       -1.504617   1.076980  -1.397   0.1624  
+`PRS_gxe x E`  0.224745   0.502532   0.447   0.6547  
+V7             0.080369   0.101398   0.793   0.4280  
+V8            -0.039235   0.036984  -1.061   0.2887  
+V9             0.239702   0.238018   1.007   0.3139  
+V10            0.107022   0.232814   0.460   0.6457  
+V11            0.096563   0.198627   0.486   0.6269  
+V12           -0.077362   0.160028  -0.483   0.6288  
+V13            0.044817   0.085248   0.526   0.5991  
+V14            0.025107   0.206558   0.122   0.9033  
+V15            0.227534   0.167280   1.360   0.1738  
+V16            0.025793   0.165044   0.156   0.8758  
+V17            0.003261   0.081670   0.040   0.9681  
+V18            0.082463   0.159361   0.517   0.6048  
+V19            1.027611   0.697780   1.473   0.1408  
+V20           -0.189688   0.079375  -2.390   0.0169 *
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 793.52  on 1938  degrees of freedom
-Residual deviance: 682.31  on 1919  degrees of freedom
-AIC: 722.31
+    Null deviance: 106.55  on 199  degrees of freedom
+Residual deviance:  85.53  on 180  degrees of freedom
+AIC: 125.53
 
 Number of Fisher Scoring iterations: 7
 ```
 Bsummary.txt - This contains the target regular model summary output, when the outcome is binary. 
 
 ```
-1001035 1001035 0.0144851977697558
-1001105 1001105 0.0732542373614076
-1001129 1001129 0.00529574201513106
-1001210 1001210 0.0570084654126558
-1001323 1001323 0.0106232171799868
+ID_802 ID_802 0.142584993327248
+ID_803 ID_803 0.00944707783426451
+ID_804 ID_804 0.314374300730685
+ID_805 ID_805 0.0401077327720606
+ID_806 ID_806 0.0272302426618824
 ```
 Individual_risk_values.txt - This contains all the calculated individual risk scores using the target dataset (e.g. Model 5), when the outcome is binary. The columns denote the following in order.
 * FID
