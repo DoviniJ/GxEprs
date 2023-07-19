@@ -309,11 +309,11 @@ As explained above, “mydata” is the prefix of the PLINK format files, “B_o
 
 **Output**
 ```
-#FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-ID_1	ID_1	1970	459	-0.0112131
-ID_2	ID_2	1990	535	0.00675556
-ID_3	ID_3	1970	432	-0.00961485
-ID_4	ID_4	1976	469	-0.00708284
+V1 V2 V3 V4 V5
+ID_1 ID_1 1970 459 -0.0112131
+ID_2 ID_2 1990 535 0.00675556
+ID_3 ID_3 1970 432 -0.00961485
+ID_4 ID_4 1976 469 -0.00708284
 ```
 B_trd.sscore - This contains the following columns in order.
 * FID 
@@ -324,11 +324,11 @@ B_trd.sscore - This contains the following columns in order.
 
 
 ```
-#FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-ID_1	ID_1	1970	459	-0.00728841
-ID_2	ID_2	1990	535	0.0298431
-ID_3	ID_3	1970	432	-0.000156035
-ID_4	ID_4	1976	469	-0.00745457
+V1 V2 V3 V4 V5
+ID_1 ID_1	1970 459 -0.00728841
+ID_2 ID_2	1990 535 0.0298431
+ID_3 ID_3	1970 432 -0.000156035
+ID_4 ID_4	1976 469 -0.00745457
 ```
 B_add.sscore - This contains the the following columns in order.
 * FID 
@@ -339,11 +339,11 @@ B_add.sscore - This contains the the following columns in order.
 
 
 ```
-#FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-ID_1	ID_1	1970	459	-0.00572028
-ID_2	ID_2	1990	535	-0.0262972
-ID_3	ID_3	1970	432	-0.0126608
-ID_4	ID_4	1976	469	-0.00128371
+V1 V2 V3 V4 V5
+ID_1 ID_1	1970 459 -0.00572028
+ID_2 ID_2	1990 535 -0.0262972
+ID_3 ID_3	1970 432 -0.0126608
+ID_4 ID_4 1976 469 -0.00128371
 ```
 B_gxe.sscore - This contains the the following columns in order.
 * FID 
