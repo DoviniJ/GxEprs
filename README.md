@@ -504,11 +504,11 @@ As explained above, “mydata” is the prefix of the PLINK format files, “Q_o
 
 **Output**
 ```
-#FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-ID_1	ID_1	1970	459	-0.00436674
-ID_2	ID_2	1990	535	0.00120973
-ID_3	ID_3	1970	432	0.00158428
-ID_4	ID_4	1976	469	-0.000431784
+V1 V2 V3 V4 V5
+ID_1 ID_1 1970 459 -0.00436674
+ID_2 ID_2 1990 535 0.00120973
+ID_3 ID_3 1970 432 0.00158428
+ID_4 ID_4 1976 469 -0.000431784
 ```
 Q_trd.sscore - This contains the following columns in order.
 * FID 
@@ -518,11 +518,11 @@ Q_trd.sscore - This contains the following columns in order.
 * SCORE1_AVG (polygenic risk scores (PRSs), computed from the additive effects of GWAS summary statistics), of the full dataset
 
 ```
-#FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-ID_1	ID_1	1970	459	-0.00421272
-ID_2	ID_2	1990	535	0.00137912
-ID_3	ID_3	1970	432	0.00160997
-ID_4	ID_4	1976	469	-0.000112026
+V1 V2 V3 V4 V5
+ID_1 ID_1	1970 459 -0.00421272
+ID_2 ID_2	1990 535 0.00137912
+ID_3 ID_3	1970 432 0.00160997
+ID_4 ID_4	1976 469 -0.000112026
 ```
 Q_add.sscore - This contains the the following columns in order.
 * FID 
@@ -532,11 +532,11 @@ Q_add.sscore - This contains the the following columns in order.
 * SCORE1_AVG (polygenic risk scores (PRSs), computed from the additive effects of GWEIS summary statistics), of the full dataset 
 
 ```
-#FID	IID	ALLELE_CT	NAMED_ALLELE_DOSAGE_SUM	SCORE1_AVG
-ID_1	ID_1	1970	459	0.00180745
-ID_2	ID_2	1990	535	-0.00172071
-ID_3	ID_3	1970	432	0.000248408
-ID_4	ID_4	1976	469	-0.00144963
+V1 V2 V3 V4 V5
+ID_1 ID_1	1970 459 0.00180745
+ID_2 ID_2	1990 535 -0.00172071
+ID_3 ID_3	1970 432 0.000248408
+ID_4 ID_4	1976 469 -0.00144963
 ```
 Q_gxe.sscore - This contains the the following columns in order.
 * FID 
