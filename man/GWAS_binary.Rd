@@ -3,16 +3,9 @@
 \name{GWAS_binary}
 \alias{GWAS_binary}
 \title{GWAS_binary function
-This function performs GWAS using plink2 and outputs the GWAS summary statistics file with additive SNP effects named B_out.trd.sum}
+This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. It is recommended to save the output in a user-specified file (see example).}
 \usage{
-GWAS_binary(
-  plink_path,
-  b_file,
-  Bphe_discovery,
-  Bcov_discovery,
-  thread = 20,
-  summary_output = "B_out.trd.sum"
-)
+GWAS_binary(plink_path, b_file, Bphe_discovery, Bcov_discovery, thread = 20)
 }
 \arguments{
 \item{plink_path}{Path to the PLINK executable application}
@@ -24,22 +17,23 @@ GWAS_binary(
 \item{Bcov_discovery}{Name (with file extension) of the covariate file containing family ID, individual ID, standardized covariate, square of standardized covariate, and/or confounders of the discovery dataset as columns, without heading}
 
 \item{thread}{Number of threads used}
-
-\item{summary_output}{Name of the SNP effects of the GWAS summary statistics file specified by the user}
 }
 \value{
 This function will perform GWAS and output
-\item{B_out.trd.sum}{GWAS summary statistics file with additive SNP effects}
+\item{B_out.trd.sum}{GWAS summary statistics with additive SNP effects}
 }
 \description{
 GWAS_binary function
-This function performs GWAS using plink2 and outputs the GWAS summary statistics file with additive SNP effects named B_out.trd.sum
+This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. It is recommended to save the output in a user-specified file (see example).
 }
 \examples{
 \dontrun{
 x <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, 
-                 thread = 20, summary_output = "B_out.trd.sum")
-head(x) #to read the head of all columns in B_out.trd.sum file
+thread = 20)
+sink("B_out.trd.sum") #to create a file in the working directory
+write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+sink() #to save the output
+head(x) #to obtain the head of GWAS summary statistics of additive SNP effects
 x$V1 #to extract the chromosome number (CHROM)
 x$V2 #to extract the base pair position (POS)
 x$V3 #to extract the SNP ID (ID)

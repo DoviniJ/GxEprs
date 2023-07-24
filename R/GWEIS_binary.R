@@ -1,22 +1,28 @@
 #' GWEIS_binary function
-#' This function performs GWEIS using plink2 and outputs the GWEIS summary statistics files with additive SNP effects named B_out.add.sum and interaction SNP effects named B_out.gxe.sum
+#' This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects separately. It is recommended to save the outputs in separate user-specified files (see examples).
 #' @param plink_path Path to the PLINK executable application
 #' @param b_file Prefix of the binary files, where all .fam, .bed and .bim files have a common prefix
 #' @param Bphe_discovery Phenotype file containing family ID, individual ID and phenotype of the discovery dataset as columns, without heading
 #' @param Bcov_discovery Covariate file containing family ID, individual ID, standardized covariate, square of standardized covariate, and/or confounders of the discovery dataset as columns, without heading
 #' @param thread Number of threads used
-#' @param summary_output Name (prefix) of the additive or interaction SNP effects of the GWEIS summary statistics file specified by the user
-#' @keywords gwies, interaction, gxe
+#' @keywords gwies interaction gxe
 #' @export 
 #' @importFrom stats binomial fitted.values glm lm
-#' @importFrom utils read.table write.table
+#' @importFrom utils read.table 
 #' @return This function will perform GWEIS and output
-#' \item{B_out.add.sum}{GWEIS summary statistics file with additive SNP effects}
-#' \item{B_out.gxe.sum}{GWEIS summary statistics file with interaction SNP effects}
+#' \item{B_out.add.sum}{GWEIS summary statistics with additive SNP effects}
+#' \item{B_out.gxe.sum}{GWEIS summary statistics with interaction SNP effects}
 #' @examples \dontrun{ 
 #' x <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, 
-#'                   thread = 20, summary_output = "B_out")
-#' head(x[[1]]) #to extract the head of all columns in B_out.add.sum file
+#' thread = 20)
+#' sink("B_out.add.sum") #to create a file in the working directory
+#' write.table(x[[1]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+#' sink() #to save the output
+#' sink("B_out.gxe.sum") #to create a file in the working directory
+#' write.table(x[[2]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+#' sink() #to save the output
+#' head(x[[1]]) #to extract the head of all columns in GWEIS summary statistics of 
+#' additive SNP effects 
 #' x[[1]]$V1 #to extract the chromosome number (CHROM)
 #' x[[1]]$V2 #to extract the base pair position (POS)
 #' x[[1]]$V3 #to extract the SNP ID (ID)
@@ -31,7 +37,8 @@
 #' x[[1]]$V12 #to extract the test statistic (Z_STAT)
 #' x[[1]]$V13 #to extract the p value (P)
 #' x[[1]]$V14 #to extract the error code (ERRCODE)
-#' head(x[[2]]) #to extract the head of all columns in B_out.gxe.sum file
+#' head(x[[2]]) #to extract the head of all columns in GWEIS summary statistics of 
+#' interaction SNP effects 
 #' x[[2]]$V1 #to extract the chromosome number (CHROM)
 #' x[[2]]$V2 #to extract the base pair position (POS)
 #' x[[2]]$V3 #to extract the SNP ID (ID)
@@ -47,7 +54,7 @@
 #' x[[2]]$V13 #to extract the p value (P)
 #' x[[2]]$V14 #to extract the error code (ERRCODE)
 #' }
-GWEIS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thread = 20, summary_output = "B_out"){
+GWEIS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thread = 20){
   cov_file <- read.table(Bcov_discovery)
   n_confounders = ncol(cov_file) - 4
   if(n_confounders > 0){
@@ -58,28 +65,22 @@ GWEIS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thr
   }
   param_vec <- paste0(parameters, collapse = ", ")
   runPLINK <- function(PLINKoptions = "") system(paste(plink_path, PLINKoptions))
-  runPLINK(paste0(" --bfile ", b_file,
+  log_file <- runPLINK(paste0(" --bfile ", b_file,
                 " --glm interaction --pheno ", 
                 Bphe_discovery, 
                 " --covar ", Bcov_discovery, 
                 " --parameters ", param_vec, 
                 " --allow-no-sex --threads ", 
                 thread,
-                " --out B_gweis"))
-  plink_output <- read.table("B_gweis.PHENO1.glm.logistic.hybrid", header = FALSE)
+                " --out ", tempdir(),"/B_gweis"))
+  plink_output <- read.table(paste0(tempdir(), "/B_gweis.PHENO1.glm.logistic.hybrid"), header = FALSE)
   filtered_output <- as.data.frame(plink_output[(plink_output$V8=="ADD"),])
   filtered_output$V10 = log(filtered_output$V10)
   filtered_output2 <- plink_output[(plink_output$V8=="ADDxCOVAR1"),]
   filtered_output2$V10 <- log(filtered_output2$V10)
-  summary_output1 <- paste0(noquote(summary_output), ".add.sum")
-  summary_output2 <- paste0(noquote(summary_output), ".gxe.sum")
-  sink(summary_output1)
-  write.table(filtered_output, sep = " ", row.names = FALSE, quote = FALSE)
-  sink()
-  sink(summary_output2)
-  write.table(filtered_output2, sep = " ", row.names = FALSE, quote = FALSE)
-  sink()
- out <- list(filtered_output, filtered_output2)
+  B_out.add.sum <- filtered_output
+  B_out.gxe.sum <- filtered_output2
+ out <- list(B_out.add.sum, B_out.gxe.sum)
  return(out)
  }
 

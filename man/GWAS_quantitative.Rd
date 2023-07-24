@@ -3,15 +3,14 @@
 \name{GWAS_quantitative}
 \alias{GWAS_quantitative}
 \title{GWAS_quantitative function
-This function performs GWAS using plink2 and outputs the GWAS summary statistics file with additive SNP effects named Q_out.trd.sum}
+This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. It is recommended to save the output in a user-specified file (see example).}
 \usage{
 GWAS_quantitative(
   plink_path,
   b_file,
   Qphe_discovery,
   Qcov_discovery,
-  thread = 20,
-  summary_output = "Q_out.trd.sum"
+  thread = 20
 )
 }
 \arguments{
@@ -24,35 +23,37 @@ GWAS_quantitative(
 \item{Qcov_discovery}{Name (with file extension) of the covariate file containing family ID, individual ID, standardized covariate, square of standardized covariate, and/or confounders of the discovery dataset as columns, without heading}
 
 \item{thread}{Number of threads used}
-
-\item{summary_output}{Name of the SNP effects of the GWAS summary statistics file specified by the user}
 }
 \value{
 This function will perform GWAS and output
-\item{Q_out.trd.sum}{GWAS summary statistics file with additive SNP effects}
+\item{Q_out.trd.sum}{GWAS summary statistics with additive SNP effects}
 }
 \description{
 GWAS_quantitative function
-This function performs GWAS using plink2 and outputs the GWAS summary statistics file with additive SNP effects named Q_out.trd.sum
+This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. It is recommended to save the output in a user-specified file (see example).
 }
 \examples{
 \dontrun{
 x <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery, 
-                       thread = 20, summary_output = "Q_out.trd.sum")
-head(x) #to read the head of all columns in Q_out.trd.sum file
+thread = 20)
+sink("Q_out.trd.sum") #to create a file in the working directory
+write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+sink() #to save the output
+head(x) #to obtain the head of GWAS summary statistics of additive SNP effects
 x$V1 #to extract the chromosome number (CHROM)
 x$V2 #to extract the base pair position (POS)
 x$V3 #to extract the SNP ID (ID)
 x$V4 #to extract the reference allele (REF)
 x$V5 #to extract the alternate allele (ALT)
 x$V6 #to extract the minor allele (A1)
-x$V7 #to extract the type of test performed (TEST)
-x$V8 #to extract the nmber of allele observations (OBS_CT)
-x$V9 #to extract the SNP effect (BETA)
-x$V10 #to extract the standard error of each SNP effect (SE)
-x$V11 #to extract the test statistic (T_STAT)
-x$V12 #to extract the p value (P)
-x$V13 #to extract the error code (ERRCODE)
+x$V7 #to extract whether firth regression is used (FIRTH?)
+x$V8 #to extract the type of test performed (TEST)
+x$V9 #to extract the nmber of allele observations (OQS_CT)
+x$V10 #to extract the odds ration of the SNP effect (OR)
+x$V11 #to extract the standard error of log odds (LOG(OR)_SE)
+x$V12 #to extract the test statistic (Z_STAT)
+x$V13 #to extract the p value (P)
+x$V14 #to extract the error code (ERRCODE)
 }
 }
 \keyword{gwas}

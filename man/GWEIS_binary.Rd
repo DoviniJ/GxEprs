@@ -3,16 +3,9 @@
 \name{GWEIS_binary}
 \alias{GWEIS_binary}
 \title{GWEIS_binary function
-This function performs GWEIS using plink2 and outputs the GWEIS summary statistics files with additive SNP effects named B_out.add.sum and interaction SNP effects named B_out.gxe.sum}
+This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects separately. It is recommended to save the outputs in separate user-specified files (see examples).}
 \usage{
-GWEIS_binary(
-  plink_path,
-  b_file,
-  Bphe_discovery,
-  Bcov_discovery,
-  thread = 20,
-  summary_output = "B_out"
-)
+GWEIS_binary(plink_path, b_file, Bphe_discovery, Bcov_discovery, thread = 20)
 }
 \arguments{
 \item{plink_path}{Path to the PLINK executable application}
@@ -24,23 +17,28 @@ GWEIS_binary(
 \item{Bcov_discovery}{Covariate file containing family ID, individual ID, standardized covariate, square of standardized covariate, and/or confounders of the discovery dataset as columns, without heading}
 
 \item{thread}{Number of threads used}
-
-\item{summary_output}{Name (prefix) of the additive or interaction SNP effects of the GWEIS summary statistics file specified by the user}
 }
 \value{
 This function will perform GWEIS and output
-\item{B_out.add.sum}{GWEIS summary statistics file with additive SNP effects}
-\item{B_out.gxe.sum}{GWEIS summary statistics file with interaction SNP effects}
+\item{B_out.add.sum}{GWEIS summary statistics with additive SNP effects}
+\item{B_out.gxe.sum}{GWEIS summary statistics with interaction SNP effects}
 }
 \description{
 GWEIS_binary function
-This function performs GWEIS using plink2 and outputs the GWEIS summary statistics files with additive SNP effects named B_out.add.sum and interaction SNP effects named B_out.gxe.sum
+This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects separately. It is recommended to save the outputs in separate user-specified files (see examples).
 }
 \examples{
 \dontrun{ 
 x <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, 
-                  thread = 20, summary_output = "B_out")
-head(x[[1]]) #to extract the head of all columns in B_out.add.sum file
+thread = 20)
+sink("B_out.add.sum") #to create a file in the working directory
+write.table(x[[1]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+sink() #to save the output
+sink("B_out.gxe.sum") #to create a file in the working directory
+write.table(x[[2]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+sink() #to save the output
+head(x[[1]]) #to extract the head of all columns in GWEIS summary statistics of 
+additive SNP effects 
 x[[1]]$V1 #to extract the chromosome number (CHROM)
 x[[1]]$V2 #to extract the base pair position (POS)
 x[[1]]$V3 #to extract the SNP ID (ID)
@@ -55,7 +53,8 @@ x[[1]]$V11 #to extract the standard error of log odds (LOG(OR)_SE)
 x[[1]]$V12 #to extract the test statistic (Z_STAT)
 x[[1]]$V13 #to extract the p value (P)
 x[[1]]$V14 #to extract the error code (ERRCODE)
-head(x[[2]]) #to extract the head of all columns in B_out.gxe.sum file
+head(x[[2]]) #to extract the head of all columns in GWEIS summary statistics of 
+interaction SNP effects 
 x[[2]]$V1 #to extract the chromosome number (CHROM)
 x[[2]]$V2 #to extract the base pair position (POS)
 x[[2]]$V3 #to extract the SNP ID (ID)
@@ -72,6 +71,6 @@ x[[2]]$V13 #to extract the p value (P)
 x[[2]]$V14 #to extract the error code (ERRCODE)
 }
 }
-\keyword{gwies,}
+\keyword{gwies}
 \keyword{gxe}
-\keyword{interaction,}
+\keyword{interaction}

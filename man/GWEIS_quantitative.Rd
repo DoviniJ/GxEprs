@@ -3,15 +3,14 @@
 \name{GWEIS_quantitative}
 \alias{GWEIS_quantitative}
 \title{GWEIS_quantitative function
-This function performs GWEIS using plink2 and outputs the GWEIS summary statistics files with additive SNP effects named Q_out.add.sum and interaction SNP effects named Q_out.gxe.sum}
+This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects separately. It is recommended to save the outputs in separate user-specified files (see examples).}
 \usage{
 GWEIS_quantitative(
   plink_path,
   b_file,
   Qphe_discovery,
   Qcov_discovery,
-  thread = 20,
-  summary_output = "Q_out"
+  thread = 20
 )
 }
 \arguments{
@@ -24,23 +23,28 @@ GWEIS_quantitative(
 \item{Qcov_discovery}{Covariate file containing family ID, individual ID, standardized covariate, square of standardized covariate, and/or confounders of the discovery dataset as columns, without heading}
 
 \item{thread}{Number of threads used}
-
-\item{summary_output}{Name (prefix) of the additive or interaction SNP effects of the GWEIS summary statistics file specified by the user}
 }
 \value{
 This function will perform GWEIS and output
-\item{Q_out.add.sum}{GWEIS summary statistics file with additive SNP effects}
-\item{Q_out.gxe.sum}{GWEIS summary statistics file with interaction SNP effects}
+\item{Q_out.add.sum}{GWEIS summary statistics with additive SNP effects}
+\item{Q_out.gxe.sum}{GWEIS summary statistics with interaction SNP effects}
 }
 \description{
 GWEIS_quantitative function
-This function performs GWEIS using plink2 and outputs the GWEIS summary statistics files with additive SNP effects named Q_out.add.sum and interaction SNP effects named Q_out.gxe.sum
+This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects separately. It is recommended to save the outputs in separate user-specified files (see examples).
 }
 \examples{
 \dontrun{ 
 x <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery, 
-                        thread = 20, summary_output = "Q_out")
-head(x[[1]]) #to read the head of all columns in Q_out.add.sum file
+thread = 20)
+sink("Q_out.add.sum") #to create a file in the working directory
+write.table(x[[1]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+sink() #to save the output
+sink("Q_out.gxe.sum") #to create a file in the working directory
+write.table(x[[2]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+sink() #to save the output
+head(x[[1]]) #to read the head of all columns in GWEIS summary statistics of  
+additive SNP effects 
 x[[1]]$V1 #to extract the chromosome number (CHROM)
 x[[1]]$V2 #to extract the base pair position (POS)
 x[[1]]$V3 #to extract the SNP ID (ID)
@@ -54,12 +58,13 @@ x[[1]]$V10 #to extract the standard error of each SNP effect (SE)
 x[[1]]$V11 #to extract the test statistic (T_STAT)
 x[[1]]$V12 #to extract the p value (P)
 x[[1]]$V13 #to extract the error code (ERRCODE)
-head(x[[2]]) #to read the head of all columns in Q_out.gxe.sum file
+head(x[[2]]) #to read the head of all columns in GWEIS summary statistics of 
+interaction SNP effects 
 x[[2]]$V1 #to extract the chromosome number (CHROM)
 x[[2]]$V2 #to extract the base pair position (POS)
 x[[2]]$V3 #to extract the SNP ID (ID)
 x[[2]]$V4 #to extract the reference allele (REF)
-x[[2]$V5 #to extract the alternate allele (ALT)
+x[[2]]$V5 #to extract the alternate allele (ALT)
 x[[2]]$V6 #to extract the minor allele (A1)
 x[[2]]$V7 #to extract the type of test performed (TEST)
 x[[2]]$V8 #to extract the nmber of allele observations (OBS_CT)
@@ -70,6 +75,6 @@ x[[2]]$V12 #to extract the p value (P)
 x[[2]]$V13 #to extract the error code (ERRCODE)
 }
 }
-\keyword{gwies,}
+\keyword{gwies}
 \keyword{gxe}
-\keyword{interaction,}
+\keyword{interaction}

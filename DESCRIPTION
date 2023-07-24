@@ -1,14 +1,16 @@
 Package: GxEprs
-Title: GxE Interaction in Polygenic Risk Score Models for Quantitative and Binary Traits
+Title: Genotype-by-environment (GxE) Interaction in Polygenic Risk Score Models for Quantitative and Binary Traits
 Version: 1.0
 Authors@R: c(person("Dovini", "Jayasinghe", role = c("aut", "cre","cph"), email = "dovini.jayasinghe@mymail.unisa.edu.au"),
              person("Hong", "Lee", role = c("aut","cph"),email = "Hong.Lee@unisa.edu.au"),
              person("Moksedul", "Momin", role = c("aut","cph"), email = "md_moksedul.momin@mymail.unisa.edu.au"))
-Description: The 'GxEprs' is an R package to detect and estimate GxE.It uses a novel PRS model that can 
-             enhance the prediction accuracy by utilising GxE effects. It performs Genome Wide 
-             Association Studies (GWAS) and Genome Wide Environment Interaction Studies (GWEIS) using 
-             a discovery dataset. The package has the ability to obtain polygenic risk scores (PRSs) for  
-             a target sample. Finally it predicts the risk values of each individual in the target sample.
+Description: A novel PRS model is introduced to enhance the prediction accuracy by utilising GxE effects. 
+  This package performs Genome Wide Association Studies (GWAS) and Genome Wide Environment Interaction Studies (GWEIS) 
+  using a discovery dataset. The package has the ability to obtain polygenic risk scores (PRSs) for a target sample. 
+  Finally it predicts the risk values of each individual in the target sample. Users have the choice of using existing 
+  models (Li et al., 2015)<doi.org/10.1093/annonc/mdu565>, (Pandis et al., 2013)<doi.org/10.1093/ejo/cjt054>, 
+  (Peyrot et al., 2018)<doi.org/10.1016/j.biopsych.2017.09.009> and (Song et al., 2022)<doi.org/10.1038/s41467-022-32407-9>, 
+  as well as newly proposed models for genomic risk prediction (refer to the URL for more details).
 URL: https://github.com/DoviniJ/GxEprs
 License: GPL (>=3)
 Encoding: UTF-8
