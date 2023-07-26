@@ -12,7 +12,7 @@ The 'GxEprs' is an R package to detect and estimate GxE. It uses a novel PRS mod
 
 ## File formats
 ### Input files
-1) mydata.fam - This is a file associated with the PLINK binary format file which contains the following columns in order. The example dataset has 10,000 individuals. Note that the file has no column headings. This follows the PLINK .fam file format.
+1) mydata.fam - This is a file associated with the PLINK binary format file which contains the following columns in order. The example dataset has 1,000 individuals. Note that the file has no column headings. This follows the PLINK .fam file format.
 * family ID (FID) 
 * individual ID (IID) 
 * father's ID 
@@ -28,7 +28,7 @@ ID_4 ID_4 0 0 2 -9
 ID_5 ID_5 0 0 1 -9
 ```
   
-2) mydata.bim - This is is a file associated with the PLINK binary format file which contains the following columns in order. The example dataset has 10,000 SNPs. Note that the file has no column headings. This follows the PLINK .bim file format.
+2) mydata.bim - This is is a file associated with the PLINK binary format file which contains the following columns in order. The example dataset has 1,000 SNPs. Note that the file has no column headings. This follows the PLINK .bim file format.
 * chromosome code 
 * SNP ID 
 * position of centimorgans 
@@ -45,7 +45,7 @@ ID_5 ID_5 0 0 1 -9
 ```
 
 3) mydata.bed - This is the PLINK binary format file which includes genotype information. This follows the PLINK .bed file format.
-4) Bpd.txt - This is a .txt file which contains the following columns in order. The discovery dataset has 7916 individuals. Note that the file has no column headings.
+4) Bpd.txt - This is a .txt file which contains the following columns in order. The discovery dataset has 800 individuals. Note that the file has no column headings.
 * FID 
 * IID  
 * binary phenotype (1=controls, 2=cases) of the discovery sample
@@ -58,7 +58,7 @@ ID_4 ID_4 1
 ID_5 ID_5 1
 ```
 
-5) Bcd.txt - This is a .txt file which contains the following columns in order. The discovery dataset has 7916 individuals. Note that the file has no column headings.    
+5) Bcd.txt - This is a .txt file which contains the following columns in order. The discovery dataset has 800 individuals. Note that the file has no column headings.    
 * FID 
 * IID 
 * standardized covariate 
@@ -73,7 +73,7 @@ ID_4 ID_4 -0.699321184695051 0.48905011936329 -1.83526 68 -10.3349 4.71264 -1.84
 ID_5 ID_5 3.69300366651739 13.6382760809109 -3.15649 69 -8.56737 4.78248 -1.49547 -7.49413 -5.39887 1.85316 4.07476 1.05351 0.825942 -2.09669 1 20
 ```
 
-6) Bpt.txt - This is a .txt file which contains the following columns in order. The target dataset has 1939 individuals who are independent from the discovery dataset. Note that the file has no column headings.   
+6) Bpt.txt - This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Note that the file has no column headings.   
 * FID 
 * IID  
 * binary phenotype (0=controls, 1=cases) of the target sample
@@ -86,7 +86,7 @@ ID_804 ID_804 0
 ID_805 ID_805 1
 ```
 
-7) Bct.txt - This is a .txt file which contains the following columns in order. The target dataset has 1939 individuals who are independent from the discovery dataset. Note that the file has no column headings.   
+7) Bct.txt - This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Note that the file has no column headings.   
 * FID 
 * IID 
 * standardized covariate 
@@ -101,7 +101,7 @@ ID_804 ID_804 0.698007239555549 0.487214106471958 4.58829 49 -12.5471 4.09467 -2
 ID_805 ID_805 -0.657981606980219 0.432939795124272 -3.53948 56 -12.795 2.91524 -2.72794 3.61555 3.92957 -2.93899 -0.454737 2.31013 2.51783 -4.15592 0 7
 ```
 
-8) Qpd.txt - This is a .txt file which contains the following columns in order. The discovery dataset has 6426 individuals. Note that the file has no column headings.
+8) Qpd.txt - This is a .txt file which contains the following columns in order. The discovery dataset has 800 individuals. Note that the file has no column headings.
 * FID 
 * IID  
 * quantitative phenotype of the discovery sample
@@ -114,7 +114,7 @@ ID_4 ID_4 25.5271
 ID_5 ID_5 26.7165
 ```
 
-9) Qcd.txt - This is a .txt file which contains the following columns in order. The discovery dataset has 6426 individuals. Note that the file has no column headings.    
+9) Qcd.txt - This is a .txt file which contains the following columns in order. The discovery dataset has 800 individuals. Note that the file has no column headings.    
 * FID 
 * IID 
 * standardized covariate 
@@ -129,7 +129,7 @@ ID_4 ID_4 2.1286574811167 4.53118267191409 6.69866 47 -9.07045 0.956878 -2.48407
 ID_5 ID_5 -0.952095788451302 0.906486390386706 -1.61423 59 -12.9379 1.29461 -1.79973 1.44404 -6.82898 -2.96795 -2.91577 -1.82881 7.15892 2.10916 1 20
 ```
 
-10) Qpt.txt - This is a .txt file which contains the following columns in order. The target dataset has 1579 individuals who are independent from the discovery dataset. Note that the file has no column headings.   
+10) Qpt.txt - This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Note that the file has no column headings.   
 * FID 
 * IID  
 * quantitative phenotype of the target sample
@@ -142,7 +142,7 @@ ID_804 ID_804 18.75
 ID_805 ID_805 23.3025
 ```
 
-11) Qct.txt - This is a .txt file which contains the following columns in order. The target dataset has 1579 individuals who are independent from the discovery dataset. Note that the file has no column headings.   
+11) Qct.txt - This is a .txt file which contains the following columns in order. The target dataset has 200 individuals who are independent from the discovery dataset. Note that the file has no column headings.   
 * FID 
 * IID 
 * standardized covariate 
@@ -243,12 +243,8 @@ $\color{red}{NOTE:}$ Read **manual.pdf** document for descriptions of arguments 
 **Command**
 ```
 x <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20)
-
-sink("B_out.trd.sum") #to create a file in the working directory
-write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
 ```
-As explained above, “mydata” is the prefix of the PLINK format files, “Bpd.txt” is binary phenotype file of the discovery sample, "Bcd.txt" is the covariate file of the discovery sample, thread indicates the number of CPUs used to run the command which can be optionally specified by the user (default is 20). This command performs GWAS using a logistic regression, and outputs GWAS summary statistics of all additive SNP effects stored in the file "B_out.trd.sum".
+As explained above, “mydata” is the prefix of the PLINK format files, “Bpd.txt” is binary phenotype file of the discovery sample, "Bcd.txt" is the covariate file of the discovery sample, thread indicates the number of CPUs used to run the command which can be optionally specified by the user (default is 20). This command performs GWAS using a logistic regression, and outputs GWAS summary statistics of all additive SNP effects.
 
 **Output**
 ```
@@ -258,7 +254,7 @@ V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
 1 880390 SNP_3 C A A N ADD 800 0.446184697385182 0.744786 0.599076 0.549122 .
 1 940203 SNP_4 G A A N ADD 800 0.476159642057072 0.456313 1.0435 0.296718 .
 ```
-B_out.trd.sum - This contains GWAS summary statistics of all additive SNP effects, when the outcome is binary. V1 to V14 denote the following columns in order. Note that all .sum files follow the same structure.
+```x```  contains GWAS summary statistics of all additive SNP effects, when the outcome is binary. V1 to V14 denote the following columns in order. Note that all summary statistics follow the same structure.
 * chromosome 
 * base pair position 
 * SNP ID 
@@ -274,20 +270,13 @@ B_out.trd.sum - This contains GWAS summary statistics of all additive SNP effect
 * p-value  
 * error code 
 
-In addition to the output file, users can assign the function to an object and call each component in the output file separately. See the topic GWAS_binary (page 6) in manual.pdf for examples.
+See the topic GWAS_binary (page 6) in manual.pdf for examples.
 
 **Command**
 ```
 x <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20)
-
-sink("B_out.add.sum") #to create a file in the working directory
-write.table(x[[1]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
-sink("B_out.gxe.sum") #to create a file in the working directory
-write.table(x[[2]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
 ```
-This performs GWEIS using a logistic regression, and outputs GWEIS summary statistics of all additive and interaction SNP effects in the files "B_out.add.sum" and "B_out.gxe.sum", respectively. 
+This performs GWEIS using a logistic regression, and outputs GWEIS summary statistics of both additive and interaction SNP effects.
 
 **Output**
 ```
@@ -297,7 +286,7 @@ V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
 1 880390 SNP_3 C A A N ADD 800 -0.0243828605684827 1.27677 -0.0190971 0.984764 .
 1 940203 SNP_4 G A A N ADD 800 0.532238718269307 0.57697 0.922471 0.356283 .
 ```
-B_out.add.sum - This contains GWEIS summary statistics of all additive SNP effects, when the outcome is binary. 
+```x[[1]]``` contains GWEIS summary statistics of all additive SNP effects, when the outcome is binary. 
 
 ```
 V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
@@ -306,32 +295,20 @@ V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
 1 880390 SNP_3 C A A N ADDxCOVAR1 800 0.612983215535033 0.936868 0.654292 0.512924 .
 1 940203 SNP_4 G A A N ADDxCOVAR1 800 -0.311823137172646 0.390234 -0.799069 0.424251 .
 ```
-B_out.gxe.sum - This contains GWEIS summary statistics of all interaction SNP effects, when the outcome is binary. 
+```x[[2]]```  contains GWEIS summary statistics of all interaction SNP effects, when the outcome is binary. 
 
-In addition to the output files, users can assign the function to an object and call each component in the output files separately. See the topic GWEIS_binary (page 9) in manual.pdf for examples.
+See the topic GWEIS_binary (page 9) in manual.pdf for examples.
 
 **Command**
 ```
-x <- PRS_binary(plink_path, "mydata", summary_input = "B_out.trd.sum")
+a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 
-sink("B_trd.sscore") #to create a file in the working directory
-write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
-
-
-y <- PRS_binary(plink_path, "mydata", summary_input = "B_out.add.sum")
-
-sink("B_add.sscore") #to create a file in the working directory
-write.table(y, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
-
-z <- PRS_binary(plink_path, "mydata", summary_input = "B_out.gxe.sum")
-
-sink("B_gxe.sscore") #to create a file in the working directory
-write.table(z, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
+x <- PRS_binary(plink_path, "mydata", summary_input = a)
+y <- PRS_binary(plink_path, "mydata", summary_input = b[[1]])
+z <- PRS_binary(plink_path, "mydata", summary_input = b[[2]])
 ```
-As explained above, “mydata” is the prefix of the PLINK format files, “B_out.trd.sum” is summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the files B_trd.sscore, B_add.sscore and B_gxe.sscore respectively.
+As explained above, “mydata” is the prefix of the PLINK format files, a, b[[1]] and b[[2]] are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
 
 **Output**
 ```
@@ -341,7 +318,7 @@ ID_2 ID_2 1990 535 0.00675556
 ID_3 ID_3 1970 432 -0.00961485
 ID_4 ID_4 1976 469 -0.00708284
 ```
-B_trd.sscore - This contains the following columns in order.
+```x```  contains the following columns in order.
 * FID 
 * IID 
 * number of alleles across scored variants (ALLELE_CT)
@@ -356,7 +333,7 @@ ID_2 ID_2	1990 535 0.0298431
 ID_3 ID_3	1970 432 -0.000156035
 ID_4 ID_4	1976 469 -0.00745457
 ```
-B_add.sscore - This contains the the following columns in order.
+```y```  This contains the the following columns in order.
 * FID 
 * IID 
 * ALLELE_CT
@@ -371,36 +348,30 @@ ID_2 ID_2	1990 535 -0.0262972
 ID_3 ID_3	1970 432 -0.0126608
 ID_4 ID_4 1976 469 -0.00128371
 ```
-B_gxe.sscore - This contains the the following columns in order.
+```z```  contains the the following columns in order.
 * FID 
 * IID 
 * ALLELE_CT
 * NAMED_ALLELE_DOSAGE_SUM
 * SCORE1_AVG (polygenic risk scores (PRSs), computed from the interaction effects of GWEIS summary statistics), of the full dataset
 
-In addition to the output file, users can assign the function to an object and call each component in the output file separately. See the topic PRS_binary (page 12) in manual.pdf for examples.
+See the topic PRS_binary (page 12) in manual.pdf for examples.
 
 **Command**
 ```
-v <- summary_regular_binary("Bpt.txt", "Bct.txt", trd_score = "B_trd.sscore", Model = 1)
+a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+p <- PRS_binary(plink_path, "mydata", summary_input = a)
+q <- PRS_binary(plink_path, "mydata", summary_input = b[[1]])
+r <- PRS_binary(plink_path, "mydata", summary_input = b[[2]])
 
-w <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = "B_add.sscore", Model = 2)
-
-x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = "B_add.sscore", gxe_score = "B_gxe.sscore", Model = 3)
-
-y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = "B_add.sscore", gxe_score = "B_gxe.sscore", Model = 4)
-
-z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = "B_add.sscore", gxe_score = "B_gxe.sscore", Model = 5)
-
-sink("Bsummary.txt") #to create a file in the working directory
-print(z[[1]][[1]]) #to write the output
-sink() #to save the output
-
-sink("Individual_risk_values.txt") #to create a file in the working directory
-write.table(z[[2]], sep = " ", row.names = FALSE, col.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
+v <- summary_regular_binary("Bpt.txt", "Bct.txt", trd_score = p, Model = 1)
+w <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, Model = 2)
+x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 3)
+y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 4)
+z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)
 ```
-“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, "B_trd.sscore", "B_add.sscore" and "B_gxe.sscore" are the summary statistics output files generated at GWAS and GWEIS steps. Depending on the model used, the input file should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs 2 files (for demonstration, we used Model = 5 situation). The first file, Bsummary.txt gives the summary of the fitted **regular** model for **binary** outcome. The second file, Individual_risk_values.txt contains all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. 
+“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs (for demonstration, we used Model = 5 situation) both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. 
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -446,7 +417,7 @@ AIC: 125.53
 
 Number of Fisher Scoring iterations: 7
 ```
-Bsummary.txt - This contains the target regular model summary output, when the outcome is binary. 
+```z[[1]][[1]]``` contains the target regular model summary output, when the outcome is binary. 
 
 ```
 ID_802 ID_802 0.142584993327248
@@ -455,18 +426,21 @@ ID_804 ID_804 0.314374300730685
 ID_805 ID_805 0.0401077327720606
 ID_806 ID_806 0.0272302426618824
 ```
-Individual_risk_values.txt - This contains all the calculated individual risk scores using the target dataset (e.g. Model 5), when the outcome is binary. The columns denote the following in order.
+```z[[2]]``` contains all the calculated individual risk scores using the target dataset (e.g. Model 5), when the outcome is binary. The columns denote the following in order.
 * FID
 * IID 
 * estimated risk value
 
-Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = "B_add.sscore", gxe_score = "B_gxe.sscore", Model = 5)``` and ```summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = "B_add.sscore", gxe_score = "B_gxe.sscore")```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 5) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 5, and insignificant in Model 5* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
+Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)``` and ```summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 5) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 5, and insignificant in Model 5* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
 
-In addition to the output files, users can assign the function to an object and call each component in the output files separately. See the topic summary_regular_binary (page 19) in manual.pdf for examples.
+See the topic summary_regular_binary (page 20) in manual.pdf for examples.
 
 **Command**
 ```
-summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = "B_add.sscore", gxe_score = "B_gxe.sscore")
+a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+p <- PRS_binary(plink_path, "mydata", summary_input = a[[1]])
+q <- PRS_binary(plink_path, "mydata", summary_input = a[[2]])
+summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = p, gxe_score = q)
 ```
 This outputs the p value of the fitted **permuted** model for **binary** outcome.
 
@@ -477,12 +451,8 @@ This outputs the p value of the fitted **permuted** model for **binary** outcome
 **Command**
 ```
 x <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20)
-
-sink("Q_out.trd.sum") #to create a file in the working directory
-write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
 ```
-As explained above, “mydata” is the prefix of the PLINK format files, “Qpd.txt” is quantitative phenotype file of the discovery sample, "Qcd.txt" is the covariate file of the discovery sample, thread indicates the number of CPUs used to run the command which can be optionally specified by the user (default is 20). This command performs GWAS using a linear regression, and outputs GWAS summary statistics of all additive SNP effects stored in the file "Q_out.trd.sum".
+As explained above, “mydata” is the prefix of the PLINK format files, “Qpd.txt” is quantitative phenotype file of the discovery sample, "Qcd.txt" is the covariate file of the discovery sample, thread indicates the number of CPUs used to run the command which can be optionally specified by the user (default is 20). This command performs GWAS using a linear regression, and outputs GWAS summary statistics of all additive SNP effects.
 
 **Output**
 ```
@@ -492,7 +462,7 @@ V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13
 1 880390 SNP_3 C A A ADD 800 0.139377 0.683708 0.203855 0.83852 .
 1 940203 SNP_4 G A A ADD 800 -0.896864 0.460195 -1.94888 0.0516666 .
 ```
-Q_out.trd.sum - This contains GWAS summary statistics of all additive SNP effects, when the outcome is quantitative. V1 to V13 denote the following columns in order. Note that all .sum files follow the same structure.
+```x``` contains GWAS summary statistics of all additive SNP effects, when the outcome is quantitative. V1 to V13 denote the following columns in order. Note that all summary statistics follow the same structure.
 * chromosome 
 * base pair position 
 * SNP ID 
@@ -507,20 +477,13 @@ Q_out.trd.sum - This contains GWAS summary statistics of all additive SNP effect
 * p-value  
 * error code 
 
-In addition to the output file, users can assign the function to an object and call each component in the output file separately. See the topic GWAS_quantitative (page 7) in manual.pdf for examples.
+See the topic GWAS_quantitative (page 7) in manual.pdf for examples.
 
 **Command**
 ```
 x <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20)
-
-sink("Q_out.add.sum") #to create a file in the working directory
-write.table(x[[1]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
-sink("Q_out.gxe.sum") #to create a file in the working directory
-write.table(x[[2]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
 ```
-This performs GWEIS using a linear regression, and outputs GWEIS summary statistics of all additive and interaction SNP effects in the files "Q_out.add.sum" and "Q_out.gxe.sum", respectively. 
+This performs GWEIS using a linear regression, and outputs GWEIS summary statistics of all additive and interaction SNP effects. 
 
 **Output**
 ```
@@ -530,7 +493,7 @@ V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13
 1 880390 SNP_3 C A A ADD 800 0.255825 0.743858 0.343916 0.731002 .
 1 940203 SNP_4 G A A ADD 800 -0.954298 0.471745 -2.02291 0.043422 .
 ```
-Q_out.add.sum - This contains GWEIS summary statistics of all additive SNP effects, when the outcome is quantitative. 
+```x[[1]]``` contains GWEIS summary statistics of all additive SNP effects, when the outcome is quantitative. 
 
 ```
 V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13
@@ -539,33 +502,20 @@ V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13
 1 880390 SNP_3 C A A ADDxCOVAR1 800 0.364167 0.883745 0.412073 0.680399 .
 1 940203 SNP_4 G A A ADDxCOVAR1 800 -0.262215 0.481748 -0.544299 0.586391 .
 ```
-Q_out.gxe.sum - This contains GWEIS summary statistics of all interaction SNP effects, when the outcome is quantitative. 
+```x[[2]]``` contains GWEIS summary statistics of all interaction SNP effects, when the outcome is quantitative. 
 
-In addition to the output files, users can assign the function to an object and call each component in the output files separately. See the topic GWEIS_quantitative (page 10) in manual.pdf for examples.
+See the topic GWEIS_quantitative (page 10) in manual.pdf for examples.
 
 **Command**
 ```
-x <- PRS_quantitative(plink_path, "mydata", summary_input = "Q_out.trd.sum")
+a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
+b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
 
-sink("Q_trd.sscore") #to create a file in the working directory
-write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
-
-
-y <- PRS_quantitative(plink_path, "mydata", summary_input = "Q_out.add.sum")
-
-sink("Q_add.sscore") #to create a file in the working directory
-write.table(y, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
-
-
-z <- PRS_quantitative(plink_path, "mydata", summary_input = "Q_out.gxe.sum")
-
-sink("Q_gxe.sscore") #to create a file in the working directory
-write.table(z, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
+x <- PRS_quantitative(plink_path, "mydata", summary_input = a)
+y <- PRS_quantitative(plink_path, "mydata", summary_input = b[[1]])
+z <- PRS_quantitative(plink_path, "mydata", summary_input = b[[2]])
 ```
-As explained above, “mydata” is the prefix of the PLINK format files, “Q_out.trd.sum” is summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the files Q_trd.sscore, Q_add.sscore and Q_gxe.sscore respectively.
+As explained above, “mydata” is the prefix of the PLINK format files, a, b[[1]] and b[[2]] are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
 
 **Output**
 ```
@@ -575,7 +525,7 @@ ID_2 ID_2 1990 535 0.00120973
 ID_3 ID_3 1970 432 0.00158428
 ID_4 ID_4 1976 469 -0.000431784
 ```
-Q_trd.sscore - This contains the following columns in order.
+```x``` contains the following columns in order.
 * FID 
 * IID 
 * number of alleles across scored variants (ALLELE_CT)
@@ -589,7 +539,7 @@ ID_2 ID_2	1990 535 0.00137912
 ID_3 ID_3	1970 432 0.00160997
 ID_4 ID_4	1976 469 -0.000112026
 ```
-Q_add.sscore - This contains the the following columns in order.
+```y``` contains the the following columns in order.
 * FID 
 * IID 
 * ALLELE_CT
@@ -603,7 +553,7 @@ ID_2 ID_2	1990 535 -0.00172071
 ID_3 ID_3	1970 432 0.000248408
 ID_4 ID_4	1976 469 -0.00144963
 ```
-Q_gxe.sscore - This contains the the following columns in order.
+```z``` contains the the following columns in order.
 * FID 
 * IID 
 * ALLELE_CT
@@ -611,27 +561,23 @@ Q_gxe.sscore - This contains the the following columns in order.
 * SCORE1_AVG (polygenic risk scores (PRSs), computed from the interaction effects of GWEIS summary statistics), of the full dataset
 
 
-In addition to the output file, users can assign the function to an object and call each component in the output file separately. See the topic PRS_quantitative (page 13) in manual.pdf for examples.
+See the topic PRS_quantitative (page 13) in manual.pdf for examples.
 
 **Command**
 ```
-w <- summary_regular_quantitative("Qpt.txt", "Qct.txt", trd_score = "Q_trd.sscore", Model = 1)
+a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
+b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
+p <- PRS_quantitative(plink_path, "mydata", summary_input = a)
+q <- PRS_quantitative(plink_path, "mydata", summary_input = b[[1]])
+r <- PRS_quantitative(plink_path, "mydata", summary_input = b[[2]])
 
-x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = "Q_add.sscore", Model = 2)
-
-y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = "Q_add.sscore", gxe_score = "Q_gxe.sscore", Model = 3)
-
-z <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = "Q_add.sscore", gxe_score = "Q_gxe.sscore", Model = 4)
-
-sink("Qsummary.txt") #to create a file in the working directory
-print(z[[1]][[1]]) #to write the output
-sink() #to save the output
-
-sink("Individual_risk_values.txt") #to create a file in the working directory
-write.table(z[[2]], sep = " ", row.names = FALSE, col.names = FALSE, quote = FALSE) #to write the output
-sink() #to save the output
+v <- summary_regular_quantitative("Qpt.txt", "Qct.txt", trd_score = p, Model = 1)
+w <- summary_regular_quantitative(""Qpt.txt", "Qct.txt", add_score = q, Model = 2)
+x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
+y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
+z <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 5)
 ```
-“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, "Q_trd.sscore", "Q_add.sscore" and "Q_gxe.sscore" are the summary statistics output files generated at GWAS and GWEIS steps. Depending on the model used, the input file should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs 2 files (for demonstration, we used Model = 4 situation). The first file, Qsummary.txt gives the summary of the fitted **regular** model for **quantitative** outcome. The second file, Individual_risk_values.txt contains all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. 
+“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs (for demonstration, we used Model = 4 situation) both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. 
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -672,7 +618,7 @@ Residual standard error: 0.9697 on 181 degrees of freedom
 Multiple R-squared:  0.1447,	Adjusted R-squared:  0.05965 
 F-statistic: 1.701 on 18 and 181 DF,  p-value: 0.04244
 ```
-Qsummary.txt - This contains the target regular model summary output, when the outcome is quantitative. 
+```z[[1]][[1]]``` contains the target regular model summary output, when the outcome is quantitative. 
 
 ```
 ID_802 ID_802 -0.180057820294863
@@ -681,38 +627,40 @@ ID_804 ID_804 0.424579119997805
 ID_805 ID_805 0.583828103567573
 ID_806 ID_806 0.313724826923073
 ```
-Individual_risk_values.txt - This contains all the calculated individual risk scores using the target dataset (e.g. Model 4), when the outcome is quantitative. The columns denote the following in order.
+```z[[2]]``` contains all the calculated individual risk scores using the target dataset (e.g. Model 4), when the outcome is quantitative. The columns denote the following in order.
 * FID
 * IID 
 * estimated risk value
 
-Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = "Q_add.sscore", gxe_score = "Q_gxe.sscore", Model = 4)``` and ```summary_permuted_quantitative("qpt.txt", "qct.txt", iterations = 1000, add_score = "Q_add.sscore", gxe_score = "Q_gxe.sscore")```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 4) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 4, and insignificant in Model 4* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
+Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)``` and ```summary_permuted_quantitative("qpt.txt", "qct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 4) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 4, and insignificant in Model 4* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
 
-In addition to the output files, users can assign the function to an object and call each component in the output files separately. See the topic summary_regular_quantitative (page 21) in manual.pdf for examples.
+See the topic summary_regular_quantitative (page 22) in manual.pdf for examples.
 
 **Command**
 ```
-summary_permuted_quantitative("Qpt.txt", "Qct.txt", iterations = 1000, add_score = "Q_add.sscore", gxe_score = "Q_gxe.sscore")
+a <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
+p <- PRS_quantitative(plink_path, "mydata", summary_input = a[[1]])
+q <- PRS_quantitative(plink_path, "mydata", summary_input = a[[2]])
+summary_permuted_quantitative("Qpt.txt", "Qct.txt", iterations = 1000, add_score = p, gxe_score = q)
 ```
 This outputs the p value of the fitted **permuted** model for **quantitative** outcome.
 
 
-
 ## $$\color{red}{IMPORTANT}$$
-The discovery model used in ```GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20, summary_output = "B_trd.sum")``` or ```GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20, summary_output = "Q_trd.sum")``` is as follows:
+The discovery model used in ```GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20, summary_output = "B_trd.sum")``` or ```GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20)``` is as follows:
 * y = b_trd.W + error
  where y is the outcome variable, b_trd is the estimated SNP effect and W is the SNP genotype.
  
-The discovery model used in ```GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20, summary_output = "B_trd.sum")``` is as follows:
+The discovery model used in ```GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20)``` is as follows:
  * y = b_add.W + b_cov.E + b_cov2.E^2 + b_gxe.(WxE) + error
 where y is the outcome variable, b_add is the estimated additive SNP effect, E is the covariate, W is the SNP genotype, b_cov is the estimated effect of the covariate, b_cov2 is the estimated effect of the squared covariate and b_gxe is the estimated effect of the Hadamard product of WxE.
 
-The discovery model used in ```GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20, summary_output = "Q_trd.sum")``` is as follows:
+The discovery model used in ```GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20)``` is as follows:
  * y = b_add.W + b_cov.E + b_gxe.(WxE) + error
 where y is the outcome variable, b_add is the estimated additive SNP effect, E is the covariate, W is the SNP genotype, b_cov is the estimated effect of the covariate and b_gxe is the estimated effect of the Hadamard product of WxE.
 
 
-The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", trd_score = "B_trd.sscore", add_score = "B_add.sscore", gxe_score = "B_gxe.sscore", Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", trd_score = "Q_trd.sscore", add_score = "Q_add.sscore", gxe_score = "Q_gxe.sscore", Model)``` are as follows:
+The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", trd_score = NULL, add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", trd_score = NULL, add_score = NULL, gxe_score = NULL, Model)``` are as follows:
 
 * Model 1: y = PRS_trd + E + PRS_trd x E + confounders + error
 * Model 2: y = PRS_add + E + PRS_add x E + confounders + error
