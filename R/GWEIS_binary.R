@@ -47,7 +47,7 @@
 #' x[[2]]$V6 #to extract the minor allele (A1)
 #' x[[2]]$V7 #to extract whether firth regression is used (FIRTH?)
 #' x[[2]]$V8 #to extract the type of test performed (TEST)
-#' x[[2]]$V9 #to extract the nmber of allele observations (OBS_CT)
+#' x[[2]]$V9 #to extract the number of allele observations (OBS_CT)
 #' x[[2]]$V10 #to extract the odds ration of the SNP effect (OR)
 #' x[[2]]$V11 #to extract the standard error of log odds (LOG(OR)_SE)
 #' x[[2]]$V12 #to extract the test statistic (Z_STAT)

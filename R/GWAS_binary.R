@@ -1,5 +1,5 @@
 #' GWAS_binary function
-#' This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. It is recommended to save the output in a user-specified file (see example).
+#' This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. Users may save the output in a user-specified file (see example).
 #' @param plink_path Path to the PLINK executable application
 #' @param b_file Prefix of the binary files, where all .fam, .bed and .bim files have a common prefix
 #' @param Bphe_discovery Name (with file extension) of the phenotype file containing family ID, individual ID and phenotype of the discovery dataset as columns, without heading
@@ -26,7 +26,7 @@
 #' x$V6 #to extract the minor allele (A1)
 #' x$V7 #to extract whether firth regression is used (FIRTH?)
 #' x$V8 #to extract the type of test performed (TEST)
-#' x$V9 #to extract the nmber of allele observations (OBS_CT)
+#' x$V9 #to extract the number of allele observations (OBS_CT)
 #' x$V10 #to extract the odds ration of the SNP effect (OR)
 #' x$V11 #to extract the standard error of log odds (LOG(OR)_SE)
 #' x$V12 #to extract the test statistic (Z_STAT)

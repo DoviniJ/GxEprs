@@ -3,7 +3,7 @@
 \name{GWAS_quantitative}
 \alias{GWAS_quantitative}
 \title{GWAS_quantitative function
-This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. It is recommended to save the output in a user-specified file (see example).}
+This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. Users may save the output in a user-specified file (see example).}
 \usage{
 GWAS_quantitative(
   plink_path,
@@ -30,7 +30,7 @@ This function will perform GWAS and output
 }
 \description{
 GWAS_quantitative function
-This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. It is recommended to save the output in a user-specified file (see example).
+This function performs GWAS using plink2 and outputs the GWAS summary statistics with additive SNP effects. Users may save the output in a user-specified file (see example).
 }
 \examples{
 \dontrun{
@@ -48,7 +48,7 @@ x$V5 #to extract the alternate allele (ALT)
 x$V6 #to extract the minor allele (A1)
 x$V7 #to extract whether firth regression is used (FIRTH?)
 x$V8 #to extract the type of test performed (TEST)
-x$V9 #to extract the nmber of allele observations (OQS_CT)
+x$V9 #to extract the number of allele observations (OQS_CT)
 x$V10 #to extract the odds ration of the SNP effect (OR)
 x$V11 #to extract the standard error of log odds (LOG(OR)_SE)
 x$V12 #to extract the test statistic (Z_STAT)
