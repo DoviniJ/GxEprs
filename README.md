@@ -333,7 +333,7 @@ ID_2 ID_2	1990 535 0.0298431
 ID_3 ID_3	1970 432 -0.000156035
 ID_4 ID_4	1976 469 -0.00745457
 ```
-```y```  This contains the the following columns in order.
+```y``` contains the the following columns in order.
 * FID 
 * IID 
 * ALLELE_CT
