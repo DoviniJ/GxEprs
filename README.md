@@ -575,7 +575,6 @@ v <- summary_regular_quantitative("Qpt.txt", "Qct.txt", trd_score = p, Model = 1
 w <- summary_regular_quantitative(""Qpt.txt", "Qct.txt", add_score = q, Model = 2)
 x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
-z <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 5)
 ```
 “Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs (for demonstration, we used Model = 4 situation) both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. 
 
@@ -618,7 +617,7 @@ Residual standard error: 0.9697 on 181 degrees of freedom
 Multiple R-squared:  0.1447,	Adjusted R-squared:  0.05965 
 F-statistic: 1.701 on 18 and 181 DF,  p-value: 0.04244
 ```
-```z[[1]][[1]]``` contains the target regular model summary output, when the outcome is quantitative. 
+```y[[1]][[1]]``` contains the target regular model summary output, when the outcome is quantitative. 
 
 ```
 ID_802 ID_802 -0.180057820294863
@@ -627,7 +626,7 @@ ID_804 ID_804 0.424579119997805
 ID_805 ID_805 0.583828103567573
 ID_806 ID_806 0.313724826923073
 ```
-```z[[2]]``` contains all the calculated individual risk scores using the target dataset (e.g. Model 4), when the outcome is quantitative. The columns denote the following in order.
+```y[[2]]``` contains all the calculated individual risk scores using the target dataset (e.g. Model 4), when the outcome is quantitative. The columns denote the following in order.
 * FID
 * IID 
 * estimated risk value
