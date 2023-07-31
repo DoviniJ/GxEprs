@@ -207,18 +207,6 @@ Qcov_discovery <- paste0(inst_path, "/Qcov_discovery.txt")
 Qphe_target <- paste0(inst_path, "/Qphe_target.txt")
 Qcov_target <- paste0(inst_path, "/Qcov_target.txt")
 ```
-Note that the step 3.1.3 described above is to call the embedded data files in this package itself. However, when users have to call their own data, they can follow the same approach. It is more convenient if the users can store all their data files in the same working directory. For example, assume that the file names are as follows 
-(Refer to 'File formats' section of this document to view the formatting details of each of the following input file): 
-* binary files: **mydata.fam**, **mydata.bim** and **mydata.bed**
-* phenotype file of discovery sample (binary outcome): **Bpd.txt**
-* covariate file of discovery sample (binary outcome): **Bcd.txt**
-* phenotype file of target sample (binary outcome): **Bpt.txt**
-* covariate file of the target sample (binary outcome): **Bct.txt**
-* phenotype file of discovery sample (quantitative outcome): **Qpd.txt** 
-* covariate file of discovery sample (quantitative outcome): **Qcd.txt** 
-* phenotype file of target sample (quantitative outcome): **Qpt.txt**
-* covariate file of the target sample (quantitative outcome): **Qct.txt**
-
 ###### Additional note:
 _Note that, all these files can be placed in a separate location. It is always upto the users choice. In that case remember to give the full path to the file location since R identifies files by name, only when they are in the same directory._
 ```
@@ -232,8 +220,19 @@ Qcov_discovery <- "<path>/Qcd.txt"
 Qphe_target <- "<path>/Qpt.txt"
 Qcov_target <- "<path>/Qct.txt"
 ```
+Note that the step 3.1.3 described above is to call the embedded data files in this package itself. However, when users have to call their own data, they can follow the same approach. It is more convenient if the users can store all their data files in the same working directory. For example, assume that the file names are as follows 
+(Refer to 'File formats' section of this document to view the formatting details of each of the following input file): 
+* binary files: **mydata.fam**, **mydata.bim** and **mydata.bed**
+* phenotype file of discovery sample (binary outcome): **Bpd.txt**
+* covariate file of discovery sample (binary outcome): **Bcd.txt**
+* phenotype file of target sample (binary outcome): **Bpt.txt**
+* covariate file of the target sample (binary outcome): **Bct.txt**
+* phenotype file of discovery sample (quantitative outcome): **Qpd.txt** 
+* covariate file of discovery sample (quantitative outcome): **Qcd.txt** 
+* phenotype file of target sample (quantitative outcome): **Qpt.txt**
+* covariate file of the target sample (quantitative outcome): **Qct.txt**
 
-###### Step 3.1.4 Set the working directory and run the following R functions in the given order
+###### Step 3.1.4 Set the working directory and run the following R functions
 ```
 setwd("<path to working directory>") #set the working directory where you need to save the output files
 ```
@@ -246,9 +245,15 @@ x <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20)
 ```
 As explained above, “mydata” is the prefix of the PLINK format files, “Bpd.txt” is binary phenotype file of the discovery sample, "Bcd.txt" is the covariate file of the discovery sample, thread indicates the number of CPUs used to run the command which can be optionally specified by the user (default is 20). This command performs GWAS using a logistic regression, and outputs GWAS summary statistics of all additive SNP effects.
 
+To perform the same on embedded data
+**Command**
+```
+x <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, thread = 20)
+```
+
 **Output**
 ```
-V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
+CHROM POS ID REF ALT A1 FIRTH TEST OBS_CT OR LOG_OR_SE Z_STAT P ERRCODE
 1 768448 SNP_1 G A A N ADD 800 -0.0912494357966473 0.421016 -0.216738 0.828413 .
 1 853954 SNP_2 A C C N ADD 800 0.580991407122803 0.266219 2.18239 0.0290808 .
 1 880390 SNP_3 C A A N ADD 800 0.446184697385182 0.744786 0.599076 0.549122 .
