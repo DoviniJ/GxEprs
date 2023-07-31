@@ -280,6 +280,12 @@ x <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20)
 ```
 This performs GWEIS using a logistic regression, and outputs GWEIS summary statistics of both additive and interaction SNP effects.
 
+
+To perform the same on embedded data
+```
+x <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, thread = 20)
+```
+
 **Output**
 ```
 CHROM POS ID REF ALT A1 OBS_CT ADD_OR ADD_LOG_OR_SE ADD_Z_STAT ADD_P INTERACTION_OR INTERACTION_LOG_OR_SE INTERACTION_Z_STAT INTERACTION_P
