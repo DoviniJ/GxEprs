@@ -246,7 +246,6 @@ x <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20)
 As explained above, “mydata” is the prefix of the PLINK format files, “Bpd.txt” is binary phenotype file of the discovery sample, "Bcd.txt" is the covariate file of the discovery sample, thread indicates the number of CPUs used to run the command which can be optionally specified by the user (default is 20). This command performs GWAS using a logistic regression, and outputs GWAS summary statistics of all additive SNP effects.
 
 To perform the same on embedded data
-**Command**
 ```
 x <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, thread = 20)
 ```
