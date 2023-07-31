@@ -258,18 +258,19 @@ CHROM POS ID REF ALT A1 OBS_CT OR LOG_OR_SE Z_STAT P
 1 880390 SNP_3 C A A 800 0.446184697385182 0.744786 0.599076 0.549122
 1 940203 SNP_4 G A A 800 0.476159642057072 0.456313 1.0435 0.296718
 ```
-```x```  contains GWAS summary statistics of all additive SNP effects, when the outcome is binary. V1 to V14 denote the following columns in order. 
-* chromosome 
-* base pair position 
-* SNP ID 
-* reference allele 
-* alternate allele 
-* counted allele A1 (in regression) 
-* number of samples in regression 
-* odds ratio for A1 allele 
-* standard error of log odds 
-* test statistic 
-* p-value  
+```x```  contains GWAS summary statistics of all additive SNP effects, when the outcome is binary. 
+
+* x$CHROM : chromosome number 
+* x$POS : base pair position
+* x$ID : SNP ID
+* x$REF : reference allele
+* x$ALT : alternate allele 
+* x$A1 : minor allele
+* x$OBS_CT : number of allele observations 
+* x$OR : odds ratios of SNP effects
+* x$LOG_OR_SE : standard errors of log odds of SNP effects
+* x$Z_STAT : test statistics of SNP effects
+* x$P : p values of SNP effects
 
 See the topic GWAS_binary (page 6) in manual.pdf for examples.
 
@@ -281,22 +282,29 @@ This performs GWEIS using a logistic regression, and outputs GWEIS summary stati
 
 **Output**
 ```
-V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
-1 768448 SNP_1 G A A N ADD 800 -0.0429377728682119 0.546246 -0.0786059 0.937346 .
-1 853954 SNP_2 A C C N ADD 800 0.691871367055893 0.338615 2.04325 0.0410281 .
-1 880390 SNP_3 C A A N ADD 800 -0.0243828605684827 1.27677 -0.0190971 0.984764 .
-1 940203 SNP_4 G A A N ADD 800 0.532238718269307 0.57697 0.922471 0.356283 .
+CHROM POS ID REF ALT A1 OBS_CT ADD_OR ADD_LOG_OR_SE ADD_Z_STAT ADD_P INTERACTION_OR INTERACTION_LOG_OR_SE INTERACTION_Z_STAT INTERACTION_P
+1 768448 SNP_1 G A A 800 -0.0429377728682119 0.546246 -0.0786059 0.937346 -0.15253365458422 0.37862 -0.402868 0.687045
+1 853954 SNP_2 A C C 800 0.691871367055893 0.338615 2.04325 0.0410281 -0.114150142610688 0.211225 -0.540423 0.588905
+1 880390 SNP_3 C A A 800 -0.0243828605684827 1.27677 -0.0190971 0.984764 0.612983215535033 0.936868 0.654292 0.512924
+1 940203 SNP_4 G A A 800 0.532238718269307 0.57697 0.922471 0.356283 -0.311823137172646 0.390234 -0.799069 0.424251
 ```
-```x[[1]]``` contains GWEIS summary statistics of all additive SNP effects, when the outcome is binary. 
+```x``` contains GWEIS summary statistics of all additive and interaction SNP effects, when the outcome is binary. 
 
-```
-V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
-1 768448 SNP_1 G A A N ADDxCOVAR1 800 -0.15253365458422 0.37862 -0.402868 0.687045 .
-1 853954 SNP_2 A C C N ADDxCOVAR1 800 -0.114150142610688 0.211225 -0.540423 0.588905 .
-1 880390 SNP_3 C A A N ADDxCOVAR1 800 0.612983215535033 0.936868 0.654292 0.512924 .
-1 940203 SNP_4 G A A N ADDxCOVAR1 800 -0.311823137172646 0.390234 -0.799069 0.424251 .
-```
-```x[[2]]```  contains GWEIS summary statistics of all interaction SNP effects, when the outcome is binary. 
+* x$CHROM : chromosome number 
+* x$POS : base pair position
+* x$ID : SNP ID
+* x$REF : reference allele
+* x$ALT : alternate allele 
+* x$A1 : minor allele
+* x$OBS_CT : number of allele observations 
+* x$ADD_OR : odds ratios of additive SNP effects
+* x$ADD_LOG_OR_SE : standard errors of log odds of additive SNP effects
+* x$ADD_Z_STAT : test statistics of additive SNP effects
+* x$ADD_P : p value of additive SNP effects
+* x$INTERACTION_OR : odds ratios of the SNP effect of interaction SNP effects
+* x$INTERACTION_LOG_OR_SE : standard errors of log odds of interaction SNP effects
+* x$INTERACTION_Z_STAT : test statistics of interaction SNP effects
+* x$INTERACTION_P : p values of interaction SNP effects
 
 See the topic GWEIS_binary (page 9) in manual.pdf for examples.
 
