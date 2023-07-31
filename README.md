@@ -8,6 +8,17 @@ output: pdf_document
 # GxEprs
 The 'GxEprs' is an R package to detect and estimate GxE. It uses a novel PRS model that can enhance the prediction accuracy by utilising GxE effects. Firstly it performs Genome Wide Association Studies (GWAS)  and Genome Wide Environment Interaction Studies (GWEIS) using the discovery dataset (see functions ```GWAS_binary()```,```GWAS_quantitative()```, ```GWEIS_binary()```, ```GWEIS_quantitative()```). See the section $\color{red}{IMPORTANT}$ for the discovery models used. Secondly, it uses the GWAS and GWEIS summary statistics generated from the fucntions above to obtain polygenic risk scores (PRSs) (see functions ```PRS_binary()``` and ```PRS_quantitative()```) for the target sample. Finally it predicts the risk values of each individual in the target sample (see functions ```summary_regular_binary()``` and ```summary_regular_quantitative()```). Note that the users can fit 4 different models when the outcome is a quantitative trait, and 5 different models when the outcome is a binary disease trait. See the section $\color{red} {IMPORTANT}$ for the target models used. Finally, it is recommended to check the p-value from permutations using Model 4 (see function ```summary_permuted_quantitative()```), and Model 5 (see function```summary_permuted_binary()```), to make sure that the significance of GxE is not spurious due to model misspecification (see references).
 
+# Package installation
+The current GitHub version of **GxEprs** can be installed via:
+```
+library(devtools)
+install_github("DoviniJ/GxEprs") 
+```
+# Load the library
+```
+library(GxEprs)
+```
+
 # Data preparation
 
 ## File formats
@@ -155,17 +166,6 @@ ID_802 ID_802 -0.952095788451302 0.906486390386706 2.06515 60 -12.2438 4.04169 -
 ID_803 ID_803 -0.0278698075809014 0.00077672617459647 -0.795863 62 -10.9195 6.91985 -2.92088 1.26019 -5.56624 -0.552624 -0.0756095 -0.910047 -1.33896 1.72636 0 7
 ID_804 ID_804 -0.644020461494502 0.414762354823591 -2.62088 67 -9.9271 4.1096 -2.35454 0.719021 -1.82806 -1.82107 1.21574 -3.56693 -7.91232 2.71011 0 10
 ID_805 ID_805 0.280205519375899 0.0785151330887172 -3.33164 67 -11.8637 5.88272 1.07288 2.74488 -7.32776 -2.39477 -3.07983 -1.43625 2.08822 1.42939 1 15
-```
-
-# Package installation
-The current GitHub version of **GxEprs** can be installed via:
-```
-library(devtools)
-install_github("DoviniJ/GxEprs") 
-```
-# Load the library
-```
-library(GxEprs)
 ```
 
 # Quick start
