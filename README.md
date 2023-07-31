@@ -252,27 +252,24 @@ x <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, thread =
 
 **Output**
 ```
-CHROM POS ID REF ALT A1 FIRTH TEST OBS_CT OR LOG_OR_SE Z_STAT P ERRCODE
-1 768448 SNP_1 G A A N ADD 800 -0.0912494357966473 0.421016 -0.216738 0.828413 .
-1 853954 SNP_2 A C C N ADD 800 0.580991407122803 0.266219 2.18239 0.0290808 .
-1 880390 SNP_3 C A A N ADD 800 0.446184697385182 0.744786 0.599076 0.549122 .
-1 940203 SNP_4 G A A N ADD 800 0.476159642057072 0.456313 1.0435 0.296718 .
+CHROM POS ID REF ALT A1 OBS_CT OR LOG_OR_SE Z_STAT P
+1 768448 SNP_1 G A A 800 -0.0912494357966473 0.421016 -0.216738 0.828413
+1 853954 SNP_2 A C C 800 0.580991407122803 0.266219 2.18239 0.0290808
+1 880390 SNP_3 C A A 800 0.446184697385182 0.744786 0.599076 0.549122
+1 940203 SNP_4 G A A 800 0.476159642057072 0.456313 1.0435 0.296718
 ```
-```x```  contains GWAS summary statistics of all additive SNP effects, when the outcome is binary. V1 to V14 denote the following columns in order. Note that all summary statistics follow the same structure.
+```x```  contains GWAS summary statistics of all additive SNP effects, when the outcome is binary. V1 to V14 denote the following columns in order. 
 * chromosome 
 * base pair position 
 * SNP ID 
 * reference allele 
 * alternate allele 
 * counted allele A1 (in regression) 
-* firth regression status 
-* test identifier 
 * number of samples in regression 
 * odds ratio for A1 allele 
 * standard error of log odds 
 * test statistic 
 * p-value  
-* error code 
 
 See the topic GWAS_binary (page 6) in manual.pdf for examples.
 
