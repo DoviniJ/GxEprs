@@ -196,7 +196,7 @@ head(Qcov_target) #covariate file of the target sample when the outcome is quant
 
 ###### Step 3.1.3 To call the data files saved in "inst" directory, you can follow the following code to obtain the path of each data file. 
 ```
-inst_path <- system.file(package = "GxEprsDummy") 
+inst_path <- system.file(package = "GxEprs") 
 DummyData <- paste0(inst_path, "/DummyData") #this contains all .fam, .bed and .bim files. They can be accessed by a direct call of prefix "DummyData"
 Bphe_discovery <- paste0(inst_path, "/Bphe_discovery.txt")
 Bcov_discovery <- paste0(inst_path, "/Bcov_discovery.txt")
@@ -207,6 +207,19 @@ Qcov_discovery <- paste0(inst_path, "/Qcov_discovery.txt")
 Qphe_target <- paste0(inst_path, "/Qphe_target.txt")
 Qcov_target <- paste0(inst_path, "/Qcov_target.txt")
 ```
+
+Note that the step 3.1.3 described above is to call the embedded data files in this package itself. However, when users have to call their own data, they can follow the same approach. It is more convenient if the users can store all their data files in the same working directory. For example, assume that the file names are as follows 
+(Refer to 'File formats' section of this document to view the formatting details of each of the following input file): 
+* binary files: **mydata.fam**, **mydata.bim** and **mydata.bed**
+* phenotype file of discovery sample (binary outcome): **Bpd.txt**
+* covariate file of discovery sample (binary outcome): **Bcd.txt**
+* phenotype file of target sample (binary outcome): **Bpt.txt**
+* covariate file of the target sample (binary outcome): **Bct.txt**
+* phenotype file of discovery sample (quantitative outcome): **Qpd.txt** 
+* covariate file of discovery sample (quantitative outcome): **Qcd.txt** 
+* phenotype file of target sample (quantitative outcome): **Qpt.txt**
+* covariate file of the target sample (quantitative outcome): **Qct.txt**
+
 ###### Additional note:
 _Note that, all these files can be placed in a separate location. It is always upto the users choice. In that case remember to give the full path to the file location since R identifies files by name, only when they are in the same directory._
 ```
@@ -220,17 +233,6 @@ Qcov_discovery <- "<path>/Qcd.txt"
 Qphe_target <- "<path>/Qpt.txt"
 Qcov_target <- "<path>/Qct.txt"
 ```
-Note that the step 3.1.3 described above is to call the embedded data files in this package itself. However, when users have to call their own data, they can follow the same approach. It is more convenient if the users can store all their data files in the same working directory. For example, assume that the file names are as follows 
-(Refer to 'File formats' section of this document to view the formatting details of each of the following input file): 
-* binary files: **mydata.fam**, **mydata.bim** and **mydata.bed**
-* phenotype file of discovery sample (binary outcome): **Bpd.txt**
-* covariate file of discovery sample (binary outcome): **Bcd.txt**
-* phenotype file of target sample (binary outcome): **Bpt.txt**
-* covariate file of the target sample (binary outcome): **Bct.txt**
-* phenotype file of discovery sample (quantitative outcome): **Qpd.txt** 
-* covariate file of discovery sample (quantitative outcome): **Qcd.txt** 
-* phenotype file of target sample (quantitative outcome): **Qpt.txt**
-* covariate file of the target sample (quantitative outcome): **Qct.txt**
 
 ###### Step 3.1.4 Set the working directory and run the following R functions
 ```
@@ -372,10 +374,13 @@ See the topic PRS_binary (page 12) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-p <- PRS_binary(plink_path, "mydata", summary_input = a)
-q <- PRS_binary(plink_path, "mydata", summary_input = b[[1]])
-r <- PRS_binary(plink_path, "mydata", summary_input = b[[2]])
+add <- b[c("ID", "A1", "ADD_OR")]
+gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+p <- PRS_binary(plink_path, "mydata", summary_input = trd)
+q <- PRS_binary(plink_path, "mydata", summary_input = add)
+r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 
 v <- summary_regular_binary("Bpt.txt", "Bct.txt", trd_score = p, Model = 1)
 w <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, Model = 2)
@@ -389,56 +394,23 @@ z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 
 **Output**
 ```
-Call:
-glm(formula = out ~ ., family = binomial(link = logit), data = df_new)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--1.2110  -0.3911  -0.2364  -0.1357   2.5362  
-
-Coefficients:
-               Estimate Std. Error z value Pr(>|z|)  
-(Intercept)    4.058401   3.526630   1.151   0.2498  
-E              0.112498   0.424978   0.265   0.7912  
-`E squared`   -0.255133   0.629549  -0.405   0.6853  
-PRS_add       -1.323038   0.867841  -1.525   0.1274  
-PRS_gxe       -1.504617   1.076980  -1.397   0.1624  
-`PRS_gxe x E`  0.224745   0.502532   0.447   0.6547  
-V7             0.080369   0.101398   0.793   0.4280  
-V8            -0.039235   0.036984  -1.061   0.2887  
-V9             0.239702   0.238018   1.007   0.3139  
-V10            0.107022   0.232814   0.460   0.6457  
-V11            0.096563   0.198627   0.486   0.6269  
-V12           -0.077362   0.160028  -0.483   0.6288  
-V13            0.044817   0.085248   0.526   0.5991  
-V14            0.025107   0.206558   0.122   0.9033  
-V15            0.227534   0.167280   1.360   0.1738  
-V16            0.025793   0.165044   0.156   0.8758  
-V17            0.003261   0.081670   0.040   0.9681  
-V18            0.082463   0.159361   0.517   0.6048  
-V19            1.027611   0.697780   1.473   0.1408  
-V20           -0.189688   0.079375  -2.390   0.0169 *
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 106.55  on 199  degrees of freedom
-Residual deviance:  85.53  on 180  degrees of freedom
-AIC: 125.53
-
-Number of Fisher Scoring iterations: 7
+            Coefficient Std.Error Test.Statistic    pvalue
+E             0.1124979 0.4249779      0.2647148 0.7912292
+E squared    -0.2551330 0.6295491     -0.4052630 0.6852842
+PRS_add      -1.3230379 0.8678414     -1.5245159 0.1273799
+PRS_gxe      -1.5046168 1.0769799     -1.3970704 0.1623924
+PRS_gxe x E   0.2247446 0.5025321      0.4472244 0.6547131
 ```
-```z[[1]][[1]]``` contains the target regular model summary output, when the outcome is binary. 
+```z$summary``` contains the target regular model summary output, when the outcome is binary. 
 
 ```
-ID_802 ID_802 0.142584993327248
-ID_803 ID_803 0.00944707783426451
-ID_804 ID_804 0.314374300730685
-ID_805 ID_805 0.0401077327720606
-ID_806 ID_806 0.0272302426618824
+  FID      IID      Risk.Values
+1 "ID_802" "ID_802" "0.142584993327248"
+2 "ID_803" "ID_803" "0.00944707783426451"
+3 "ID_804" "ID_804" "0.314374300730685"
+4 "ID_805" "ID_805" "0.0401077327720606"
 ```
-```z[[2]]``` contains all the calculated individual risk scores using the target dataset (e.g. Model 5), when the outcome is binary. The columns denote the following in order.
+```z$risk.values``` contains all the calculated individual risk scores using the target dataset (e.g. Model 5), when the outcome is binary. The columns denote the following in order.
 * FID
 * IID 
 * estimated risk value
