@@ -317,58 +317,55 @@ See the topic GWEIS_binary (page 9) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+add <- b[c("ID", "A1", "ADD_OR")]
+gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_binary(plink_path, "mydata", summary_input = a)
-y <- PRS_binary(plink_path, "mydata", summary_input = b[[1]])
-z <- PRS_binary(plink_path, "mydata", summary_input = b[[2]])
+x <- PRS_binary(plink_path, "mydata", summary_input = trd)
+y <- PRS_binary(plink_path, "mydata", summary_input = add)
+z <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 ```
 As explained above, “mydata” is the prefix of the PLINK format files, a, b[[1]] and b[[2]] are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
 
 **Output**
 ```
-V1 V2 V3 V4 V5
-ID_1 ID_1 1970 459 -0.0112131
-ID_2 ID_2 1990 535 0.00675556
-ID_3 ID_3 1970 432 -0.00961485
-ID_4 ID_4 1976 469 -0.00708284
+   FID  IID         PRS
+1 ID_1 ID_1 -0.01121310
+2 ID_2 ID_2  0.00675556
+3 ID_3 ID_3 -0.00961485
+4 ID_4 ID_4 -0.00708284
 ```
 ```x```  contains the following columns in order.
-* FID 
-* IID 
-* number of alleles across scored variants (ALLELE_CT)
-* sum of named allele dosages (NAMED_ALLELE_DOSAGE_SUM)
-* SCORE1_AVG (polygenic risk scores (PRSs), computed from the additive effects of GWAS summary statistics), of the full dataset
+* x$FID : family IDs of the full dataset
+* x$IID : individual IDs of the full dataset
+* x$PRS : polygenic risk scores (PRSs), computed from the additive effects of GWAS summary statistics, of the full dataset
 
 
 ```
-V1 V2 V3 V4 V5
-ID_1 ID_1	1970 459 -0.00728841
-ID_2 ID_2	1990 535 0.0298431
-ID_3 ID_3	1970 432 -0.000156035
-ID_4 ID_4	1976 469 -0.00745457
+   FID  IID          PRS
+1 ID_1 ID_1 -0.007288410
+2 ID_2 ID_2  0.029843100
+3 ID_3 ID_3 -0.000156035
+4 ID_4 ID_4 -0.007454570
 ```
 ```y``` contains the the following columns in order.
-* FID 
-* IID 
-* ALLELE_CT
-* NAMED_ALLELE_DOSAGE_SUM
-* SCORE1_AVG (polygenic risk scores (PRSs), computed from the additive effects of GWEIS summary statistics), of the full dataset 
+* y$FID : family IDs of the full dataset
+* y$IID : individual IDs of the full dataset
+* y$PRS : polygenic risk scores (PRSs), computed from the additive effects of GWEIS summary statistics), of the full dataset 
 
 
 ```
-V1 V2 V3 V4 V5
-ID_1 ID_1	1970 459 -0.00572028
-ID_2 ID_2	1990 535 -0.0262972
-ID_3 ID_3	1970 432 -0.0126608
-ID_4 ID_4 1976 469 -0.00128371
+   FID  IID         PRS
+1 ID_1 ID_1 -0.00572028
+2 ID_2 ID_2 -0.02629720
+3 ID_3 ID_3 -0.01266080
+4 ID_4 ID_4 -0.00128371
 ```
 ```z```  contains the the following columns in order.
-* FID 
-* IID 
-* ALLELE_CT
-* NAMED_ALLELE_DOSAGE_SUM
-* SCORE1_AVG (polygenic risk scores (PRSs), computed from the interaction effects of GWEIS summary statistics), of the full dataset
+* z$FID : family IDs of the full dataset
+* z$IID : individual IDs of the full dataset
+* z$PRS : polygenic risk scores (PRSs), computed from the interaction effects of GWEIS summary statistics), of the full dataset
 
 See the topic PRS_binary (page 12) in manual.pdf for examples.
 
