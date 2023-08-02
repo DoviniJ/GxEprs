@@ -328,7 +328,7 @@ x <- PRS_binary(plink_path, "mydata", summary_input = trd)
 y <- PRS_binary(plink_path, "mydata", summary_input = add)
 z <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 ```
-As explained above, “mydata” is the prefix of the PLINK format files, a, b[[1]] and b[[2]] are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
+As explained above, “mydata” is the prefix of the PLINK format files, trd, add and gxe are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
 
 **Output**
 ```
@@ -422,8 +422,10 @@ See the topic summary_regular_binary (page 20) in manual.pdf for examples.
 **Command**
 ```
 a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-p <- PRS_binary(plink_path, "mydata", summary_input = a[[1]])
-q <- PRS_binary(plink_path, "mydata", summary_input = a[[2]])
+add <- a[c("ID", "A1", "ADD_OR")]
+gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+p <- PRS_binary(plink_path, "mydata", summary_input = add)
+q <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = p, gxe_score = q)
 ```
 This outputs the p value of the fitted **permuted** model for **binary** outcome.
