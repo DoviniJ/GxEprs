@@ -182,7 +182,7 @@ Link: https://www.cog-genomics.org/plink/2.0/
 ```
 plink_path <- "<plink_path>/plink2" 
 ```
-###### Step 3.1.2 It is always recommended to check how the files look like before using them in functions, for better understanding. You may directly use the data files embedded in the package as a trial. Note that, for convenience, we have used identical names for the embedded data object, and for the corresponding function argument. You can check the top proportion of each data file using the following code:
+###### Step 3.1.2 It is always recommended to check how the files look like before using them in functions, for better understanding. You may directly use the data files embedded in the package as a trial. You can check the top proportion of each data file using the following code:
 ```
 head(Bphe_discovery) #phenotype file of the discovery sample when the outcome is binary
 head(Bcov_discovery) #covariate file of the discovery sample when the outcome is binary
@@ -214,29 +214,29 @@ Note that the step 3.1.3 described above is to call the embedded data files in t
 * phenotype file of discovery sample (binary outcome): **Bpd.txt**
 * covariate file of discovery sample (binary outcome): **Bcd.txt**
 * phenotype file of target sample (binary outcome): **Bpt.txt**
-* covariate file of the target sample (binary outcome): **Bct.txt**
+* covariate file of target sample (binary outcome): **Bct.txt**
 * phenotype file of discovery sample (quantitative outcome): **Qpd.txt** 
 * covariate file of discovery sample (quantitative outcome): **Qcd.txt** 
 * phenotype file of target sample (quantitative outcome): **Qpt.txt**
-* covariate file of the target sample (quantitative outcome): **Qct.txt**
+* covariate file of target sample (quantitative outcome): **Qct.txt**
 
 ###### Additional note:
-_Note that, all these files can be placed in a separate location. It is always upto the users choice. In that case remember to give the full path to the file location since R identifies files by name, only when they are in the same directory._
-```
-b_file <- "<path>/mydata"
-Bphe_discovery <- "<path>/Bpd.txt"
-Bcov_discovery <- "<path>/Bcd.txt"
-Bphe_target <- "<path>/Bpt.txt"
-Bcov_target <- "<path>/Bct.txt"
-Qphe_discovery <- "<path>/Qpd.txt"
-Qcov_discovery <- "<path>/Qcd.txt"
-Qphe_target <- "<path>/Qpt.txt"
-Qcov_target <- "<path>/Qct.txt"
-```
+_Note that, all these files (user's own data files) can be placed in a separate location. It is always upto the user's choice. In that case remember to give the full path to the file location since R identifies files by name, only when they are in the same directory. For example, if your data files are in a different directory;_
+
+* instead of ```"mydata"``` use ```"<path>/mydata"``` as DummyData
+* instead of ```"Bpd.txt"``` use ```"<path>/Bpd.txt"``` as Bphe_discovery
+* instead of ```"Bcd.txt"``` use ```"<path>/Bcd.txt"``` as Bcov_discovery
+* instead of ```"Bpt.txt"``` use ```"<path>/Bpt.txt"``` as Bphe_target
+* instead of ```"Bct.txt"``` use ```"<path>/Bct.txt"``` as Bcov_target
+* instead of ```"Qpd.txt"``` use ```"<path>/Qpd.txt"``` as Qphe_discovery
+* instead of ```"Qcd.txt"``` use ```"<path>/Qcd.txt"``` as Qcov_discovery
+* instead of ```"Qpt.txt"``` use ```"<path>/Qpt.txt"``` as Qphe_target
+* instead of ```"Qct.txt"``` use ```"<path>/Qct.txt"``` as Qcov_target
+
 
 ###### Step 3.1.4 Set the working directory and run the following R functions
 ```
-setwd("<path to working directory>") #set the working directory where you need to save the output files
+setwd("<path to working directory>") #set the working directory
 ```
 $\color{red}{NOTE:}$ Read **manual.pdf** document for descriptions of arguments passed for each function.
 
