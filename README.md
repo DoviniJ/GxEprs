@@ -330,6 +330,20 @@ z <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 ```
 As explained above, “mydata” is the prefix of the PLINK format files, trd, add and gxe are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
 
+
+To perform the same on embedded data
+```
+a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
+trd <- a[c("ID", "A1", "OR")]
+b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
+add <- b[c("ID", "A1", "ADD_OR")]
+gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+
+x <- PRS_binary(plink_path, DummyData, summary_input = trd)
+y <- PRS_binary(plink_path, DummyData, summary_input = add)
+z <- PRS_binary(plink_path, DummyData, summary_input = gxe)
+```
+
 **Output**
 ```
    FID  IID         PRS
@@ -388,9 +402,29 @@ x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 4)
 z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)
 ```
-“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs (for demonstration, we used Model = 5 situation) both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. 
+“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. 
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
+
+
+To perform the same on embedded data:
+```
+a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, B_cov_discovery)
+trd <- a[c("ID", "A1", "OR")]
+b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, B_cov_discovery)
+add <- b[c("ID", "A1", "ADD_OR")]
+gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+p <- PRS_binary(plink_path, DummyData, summary_input = trd)
+q <- PRS_binary(plink_path, DummyData, summary_input = add)
+r <- PRS_binary(plink_path, DummyData, summary_input = gxe)
+
+v <- summary_regular_binary(Bphe_target, Bcov_target, trd_score = p, Model = 1)
+w <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, Model = 2)
+x <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 3)
+y <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 4)
+z <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 5)
+```
+Note: For demonstration, we used Model = 5 situation:
 
 **Output**
 ```
