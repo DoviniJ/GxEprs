@@ -476,7 +476,7 @@ As explained above, “mydata” is the prefix of the PLINK format files, “Qpd
 
 To perform the same on embedded data:
 ```
-x <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qphe_target, thread = 20)
+x <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery, thread = 20)
 ```
 
 **Output**
@@ -509,24 +509,21 @@ x <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20)
 ```
 This performs GWEIS using a linear regression, and outputs GWEIS summary statistics of all additive and interaction SNP effects. 
 
+To perform the same on embedded data
+```
+x <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery, thread = 20)
+```
+
 **Output**
 ```
-V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13
-1 768448 SNP_1 G A A ADD 800 0.170496 0.360579 0.472841 0.636459 .
-1 853954 SNP_2 A C C ADD 800 -0.334001 0.235261 -1.4197 0.156093 .
-1 880390 SNP_3 C A A ADD 800 0.255825 0.743858 0.343916 0.731002 .
-1 940203 SNP_4 G A A ADD 800 -0.954298 0.471745 -2.02291 0.043422 .
+  CHROM POS ID REF ALT A1 OBS_CT ADD_BETA ADD_SE ADD_T_STAT ADD_P INTERACTION_BETA INTERACTION_SE INTERACTION_T_STAT INTERACTION_P
+1   1 768448 SNP_1 G A A 800 0.170496 0.360579 0.472841 0.636459 0.349176 0.370182 0.943256 0.345841
+2   1 853954 SNP_2 A C C 800 -0.334001 0.235261 -1.4197 0.156093 0.065845 0.229713 0.28664 0.774464
+3   1 880390 SNP_3 C A A 800 0.255825 0.743858 0.343916 0.731002 0.364167 0.883745 0.412073 0.680399
+4   1 940203 SNP_4 G A A 800 -0.954298 0.471745 -2.02291 0.043422 -0.262215 0.481748 -0.544299 0.586391
 ```
-```x[[1]]``` contains GWEIS summary statistics of all additive SNP effects, when the outcome is quantitative. 
+```x``` contains GWEIS summary statistics of all additive and interaction SNP effects, when the outcome is quantitative. 
 
-```
-V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13
-1 768448 SNP_1 G A A ADDxCOVAR1 800 0.349176 0.370182 0.943256 0.345841 .
-1 853954 SNP_2 A C C ADDxCOVAR1 800 0.065845 0.229713 0.28664 0.774464 .
-1 880390 SNP_3 C A A ADDxCOVAR1 800 0.364167 0.883745 0.412073 0.680399 .
-1 940203 SNP_4 G A A ADDxCOVAR1 800 -0.262215 0.481748 -0.544299 0.586391 .
-```
-```x[[2]]``` contains GWEIS summary statistics of all interaction SNP effects, when the outcome is quantitative. 
 
 See the topic GWEIS_quantitative (page 10) in manual.pdf for examples.
 
