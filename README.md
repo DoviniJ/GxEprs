@@ -308,7 +308,7 @@ CHROM POS ID REF ALT A1 OBS_CT ADD_OR ADD_LOG_OR_SE ADD_Z_STAT ADD_P INTERACTION
 * x$ADD_OR : odds ratios of additive SNP effects
 * x$ADD_LOG_OR_SE : standard errors of log odds of additive SNP effects
 * x$ADD_Z_STAT : test statistics of additive SNP effects
-* x$ADD_P : p value of additive SNP effects
+* x$ADD_P : p values of additive SNP effects
 * x$INTERACTION_OR : odds ratios of the SNP effect of interaction SNP effects
 * x$INTERACTION_LOG_OR_SE : standard errors of log odds of interaction SNP effects
 * x$INTERACTION_Z_STAT : test statistics of interaction SNP effects
@@ -474,28 +474,32 @@ x <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20)
 ```
 As explained above, “mydata” is the prefix of the PLINK format files, “Qpd.txt” is quantitative phenotype file of the discovery sample, "Qcd.txt" is the covariate file of the discovery sample, thread indicates the number of CPUs used to run the command which can be optionally specified by the user (default is 20). This command performs GWAS using a linear regression, and outputs GWAS summary statistics of all additive SNP effects.
 
+To perform the same on embedded data:
+```
+x <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qphe_target, thread = 20)
+```
+
 **Output**
 ```
-V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13
-1 768448 SNP_1 G A A ADD 800 0.183597 0.35942 0.510815 0.609624 .
-1 853954 SNP_2 A C C ADD 800 -0.336911 0.234538 -1.43649 0.151262 .
-1 880390 SNP_3 C A A ADD 800 0.139377 0.683708 0.203855 0.83852 .
-1 940203 SNP_4 G A A ADD 800 -0.896864 0.460195 -1.94888 0.0516666 .
+ CHROM     POS    ID REF ALT A1 OBS_CT       BETA       SE     T_STAT         P
+     1  768448 SNP_1   G   A  A    800  0.1835970 0.359420  0.5108150 0.6096240
+     1  853954 SNP_2   A   C  C    800 -0.3369110 0.234538 -1.4364900 0.1512620
+     1  880390 SNP_3   C   A  A    800  0.1393770 0.683708  0.2038550 0.8385200
+     1  940203 SNP_4   G   A  A    800 -0.8968640 0.460195 -1.9488800 0.0516666
 ```
 ```x``` contains GWAS summary statistics of all additive SNP effects, when the outcome is quantitative. V1 to V13 denote the following columns in order. Note that all summary statistics follow the same structure.
-* chromosome 
-* base pair position 
-* SNP ID 
-* reference allele 
-* alternate allele 
-* counted allele A1 (in regression) 
-* test identifier 
-* number of samples in regression 
-* odds ratio for A1 allele 
-* standard error of log odds 
-* test statistic 
-* p-value  
-* error code 
+* x$CHROM : chromosome number 
+* x$POS : base pair position 
+* x$ID : SNP ID 
+* x$REF : reference allele 
+* x$ALT : alternate allele 
+* x$A1 : minor allele 
+* x$OBS_CT : number of allele observations 
+* x$BETA : SNP effects
+* x$SE : standard errors of SNP effects
+* x$T_STAT : test statistics of SNP effects
+* x$P : p values of SNP effects
+
 
 See the topic GWAS_quantitative (page 7) in manual.pdf for examples.
 
