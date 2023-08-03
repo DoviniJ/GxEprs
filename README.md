@@ -456,7 +456,7 @@ PRS_gxe x E   0.2247446 0.5025321      0.4472244 0.6547131
 
 Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)``` and ```summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 5) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 5, and insignificant in Model 5* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
 
-See the topic summary_regular_binary (page 20) in manual.pdf for examples.
+See the topic summary_regular_binary (page 19) in manual.pdf for examples.
 
 **Command**
 ```
@@ -681,7 +681,7 @@ PRS_gxe x E  0.0009011353 0.07866089     0.01145595 0.9908723
 
 Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)``` and ```summary_permuted_quantitative("Qpt.txt", "Qct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 4) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 4, and insignificant in Model 4* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
 
-See the topic summary_regular_quantitative (page 22) in manual.pdf for examples.
+See the topic summary_regular_quantitative (page 21) in manual.pdf for examples.
 
 **Command**
 ```
