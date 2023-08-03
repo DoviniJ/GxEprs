@@ -437,6 +437,11 @@ PRS_gxe x E   0.2247446 0.5025321      0.4472244 0.6547131
 ```
 ```z$summary``` contains the target regular model summary output, when the outcome is binary. 
 
+* z$summary[,"Coefficient"] : regression coefficients of all model components
+* z$summary[,"Std.Error"] : standard errors of all regression coefficients
+* z$summary[,"Test.Statistic"] : test statistic value of all regression coefficients
+* z$summary[,"pvalue"] : p-value of all regression coefficients
+
 ```
   FID      IID      Risk.Values
 1 "ID_802" "ID_802" "0.142584993327248"
@@ -445,9 +450,9 @@ PRS_gxe x E   0.2247446 0.5025321      0.4472244 0.6547131
 4 "ID_805" "ID_805" "0.0401077327720606"
 ```
 ```z$risk.values``` contains all the calculated individual risk scores using the target dataset (e.g. Model 5), when the outcome is binary. The columns denote the following in order.
-* z$FID : family IDs of the target dataset
-* z$IID : individual IDs of the target dataset
-* z$Risk.Values : estimated risk values of the target dataset
+* z$risk.values[,"FID"] : family IDs of the target dataset
+* z$risk.values[,"IID"] : individual IDs of the target dataset
+* z$risk.values[,"Risk.Values] : estimated risk values of the target dataset
 
 Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)``` and ```summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 5) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 5, and insignificant in Model 5* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
 
@@ -657,6 +662,11 @@ PRS_gxe x E  0.0009011353 0.07866089     0.01145595 0.9908723
 ```
 ```y$summary``` contains the target regular model summary output, when the outcome is quantitative. 
 
+* y$summary[,"Coefficient"] : regression coefficients of all model components
+* y$summary[,"Std.Error"] : standard errors of all regression coefficients
+* y$summary[,"Test.Statistic"] : test statistic value of all regression coefficients
+* y$summary[,"pvalue"] : p-value of all regression coefficients
+  
 ```
   FID      IID      Risk.Values
 1 "ID_802" "ID_802" "-0.180057820294863"
@@ -665,9 +675,9 @@ PRS_gxe x E  0.0009011353 0.07866089     0.01145595 0.9908723
 4 "ID_805" "ID_805" "0.583828103567573"
 ```
 ```y$risk.values``` contains all the calculated individual risk scores using the target dataset (e.g. Model 4), when the outcome is quantitative. The columns denote the following in order.
-* y$FID : family IDs of the target dataset
-* y$IID : individual IDs of the target dataset
-* y$Risk.Values : estimated risk values of the target dataset
+* y$risk.values[,"FID"] : family IDs of the target dataset
+* y$risk.values[,"IID"] : individual IDs of the target dataset
+* y$risk.values[,"Risk.Values] : estimated risk values of the target dataset
 
 Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)``` and ```summary_permuted_quantitative("qpt.txt", "qct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 4) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 4, and insignificant in Model 4* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
 
