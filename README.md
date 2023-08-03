@@ -530,13 +530,30 @@ See the topic GWEIS_quantitative (page 10) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
+add <- b[c("ID", "A1", "ADD_OR")]
+gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_quantitative(plink_path, "mydata", summary_input = a)
-y <- PRS_quantitative(plink_path, "mydata", summary_input = b[[1]])
-z <- PRS_quantitative(plink_path, "mydata", summary_input = b[[2]])
+x <- PRS_quantitative(plink_path, "mydata", summary_input = trd)
+y <- PRS_quantitative(plink_path, "mydata", summary_input = add)
+z <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
 ```
-As explained above, “mydata” is the prefix of the PLINK format files, a, b[[1]] and b[[2]] are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
+As explained above, “mydata” is the prefix of the PLINK format files, trd, add and gxe are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
+
+
+To perform the same on embedded data
+```
+a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
+trd <- a[c("ID", "A1", "OR")]
+b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
+add <- b[c("ID", "A1", "ADD_OR")]
+gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+
+x <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
+y <- PRS_quantitative(plink_path, DummyData, summary_input = add)
+z <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
+```
 
 **Output**
 ```
