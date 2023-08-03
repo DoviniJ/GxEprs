@@ -540,46 +540,42 @@ As explained above, “mydata” is the prefix of the PLINK format files, a, b[[
 
 **Output**
 ```
-V1 V2 V3 V4 V5
-ID_1 ID_1 1970 459 -0.00436674
-ID_2 ID_2 1990 535 0.00120973
-ID_3 ID_3 1970 432 0.00158428
-ID_4 ID_4 1976 469 -0.000431784
+   FID  IID          PRS
+1 ID_1 ID_1 -0.004366740
+2 ID_2 ID_2  0.001209730
+3 ID_3 ID_3  0.001584280
+4 ID_4 ID_4 -0.000431784
 ```
-```x``` contains the following columns in order.
-* FID 
-* IID 
-* number of alleles across scored variants (ALLELE_CT)
-* sum of named allele dosages (NAMED_ALLELE_DOSAGE_SUM)
-* SCORE1_AVG (polygenic risk scores (PRSs), computed from the additive effects of GWAS summary statistics), of the full dataset
+```x```  contains the following columns in order.
+* x$FID : family IDs of the full dataset
+* x$IID : individual IDs of the full dataset
+* x$PRS : polygenic risk scores (PRSs), computed from the additive effects of GWAS summary statistics, of the full dataset
+
 
 ```
-V1 V2 V3 V4 V5
-ID_1 ID_1	1970 459 -0.00421272
-ID_2 ID_2	1990 535 0.00137912
-ID_3 ID_3	1970 432 0.00160997
-ID_4 ID_4	1976 469 -0.000112026
+   FID  IID          PRS
+1 ID_1 ID_1 -0.007288410
+2 ID_2 ID_2  0.029843100
+3 ID_3 ID_3 -0.000156035
+4 ID_4 ID_4 -0.007454570
 ```
 ```y``` contains the the following columns in order.
-* FID 
-* IID 
-* ALLELE_CT
-* NAMED_ALLELE_DOSAGE_SUM
-* SCORE1_AVG (polygenic risk scores (PRSs), computed from the additive effects of GWEIS summary statistics), of the full dataset 
+* y$FID : family IDs of the full dataset
+* y$IID : individual IDs of the full dataset
+* y$PRS : polygenic risk scores (PRSs), computed from the additive effects of GWEIS summary statistics), of the full dataset 
+
 
 ```
-V1 V2 V3 V4 V5
-ID_1 ID_1	1970 459 0.00180745
-ID_2 ID_2	1990 535 -0.00172071
-ID_3 ID_3	1970 432 0.000248408
-ID_4 ID_4	1976 469 -0.00144963
+   FID  IID          PRS
+1 ID_1 ID_1  1.80745e-03
+2 ID_2 ID_2 -1.72071e-03
+3 ID_3 ID_3  2.48408e-04
+4 ID_4 ID_4 -1.44963e-03
 ```
-```z``` contains the the following columns in order.
-* FID 
-* IID 
-* ALLELE_CT
-* NAMED_ALLELE_DOSAGE_SUM
-* SCORE1_AVG (polygenic risk scores (PRSs), computed from the interaction effects of GWEIS summary statistics), of the full dataset
+```z```  contains the the following columns in order.
+* z$FID : family IDs of the full dataset
+* z$IID : individual IDs of the full dataset
+* z$PRS : polygenic risk scores (PRSs), computed from the interaction effects of GWEIS summary statistics), of the full dataset
 
 
 See the topic PRS_quantitative (page 13) in manual.pdf for examples.
