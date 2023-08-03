@@ -409,9 +409,9 @@ z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 
 To perform the same on embedded data:
 ```
-a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, B_cov_discovery)
+a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
 trd <- a[c("ID", "A1", "OR")]
-b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, B_cov_discovery)
+b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 p <- PRS_binary(plink_path, DummyData, summary_input = trd)
@@ -636,9 +636,9 @@ y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score
 
 To perform the same on embedded data:
 ```
-a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Q_cov_discovery)
+a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
 trd <- a[c("ID", "A1", "BETA")]
-b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Q_cov_discovery)
+b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 p <- PRS_binary(plink_path, DummyData, summary_input = trd)
