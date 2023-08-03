@@ -445,9 +445,9 @@ PRS_gxe x E   0.2247446 0.5025321      0.4472244 0.6547131
 4 "ID_805" "ID_805" "0.0401077327720606"
 ```
 ```z$risk.values``` contains all the calculated individual risk scores using the target dataset (e.g. Model 5), when the outcome is binary. The columns denote the following in order.
-* FID
-* IID 
-* estimated risk value
+* z$FID : family IDs of the target dataset
+* z$IID : individual IDs of the target dataset
+* z$Risk.Values : estimated risk values of the target dataset
 
 Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)``` and ```summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 5) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 5, and insignificant in Model 5* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
 
@@ -462,6 +462,17 @@ p <- PRS_binary(plink_path, "mydata", summary_input = add)
 q <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = p, gxe_score = q)
 ```
+
+To perform the same on embedded data:
+```
+a <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
+add <- a[c("ID", "A1", "ADD_OR")]
+gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+p <- PRS_binary(plink_path, DummyData, summary_input = add)
+q <- PRS_binary(plink_path, DummyData, summary_input = gxe)
+summary_permuted_binary(Bphe_target, Bcov_target, iterations = 1000, add_score = p, gxe_score = q)
+```
+
 This outputs the p value of the fitted **permuted** model for **binary** outcome.
 
 
@@ -600,70 +611,63 @@ See the topic PRS_quantitative (page 13) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
-p <- PRS_quantitative(plink_path, "mydata", summary_input = a)
-q <- PRS_quantitative(plink_path, "mydata", summary_input = b[[1]])
-r <- PRS_quantitative(plink_path, "mydata", summary_input = b[[2]])
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+p <- PRS_quantitative(plink_path, "mydata", summary_input = trd)
+q <- PRS_quantitative(plink_path, "mydata", summary_input = add)
+r <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
 
 v <- summary_regular_quantitative("Qpt.txt", "Qct.txt", trd_score = p, Model = 1)
-w <- summary_regular_quantitative(""Qpt.txt", "Qct.txt", add_score = q, Model = 2)
+w <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 2)
 x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
 ```
-“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs (for demonstration, we used Model = 4 situation) both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. 
+“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. 
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
+
+To perform the same on embedded data:
+```
+a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Q_cov_discovery)
+trd <- a[c("ID", "A1", "BETA")]
+b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Q_cov_discovery)
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+p <- PRS_binary(plink_path, DummyData, summary_input = trd)
+q <- PRS_binary(plink_path, DummyData, summary_input = add)
+r <- PRS_binary(plink_path, DummyData, summary_input = gxe)
+
+v <- summary_regular_binary(Bphe_target, Bcov_target, trd_score = p, Model = 1)
+w <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, Model = 2)
+x <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 3)
+y <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 4)
+```
+Note: For demonstration, we used Model = 4 situation:
+
 **Output**
 ```
-Call:
-lm(formula = out ~ ., data = df_new)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--2.1824 -0.6360 -0.0455  0.4398  3.9346 
-
-Coefficients:
-                Estimate Std. Error t value Pr(>|t|)   
-(Intercept)    0.3965247  0.7666961   0.517  0.60566   
-E             -0.0157672  0.0744757  -0.212  0.83257   
-PRS_add       -0.0488255  0.0711937  -0.686  0.49371   
-PRS_gxe        0.0746073  0.0725750   1.028  0.30532   
-`PRS_gxe x E`  0.0009011  0.0786609   0.011  0.99087   
-V6            -0.0679999  0.0277280  -2.452  0.01514 * 
-V7            -0.0053487  0.0086598  -0.618  0.53758   
-V8             0.0423173  0.0491093   0.862  0.38999   
-V9             0.0882473  0.0478252   1.845  0.06664 . 
-V10           -0.0830620  0.0465820  -1.783  0.07624 . 
-V11           -0.0293785  0.0331433  -0.886  0.37657   
-V12            0.0205769  0.0147545   1.395  0.16484   
-V13           -0.0521727  0.0481595  -1.083  0.28010   
-V14           -0.0619072  0.0451513  -1.371  0.17204   
-V15           -0.0441643  0.0389190  -1.135  0.25797   
-V16           -0.0035800  0.0182968  -0.196  0.84509   
-V17            0.0133222  0.0394064   0.338  0.73570   
-V18            0.4620297  0.1431690   3.227  0.00148 **
-V19           -0.0239217  0.0145944  -1.639  0.10293   
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.9697 on 181 degrees of freedom
-Multiple R-squared:  0.1447,	Adjusted R-squared:  0.05965 
-F-statistic: 1.701 on 18 and 181 DF,  p-value: 0.04244
+              Coefficient  Std.Error Test.Statistic    pvalue
+E           -0.0157672060 0.07447570    -0.21170939 0.8325720
+PRS_add     -0.0488254674 0.07119371    -0.68581155 0.4937094
+PRS_gxe      0.0746073293 0.07257499     1.02800329 0.3053201
+PRS_gxe x E  0.0009011353 0.07866089     0.01145595 0.9908723
 ```
-```y[[1]][[1]]``` contains the target regular model summary output, when the outcome is quantitative. 
+```y$summary``` contains the target regular model summary output, when the outcome is quantitative. 
 
 ```
-ID_802 ID_802 -0.180057820294863
-ID_803 ID_803 0.402506322498664
-ID_804 ID_804 0.424579119997805
-ID_805 ID_805 0.583828103567573
-ID_806 ID_806 0.313724826923073
+  FID      IID      Risk.Values
+1 "ID_802" "ID_802" "-0.180057820294863"
+2 "ID_803" "ID_803" "0.402506322498664"
+3 "ID_804" "ID_804" "0.424579119997805"
+4 "ID_805" "ID_805" "0.583828103567573"
 ```
-```y[[2]]``` contains all the calculated individual risk scores using the target dataset (e.g. Model 4), when the outcome is quantitative. The columns denote the following in order.
-* FID
-* IID 
-* estimated risk value
+```y$risk.values``` contains all the calculated individual risk scores using the target dataset (e.g. Model 4), when the outcome is quantitative. The columns denote the following in order.
+* y$FID : family IDs of the target dataset
+* y$IID : individual IDs of the target dataset
+* y$Risk.Values : estimated risk values of the target dataset
 
 Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)``` and ```summary_permuted_quantitative("qpt.txt", "qct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 4) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 4, and insignificant in Model 4* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
 
