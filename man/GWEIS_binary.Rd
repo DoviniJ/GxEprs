@@ -3,7 +3,7 @@
 \name{GWEIS_binary}
 \alias{GWEIS_binary}
 \title{GWEIS_binary function
-This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects separately. It is recommended to save the outputs in separate user-specified files (see examples).}
+This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects. Users may save the outputs in separate user-specified files (see examples).}
 \usage{
 GWEIS_binary(plink_path, b_file, Bphe_discovery, Bcov_discovery, thread = 20)
 }
@@ -20,55 +20,45 @@ GWEIS_binary(plink_path, b_file, Bphe_discovery, Bcov_discovery, thread = 20)
 }
 \value{
 This function will perform GWEIS and output
-\item{B_out.add.sum}{GWEIS summary statistics with additive SNP effects}
-\item{B_out.gxe.sum}{GWEIS summary statistics with interaction SNP effects}
+\item{B_out.sum}{GWEIS summary statistics with additive and interaction SNP effects}
 }
 \description{
 GWEIS_binary function
-This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects separately. It is recommended to save the outputs in separate user-specified files (see examples).
+This function performs GWEIS using plink2 and outputs the GWEIS summary statistics with additive SNP effects and interaction SNP effects. Users may save the outputs in separate user-specified files (see examples).
 }
 \examples{
 \dontrun{ 
 x <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, 
 thread = 20)
 sink("B_out.add.sum") #to create a file in the working directory
-write.table(x[[1]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+write.table(x[c("ID", "A1", "ADD_OR")], sep = " ", 
+row.names = FALSE, quote = FALSE) #to write the output
 sink() #to save the output
 sink("B_out.gxe.sum") #to create a file in the working directory
-write.table(x[[2]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+write.table(x[c("ID", "A1", "INTERACTION_OR")], sep = " ", 
+row.names = FALSE, quote = FALSE) #to write the output
 sink() #to save the output
-head(x[[1]]) #to extract the head of all columns in GWEIS summary statistics of 
-additive SNP effects 
-x[[1]]$V1 #to extract the chromosome number (CHROM)
-x[[1]]$V2 #to extract the base pair position (POS)
-x[[1]]$V3 #to extract the SNP ID (ID)
-x[[1]]$V4 #to extract the reference allele (REF)
-x[[1]]$V5 #to extract the alternate allele (ALT)
-x[[1]]$V6 #to extract the minor allele (A1)
-x[[1]]$V7 #to extract whether firth regression is used (FIRTH?)
-x[[1]]$V8 #to extract the type of test performed (TEST)
-x[[1]]$V9 #to extract the nmber of allele observations (OBS_CT)
-x[[1]]$V10 #to extract the odds ration of the SNP effect (OR)
-x[[1]]$V11 #to extract the standard error of log odds (LOG(OR)_SE)
-x[[1]]$V12 #to extract the test statistic (Z_STAT)
-x[[1]]$V13 #to extract the p value (P)
-x[[1]]$V14 #to extract the error code (ERRCODE)
-head(x[[2]]) #to extract the head of all columns in GWEIS summary statistics of 
-interaction SNP effects 
-x[[2]]$V1 #to extract the chromosome number (CHROM)
-x[[2]]$V2 #to extract the base pair position (POS)
-x[[2]]$V3 #to extract the SNP ID (ID)
-x[[2]]$V4 #to extract the reference allele (REF)
-x[[2]]$V5 #to extract the alternate allele (ALT)
-x[[2]]$V6 #to extract the minor allele (A1)
-x[[2]]$V7 #to extract whether firth regression is used (FIRTH?)
-x[[2]]$V8 #to extract the type of test performed (TEST)
-x[[2]]$V9 #to extract the number of allele observations (OBS_CT)
-x[[2]]$V10 #to extract the odds ration of the SNP effect (OR)
-x[[2]]$V11 #to extract the standard error of log odds (LOG(OR)_SE)
-x[[2]]$V12 #to extract the test statistic (Z_STAT)
-x[[2]]$V13 #to extract the p value (P)
-x[[2]]$V14 #to extract the error code (ERRCODE)
+head(x) #to extract the head of all columns in GWEIS summary statistics of 
+additive and interaction SNP effects 
+x$CHROM #to extract the chromosome number 
+x$POS #to extract the base pair position
+x$ID #to extract the SNP ID
+x$REF #to extract the reference allele
+x$ALT #to extract the alternate allele 
+x$A1 #to extract the minor allele
+x$OBS_CT #to extract the number of allele observations 
+x$ADD_OR #to extract the odds ratios of additive SNP effects
+x$ADD_LOG_OR_SE #to extract the standard errors of log odds of 
+additive SNP effects
+x$ADD_Z_STAT #to extract the test statistics of additive SNP effects
+x$ADD_P #to extract the p values of additive SNP effects
+x$INTERACTION_OR #to extract the odds ratios of the SNP effects of 
+interaction SNP effects
+x$INTERACTION_LOG_OR_SE #to extract the standard errors of log odds 
+of interaction SNP effects
+x$INTERACTION_Z_STAT #to extract the test statistics of interaction 
+SNP effects
+x$INTERACTION_P #to extract the p values of interaction SNP effects
 }
 }
 \keyword{gwies}

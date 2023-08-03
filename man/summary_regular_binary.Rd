@@ -29,8 +29,8 @@ summary_regular_binary(
 }
 \value{
 This function will output
-\item{Bsummary.txt}{the summary of the fitted model}
-\item{Individual_risk_values.txt}{the estimated risk values of individuals in the target sample}
+\item{Bsummary}{the summary of the fitted model}
+\item{Individual_risk_values}{the estimated risk values of individuals in the target sample}
 }
 \description{
 summary_regular_binary function
@@ -39,10 +39,13 @@ This function outputs the summary of regular model and final risk score values o
 \examples{
 \dontrun{ 
 a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-p <- PRS_binary(plink_path, DummyData, summary_input = a)
-q <- PRS_binary(plink_path, DummyData, summary_input = b[[1]])
-r <- PRS_binary(plink_path, DummyData, summary_input = b[[2]])
+add <- b[c("ID", "A1", "ADD_OR")]
+gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+p <- PRS_binary(plink_path, DummyData, summary_input = trd)
+q <- PRS_binary(plink_path, DummyData, summary_input = add)
+r <- PRS_binary(plink_path, DummyData, summary_input = gxe)
 summary_regular_binary(Bphe_target, Bcov_target, 
                             trd_score = p,
                             Model = 1)
@@ -62,36 +65,14 @@ x <- summary_regular_binary(Bphe_target, Bcov_target,
                             gxe_score = r, 
                             Model = 5) 
 sink("Bsummary.txt") #to create a file in the working directory
-print(x[[1]][[1]]) #to write the output
+print(x$summary) #to write the output
 sink() #to save the output
 sink("Individual_risk_values.txt") #to create a file in the working directory
-write.table(x[[2]], sep = " ", row.names = FALSE, col.names = FALSE, 
+write.table(x$risk.values, sep = " ", row.names = FALSE, col.names = FALSE, 
 quote = FALSE) #to write the output
 sink() #to save the output
-x[[1]][[1]] #to obtain the model summary output
-x[[1]][[2]] #to extract "Call" of the model summary
-x[[1]][[3]] #to extract terms of the model summary
-x[[1]][[4]] #to extract family information of the model summary
-x[[1]][[5]] #to extract deviance information of the model summary
-x[[1]][[6]] #to extract AIC information of the model summary
-x[[1]][[7]] #to extract contrasts of the model summary
-x[[1]][[8]] #to extract degrees of freedom (df) of residuals of 
-            #the model summary
-x[[1]][[9]] #to extract "Null deviance" of the model summary
-x[[1]][[10]] #to extract degrees of freedom (df) of null deviance 
-             #of the model summary
-x[[1]][[11]] #to extract "iter" of the model summary
-x[[1]][[12]] #to extract deviance residuals 
-x[[1]][[13]] #to extract regrerssion coefficients of the model summary
-x[[1]][[14]] #to extract aliesed information of the model summary
-x[[1]][[15]] #to extract dispersion information of the model summary
-x[[1]][[16]] #to extract degrees of freedom of the model summary
-x[[1]][[17]] #to extract unscaled variance covariance matrix of all variables
-x[[1]][[18]] #to extract scaled variance covariance matrix of all variables
-head(x[[2]]) #to view the head of the predicted risk values of target individuals
-x[[2]][,1] #to extract the column containing family ID's  
-x[[2]][,2] #to extract the column containing individual ID's
-x[[2]][,3] #to extract the column containing predicted risk scores 
+x$summary #to obtain the model summary output
+x$risk.values #to obtain the predicted risk values of target individuals
 }
 }
 \keyword{regression}

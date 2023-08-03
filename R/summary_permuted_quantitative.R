@@ -13,8 +13,10 @@
 #' \item{Q_permuted_p.txt}{the p value of the permuted model}
 #' @examples \dontrun{ 
 #' a <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
-#' p <- PRS_quantitative(plink_path, DummyData, summary_input = a[[1]])
-#' q <- PRS_quantitative(plink_path, DummyData, summary_input = a[[2]])
+#' add <- a[c("ID", "A1", "ADD_BETA")]
+#' gxe <- a[c("ID", "A1", "INTERACTION_BETA")]
+#' p <- PRS_quantitative(plink_path, DummyData, summary_input = add)
+#' q <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 #' x <- summary_permuted_quantitative(Qphe_target, Qcov_target, iterations = 1000, 
 #' add_score = p, gxe_score = q)
 #' x 
@@ -44,10 +46,10 @@ summary_permuted_quantitative <- function(Qphe_target, Qcov_target, iterations =
   m1 <- match(dat$IID, prs1$IID.x)
   out = fam$PHENOTYPE[m1]
   cov=scale(dat$V3[m1])
-  ps1=scale(prs1$V5)
-  ps2=scale(prs2$V5)
-  xv1=scale(prs1$V5*cov)
-  xv2=scale(prs2$V5*cov)
+  ps1=scale(prs1$PRS)
+  ps2=scale(prs2$PRS)
+  xv1=scale(prs1$PRS*cov)
+  xv2=scale(prs2$PRS*cov)
   cov2=scale(cov^2)
   if(n_confounders == 0){
     pn=iterations; pp_gxe_x_E=0
@@ -59,7 +61,7 @@ summary_permuted_quantitative <- function(Qphe_target, Qcov_target, iterations =
     percentage <- (i / iterations) * 100
     cat(sprintf("\rProgress: %3.0f%%", percentage))
       sv2=sample(seq(1, length(out)))
-      xv2=scale(prs2$V5[sv2]*cov)
+      xv2=scale(prs2$PRS[sv2]*cov)
     df_new <- as.data.frame(cbind(out, cov, ps1, ps2, xv2))
     colnames(df_new)[1] <- "out"
     colnames(df_new)[2] <- "E"
@@ -83,7 +85,7 @@ summary_permuted_quantitative <- function(Qphe_target, Qcov_target, iterations =
     percentage <- (i / iterations) * 100
     cat(sprintf("\rProgress: %3.0f%%", percentage))
       sv2=sample(seq(1, length(out)))
-      xv2=scale(prs2$V5[sv2]*cov)
+      xv2=scale(prs2$PRS[sv2]*cov)
       df_new <- as.data.frame(cbind(out, cov, ps1, ps2, xv2, conf_var))
       colnames(df_new)[1] <- "out"
       colnames(df_new)[2] <- "E"

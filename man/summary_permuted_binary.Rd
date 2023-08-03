@@ -26,7 +26,7 @@ summary_permuted_binary(
 }
 \value{
 This function will output
-\item{B_permuted_p.txt}{the p value of the permuted model}
+\item{B_permuted_p}{the p value of the permuted model}
 }
 \description{
 summary_permuted_binary function
@@ -35,8 +35,10 @@ This function outputs the p value of permuted model in the target dataset, using
 \examples{
 \dontrun{ 
 a <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-p <- PRS_binary(plink_path, DummyData, summary_input = a[[1]])
-q <- PRS_binary(plink_path, DummyData, summary_input = a[[2]])
+add <- a[c("ID", "A1", "ADD_OR")]
+gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+p <- PRS_binary(plink_path, DummyData, summary_input = add)
+q <- PRS_binary(plink_path, DummyData, summary_input = gxe)
 x <- summary_permuted_binary(Bphe_target, Bcov_target, iterations = 1000, 
 add_score = p, gxe_score = q)
 x

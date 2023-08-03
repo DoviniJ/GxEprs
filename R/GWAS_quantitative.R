@@ -15,23 +15,21 @@
 #' x <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery, 
 #' thread = 20)
 #' sink("Q_out.trd.sum") #to create a file in the working directory
-#' write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+#' write.table(x[c("ID", "A1", "BETA")], sep = " ", 
+#' row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
 #' head(x) #to obtain the head of GWAS summary statistics of additive SNP effects
-#' x$V1 #to extract the chromosome number (CHROM)
-#' x$V2 #to extract the base pair position (POS)
-#' x$V3 #to extract the SNP ID (ID)
-#' x$V4 #to extract the reference allele (REF)
-#' x$V5 #to extract the alternate allele (ALT)
-#' x$V6 #to extract the minor allele (A1)
-#' x$V7 #to extract whether firth regression is used (FIRTH?)
-#' x$V8 #to extract the type of test performed (TEST)
-#' x$V9 #to extract the number of allele observations (OQS_CT)
-#' x$V10 #to extract the odds ration of the SNP effect (OR)
-#' x$V11 #to extract the standard error of log odds (LOG(OR)_SE)
-#' x$V12 #to extract the test statistic (Z_STAT)
-#' x$V13 #to extract the p value (P)
-#' x$V14 #to extract the error code (ERRCODE)
+#' x$CHROM #to extract the chromosome number 
+#' x$POS #to extract the base pair position 
+#' x$ID #to extract the SNP ID 
+#' x$REF #to extract the reference allele 
+#' x$ALT #to extract the alternate allele 
+#' x$A1 #to extract the minor allele 
+#' x$OBS_CT #to extract the number of allele observations 
+#' x$BETA #to extract the SNP effects
+#' x$SE #to extract the standard errors of the SNP effects
+#' x$T_STAT #to extract the test statistics 
+#' x$P #to extract the p values 
 #' }
 GWAS_quantitative <- function(plink_path, b_file, Qphe_discovery, Qcov_discovery, thread = 20){  
   cov_file <- read.table(Qcov_discovery)
@@ -54,6 +52,8 @@ GWAS_quantitative <- function(plink_path, b_file, Qphe_discovery, Qcov_discovery
                   " --out ", tempdir(),"/Q_gwas"))
   plink_output <- read.table(paste0(tempdir(), "/Q_gwas.PHENO1.glm.linear"), header = FALSE)
   filtered_output <- plink_output[(plink_output$V7=="ADD"),]
-  Q_out.trd.sum <- filtered_output
+  colnames(filtered_output) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "TEST", "OBS_CT", "BETA", "SE", "T_STAT", "P", "ERRCODE")
+  Q_out.trd.sum <- filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "BETA", "SE", "T_STAT", "P")]
+  rownames(Q_out.trd.sum) <- NULL
   return(Q_out.trd.sum)
 }

@@ -8,25 +8,26 @@
 #' @importFrom stats binomial fitted.values glm lm
 #' @importFrom utils read.table write.table
 #' @return This function will output
-#' \item{Q_trd.sscore}{PRSs for each individual}
+#' \item{prs.sscore}{PRSs for each individual}
 #' @examples \dontrun{ 
 #' a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
+#' trd <- a[c("ID", "A1", "BETA")]
 #' b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
-#' x <- PRS_quantitative(plink_path, DummyData, summary_input = a)
+#' add <- b[c("ID", "A1", "ADD_BETA")]
+#' gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
+#' x <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
 #' sink("Q_trd.sscore") #to create a file in the working directory
 #' write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
 #' head(x) #to read the head of all columns in the output
-#' x$V1 #to extract the family ID's of target dataset (FID)
-#' x$V2 #to extract the individual ID's of target dataset (IID)
-#' x$V3 #to extract the number of alleles across scored variants (ALLELE_CT)
-#' x$V4 #to extract the sum of named allele dosages (NAMED_ALLELE_DOSAGE_SUM)
-#' x$V5 #to extract the polygenic risk scores (SCORE1_AVG)
-#' y <- PRS_quantitative(plink_path, DummyData, summary_input = b[[1]])
+#' x$FID #to extract the family ID's of full dataset
+#' x$IID #to extract the individual ID's of full dataset 
+#' x$PRS #to extract the polygenic risk scores of full dataset
+#' y <- PRS_quantitative(plink_path, DummyData, summary_input = add)
 #' sink("Q_add.sscore") #to create a file in the working directory
 #' write.table(y, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
-#' z <- PRS_quantitative(plink_path, DummyData, summary_input = b[[2]])
+#' z <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 #' sink("Q_gxe.sscore") #to create a file in the working directory
 #' write.table(z, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
@@ -37,7 +38,9 @@ PRS_quantitative <- function(plink_path, b_file, summary_input){
   sink()            
   runPLINK <- function(PLINKoptions = "") system(paste(plink_path, PLINKoptions))
   log_file <- runPLINK(paste0(" --bfile ", b_file, 
-                    " --score ", noquote(paste0(tempdir(), "/summary_stats")), " 3 6 9 header --out ", tempdir(),"/prs"))
+                    " --score ", noquote(paste0(tempdir(), "/summary_stats")), " 1 2 3 header --out ", tempdir(),"/prs"))
   out = read.table(paste0(tempdir(), "/prs.sscore"), header = F)
+  out <- out[,c(1, 2, 5)]
+  colnames(out) = c("FID", "IID", "PRS")
   return(out)
 }

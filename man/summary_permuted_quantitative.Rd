@@ -35,8 +35,10 @@ This function outputs the p value of permuted model in the target dataset, using
 \examples{
 \dontrun{ 
 a <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
-p <- PRS_quantitative(plink_path, DummyData, summary_input = a[[1]])
-q <- PRS_quantitative(plink_path, DummyData, summary_input = a[[2]])
+add <- a[c("ID", "A1", "ADD_BETA")]
+gxe <- a[c("ID", "A1", "INTERACTION_BETA")]
+p <- PRS_quantitative(plink_path, DummyData, summary_input = add)
+q <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 x <- summary_permuted_quantitative(Qphe_target, Qcov_target, iterations = 1000, 
 add_score = p, gxe_score = q)
 x 

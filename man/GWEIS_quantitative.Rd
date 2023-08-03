@@ -26,8 +26,7 @@ GWEIS_quantitative(
 }
 \value{
 This function will perform GWEIS and output
-\item{Q_out.add.sum}{GWEIS summary statistics with additive SNP effects}
-\item{Q_out.gxe.sum}{GWEIS summary statistics with interaction SNP effects}
+\item{Q_out.sum}{GWEIS summary statistics with additive and interaction SNP effects}
 }
 \description{
 GWEIS_quantitative function
@@ -35,44 +34,38 @@ This function performs GWEIS using plink2 and outputs the GWEIS summary statisti
 }
 \examples{
 \dontrun{ 
-x <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery, 
+x <- GWEIS_quantitative (plink_path, DummyData, Qphe_discovery, Qcov_discovery, 
 thread = 20)
 sink("Q_out.add.sum") #to create a file in the working directory
-write.table(x[[1]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+write.table(x[c("ID", "A1", "ADD_BETA")], sep = " ", 
+row.names = FALSE, quote = FALSE) #to write the output
 sink() #to save the output
 sink("Q_out.gxe.sum") #to create a file in the working directory
-write.table(x[[2]], sep = " ", row.names = FALSE, quote = FALSE) #to write the output
+write.table(x[c("ID", "A1", "INTERACTION_BETA")], sep = " ", 
+row.names = FALSE, quote = FALSE) #to write the output
 sink() #to save the output
-head(x[[1]]) #to read the head of all columns in GWEIS summary statistics of  
-additive SNP effects 
-x[[1]]$V1 #to extract the chromosome number (CHROM)
-x[[1]]$V2 #to extract the base pair position (POS)
-x[[1]]$V3 #to extract the SNP ID (ID)
-x[[1]]$V4 #to extract the reference allele (REF)
-x[[1]]$V5 #to extract the alternate allele (ALT)
-x[[1]]$V6 #to extract the minor allele (A1)
-x[[1]]$V7 #to extract the type of test performed (TEST)
-x[[1]]$V8 #to extract the nmber of allele observations (OBS_CT)
-x[[1]]$V9 #to extract the SNP effect (BETA)
-x[[1]]$V10 #to extract the standard error of each SNP effect (SE)
-x[[1]]$V11 #to extract the test statistic (T_STAT)
-x[[1]]$V12 #to extract the p value (P)
-x[[1]]$V13 #to extract the error code (ERRCODE)
-head(x[[2]]) #to read the head of all columns in GWEIS summary statistics of 
-interaction SNP effects 
-x[[2]]$V1 #to extract the chromosome number (CHROM)
-x[[2]]$V2 #to extract the base pair position (POS)
-x[[2]]$V3 #to extract the SNP ID (ID)
-x[[2]]$V4 #to extract the reference allele (REF)
-x[[2]]$V5 #to extract the alternate allele (ALT)
-x[[2]]$V6 #to extract the minor allele (A1)
-x[[2]]$V7 #to extract the type of test performed (TEST)
-x[[2]]$V8 #to extract the number of allele observations (OBS_CT)
-x[[2]]$V9 #to extract the SNP effect (BETA)
-x[[2]]$V10 #to extract the standard error of each SNP effect (SE)
-x[[2]]$V11 #to extract the test statistic (T_STAT)
-x[[2]]$V12 #to extract the p value (P)
-x[[2]]$V13 #to extract the error code (ERRCODE)
+head(x) #to extract the head of all columns in GWEIS summary statistics of 
+additive and interaction SNP effects 
+x$CHROM #to extract the chromosome number 
+x$POS #to extract the base pair position
+x$ID #to extract the SNP ID
+x$REF #to extract the reference allele
+x$ALT #to extract the alternate allele 
+x$A1 #to extract the minor allele
+x$OBS_CT #to extract the number of allele observations 
+x$ADD_BETA #to extract the additive SNP effects
+x$ADD_SE #to extract the standard errors of the 
+additive SNP effects
+x$ADD_T_STAT #to extract the test statistics of additive 
+SNP effects
+x$ADD_P #to extract the p values of additive SNP effects
+x$INTERACTION_BETA #to extract the interaction SNP effects
+x$INTERACTION_SE #to extract the standard errors of the 
+interaction SNP effects
+x$INTERACTION_T_STAT #to extract the test statistics of 
+interaction SNP effects
+x$INTERACTION_P #to extract the p values of interaction 
+SNP effects
 }
 }
 \keyword{gwies}
