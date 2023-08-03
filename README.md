@@ -641,14 +641,14 @@ trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
-p <- PRS_binary(plink_path, DummyData, summary_input = trd)
-q <- PRS_binary(plink_path, DummyData, summary_input = add)
-r <- PRS_binary(plink_path, DummyData, summary_input = gxe)
+p <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
+q <- PRS_quantitative(plink_path, DummyData, summary_input = add)
+r <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 
-v <- summary_regular_binary(Bphe_target, Bcov_target, trd_score = p, Model = 1)
-w <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, Model = 2)
-x <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 3)
-y <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 4)
+v <- summary_regular_quantitative(Qphe_target, Qcov_target, trd_score = p, Model = 1)
+w <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, Model = 2)
+x <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, gxe_score = r, Model = 3)
+y <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, gxe_score = r, Model = 4)
 ```
 Note: For demonstration, we used Model = 4 situation:
 
