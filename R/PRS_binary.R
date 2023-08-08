@@ -32,14 +32,20 @@
 #' write.table(z, sep = " ", row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
 #' }
-PRS_binary <- function(plink_path, b_file, summary_input){               
-  sink(paste0(tempdir(), "/summary_stats"))
+PRS_binary <- function(plink_path, b_file, summary_input){ 
+  os_name <- Sys.info()["sysname"]
+   if (startsWith(os_name, "Win")) {
+     slash <- paste0("\\")
+   } else {
+     slash <- paste0("/")
+   }              
+  sink(paste0(tempdir(), slash, "summary_stats"))
   write.table(summary_input, sep = " ", row.names = FALSE, quote = FALSE)
   sink() 
   runPLINK <- function(PLINKoptions = "") system(paste(plink_path, PLINKoptions))
   log_file <- runPLINK(paste0(" --bfile ", b_file, 
-                    " --score ", noquote(paste0(tempdir(), "/summary_stats")), " 1 2 3 header --out ", tempdir(),"/prs"))
-  out = read.table(paste0(tempdir(), "/prs.sscore"), header = F)
+                    " --score ", noquote(paste0(tempdir(), slash, "summary_stats")), " 1 2 3 header --out ", tempdir(), slash, "prs"))
+  out = read.table(paste0(tempdir(), slash, "prs.sscore"), header = F)
   out <- out[,c(1, 2, 5)]
   colnames(out) = c("FID", "IID", "PRS")
   return(out)

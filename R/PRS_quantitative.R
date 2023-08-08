@@ -33,12 +33,18 @@
 #' sink() #to save the output
 #' }
 PRS_quantitative <- function(plink_path, b_file, summary_input){    
-  sink(paste0(tempdir(), "/summary_stats"))
+  os_name <- Sys.info()["sysname"]
+   if (startsWith(os_name, "Win")) {
+     slash <- paste0("\\")
+   } else {
+     slash <- paste0("/")
+   }  
+  sink(paste0(tempdir(), slash, "summary_stats"))
   write.table(summary_input, sep = " ", row.names = FALSE, quote = FALSE)
   sink()            
   runPLINK <- function(PLINKoptions = "") system(paste(plink_path, PLINKoptions))
   log_file <- runPLINK(paste0(" --bfile ", b_file, 
-                    " --score ", noquote(paste0(tempdir(), "/summary_stats")), " 1 2 3 header --out ", tempdir(),"/prs"))
+                    " --score ", noquote(paste0(tempdir(), slash, "summary_stats")), " 1 2 3 header --out ", tempdir(), slash, "prs"))
   out = read.table(paste0(tempdir(), "/prs.sscore"), header = F)
   out <- out[,c(1, 2, 5)]
   colnames(out) = c("FID", "IID", "PRS")

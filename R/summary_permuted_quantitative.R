@@ -22,6 +22,12 @@
 #' x 
 #' }
 summary_permuted_quantitative <- function(Qphe_target, Qcov_target, iterations = 1000, add_score, gxe_score){
+  os_name <- Sys.info()["sysname"]
+   if (startsWith(os_name, "Win")) {
+     slash <- paste0("\\")
+   } else {
+     slash <- paste0("/")
+   }  
   cov_file <- read.table(Qcov_target)
   n_confounders = ncol(cov_file) - 4
   fam=read.table(Qphe_target, header=F) 
@@ -29,17 +35,17 @@ summary_permuted_quantitative <- function(Qphe_target, Qcov_target, iterations =
   dat=read.table(Qcov_target, header=F)
   colnames(dat)[1] <- "FID"
   colnames(dat)[2] <- "IID"
-  sink(paste0(tempdir(), "/add_score"))
+  sink(paste0(tempdir(), slash, "add_score"))
   write.table(add_score, sep = " ", row.names = FALSE, quote = FALSE)
   sink()
-  prs1_all=read.table(paste0(tempdir(), "/add_score"), header=T)
+  prs1_all=read.table(paste0(tempdir(), slash, "add_score"), header=T)
   colnames(prs1_all)[1] <- "FID"
   colnames(prs1_all)[2] <- "IID"
   prs1=merge(fam, prs1_all, by = "FID")
-  sink(paste0(tempdir(), "/gxe_score"))
+  sink(paste0(tempdir(), slash, "gxe_score"))
   write.table(gxe_score, sep = " ", row.names = FALSE, quote = FALSE)
   sink()
-  prs2_all=read.table(paste0(tempdir(), "/gxe_score"), header=T)
+  prs2_all=read.table(paste0(tempdir(), slash, "gxe_score"), header=T)
   colnames(prs2_all)[1] <- "FID"
   colnames(prs2_all)[2] <- "IID"
   prs2=merge(fam, prs2_all, by = "FID")

@@ -46,6 +46,12 @@
 #' SNP effects
 #' }
 GWEIS_quantitative <- function(plink_path, b_file, Qphe_discovery, Qcov_discovery, thread = 20){
+  os_name <- Sys.info()["sysname"]
+   if (startsWith(os_name, "Win")) {
+     slash <- paste0("\\")
+   } else {
+     slash <- paste0("/")
+   }
   cov_file <- read.table(Qcov_discovery)
   n_confounders = ncol(cov_file) - 4
   if(n_confounders > 0){
@@ -63,12 +69,20 @@ GWEIS_quantitative <- function(plink_path, b_file, Qphe_discovery, Qcov_discover
                 " --parameters ", param_vec, 
                 " --allow-no-sex --threads ", 
                 thread,
-                " --out ", tempdir(),"/Q_gweis"))
-  plink_output <- read.table(paste0(tempdir(), "/Q_gweis.PHENO1.glm.linear"), header = FALSE)
-  filtered_output <- as.data.frame(plink_output[(plink_output$V7=="ADD"),])
-  colnames(filtered_output) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "TEST", "OBS_CT", "ADD_BETA", "ADD_SE", "ADD_T_STAT", "ADD_P", "ADD_ERRCODE")
-  filtered_output2 <- plink_output[(plink_output$V7=="ADDxCOVAR1"),]
-  colnames(filtered_output2) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "TEST", "OBS_CT", "INTERACTION_BETA", "INTERACTION_SE", "INTERACTION_T_STAT", "INTERACTION_P", "INTERACTION_ERRCODE")
+                " --out ", tempdir(), slash, "Q_gweis"))
+  first_line <- readLines(paste0(tempdir(), slash, "Q_gweis.PHENO1.glm.linear"), n = 1)
+  col_names <- strsplit(first_line, "\t")[[1]]
+  col_names[1] <- sub("#", "", col_names[1])
+  plink_output <- read.table(paste0(tempdir(), slash, "Q_gweis.PHENO1.glm.linear"), skip = 1, col.names = col_names, sep = "\t")
+  filtered_output <- as.data.frame(plink_output[(plink_output$TEST=="ADD"),])
+  colnames(filtered_output)[c(grep("BETA", colnames(filtered_output)), grep("SE", colnames(filtered_output)), 
+                           grep("T_STAT", colnames(filtered_output)), grep("^\\bP\\b$", colnames(filtered_output)), 
+                           grep("ERRCODE", colnames(filtered_output)))] <- c("ADD_BETA", "ADD_SE", "ADD_T_STAT", "ADD_P", "ADD_ERRCODE")
+  filtered_output2 <- plink_output[(plink_output$TEST=="ADDxCOVAR1"),]
+  colnames(filtered_output2)[c(grep("BETA", colnames(filtered_output2)), grep("SE", colnames(filtered_output2)), 
+                           grep("T_STAT", colnames(filtered_output2)), grep("^\\bP\\b$", colnames(filtered_output2)), 
+                           grep("ERRCODE", colnames(filtered_output2)))] <- c("INTERACTION_BETA", "INTERACTION_SE", "INTERACTION_T_STAT", 
+										"INTERACTION_P", "INTERACTION_ERRCODE")
   out <- cbind(filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "ADD_BETA", "ADD_SE", "ADD_T_STAT", "ADD_P")], filtered_output2[c("INTERACTION_BETA", "INTERACTION_SE", "INTERACTION_T_STAT", "INTERACTION_P")])
   rownames(out) <- NULL 
   return(out)

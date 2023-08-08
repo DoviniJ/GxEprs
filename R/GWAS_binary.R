@@ -32,6 +32,12 @@
 #' x$P #to extract the p values 
 #' }
 GWAS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thread = 20){  
+  os_name <- Sys.info()["sysname"]
+   if (startsWith(os_name, "Win")) {
+     slash <- paste0("\\")
+   } else {
+     slash <- paste0("/")
+   }
   cov_file <- read.table(Bcov_discovery)
   n_confounders = ncol(cov_file) - 4
   if(n_confounders > 0){
@@ -49,12 +55,15 @@ GWAS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thre
                   " --parameters ", param_vec, 
                   " --allow-no-sex --threads ", 
                   thread,
-                  " --out ", tempdir(),"/B_gwas"))
-  plink_output <- read.table(paste0(tempdir(), "/B_gwas.PHENO1.glm.logistic.hybrid"), header = FALSE)
-  filtered_output <- plink_output[(plink_output$V8=="ADD"),]
-  filtered_output$V10 = log(filtered_output$V10)
-  colnames(filtered_output) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "FIRTH", "TEST", "OBS_CT", "OR", "LOG_OR_SE", "Z_STAT", "P", "ERRCODE")
-  B_out.trd.sum <- filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "OR", "LOG_OR_SE", "Z_STAT", "P")]
+                  " --out ", tempdir(), slash, "B_gwas"))
+  first_line <- readLines(paste0(tempdir(), slash, "B_gwas.PHENO1.glm.logistic.hybrid"), n = 1)
+  col_names <- strsplit(first_line, "\t")[[1]]
+  col_names[1] <- sub("#", "", col_names[1])
+  plink_output <- read.table(paste0(tempdir(), slash, "B_gwas.PHENO1.glm.logistic.hybrid"), skip = 1, col.names = col_names, sep = "\t")
+  filtered_output <- plink_output[(plink_output$TEST=="ADD"),]
+  filtered_output$OR = log(filtered_output$OR)
+  B_out.trd.sum <- filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "OR", colnames(filtered_output)[grep("^LOG", colnames(filtered_output))], "Z_STAT", "P")]
+  colnames(B_out.trd.sum) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "OR", "LOG_OR_SE", "Z_STAT", "P")
   rownames(B_out.trd.sum) <- NULL
   return(B_out.trd.sum)
 }

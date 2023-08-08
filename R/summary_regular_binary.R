@@ -8,7 +8,7 @@
 #' @param Model Specify the model number (1: y = PRS_trd + E + PRS_trd x E + confounders, 2: y = PRS_add + E + PRS_add x E + confounders, 3: y = PRS_add + E + PRS_gxe x E + confounders, 4: y = PRS_add + E + PRS_gxe + PRS_gxe x E + confounders, 5: y = PRS_add + E + E^2 + PRS_gxe + PRS_gxe x E + confounders, where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.)
 #' @keywords regression summary risk scores
 #' @export 
-#' @importFrom stats binomial fitted.values glm lm
+#' @importFrom stats binomial fitted.values glm lm na.omit
 #' @importFrom utils read.table write.table
 #' @return This function will output
 #' \item{Bsummary}{the summary of the fitted model}
@@ -51,6 +51,12 @@
 #' x$risk.values #to obtain the predicted risk values of target individuals
 #' }
 summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, add_score = NULL, gxe_score = NULL, Model){
+  os_name <- Sys.info()["sysname"]
+   if (startsWith(os_name, "Win")) {
+     slash <- paste0("\\")
+   } else {
+     slash <- paste0("/")
+   }  
   cov_file <- read.table(Bcov_target)
   n_confounders = ncol(cov_file) - 4
   fam=read.table(Bphe_target, header=F) 
@@ -58,12 +64,14 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
   dat=read.table(Bcov_target, header=F)
   colnames(dat)[1] <- "FID"
   colnames(dat)[2] <- "IID"
+  df=merge(fam, dat, by = "IID", sort=F)
+  df=na.omit(df)
   if(!is.null(trd_score)){
-    sink(paste0(tempdir(), "/trd_score"))
+    sink(paste0(tempdir(), slash, "trd_score"))
     write.table(trd_score, sep = " ", row.names = FALSE, quote = FALSE)
     sink()
-    prs0_all=read.table(paste0(tempdir(), "/trd_score"), header=T)
-    prs0=merge(fam, prs0_all, by = "FID")
+    prs0_all=read.table(paste0(tempdir(), slash, "trd_score"), header=T)
+    prs0=merge(fam, prs0_all, by = "FID", sort=F)
     m1 <- match(dat$IID, prs0$IID.x)     
     ps0=scale(prs0$PRS)
     out = fam$PHENOTYPE[m1]
@@ -72,11 +80,11 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
     cov2=scale(cov^2)
   }
   if(!is.null(add_score)){
-    sink(paste0(tempdir(), "/add_score"))
+    sink(paste0(tempdir(), slash, "add_score"))
     write.table(add_score, sep = " ", row.names = FALSE, quote = FALSE)
     sink()
-    prs1_all=read.table(paste0(tempdir(), "/add_score"), header=T)
-    prs1=merge(fam, prs1_all, by = "FID")
+    prs1_all=read.table(paste0(tempdir(), slash, "add_score"), header=T)
+    prs1=merge(fam, prs1_all, by = "FID", sort=F)
     m1 <- match(dat$IID, prs1$IID.x)
     ps1=scale(prs1$PRS)
     out = fam$PHENOTYPE[m1]
@@ -85,11 +93,11 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
     cov2=scale(cov^2)
   }
   if(!is.null(gxe_score)){
-    sink(paste0(tempdir(), "/gxe_score"))
+    sink(paste0(tempdir(), slash, "gxe_score"))
     write.table(gxe_score, sep = " ", row.names = FALSE, quote = FALSE)
     sink()
-    prs2_all=read.table(paste0(tempdir(), "/gxe_score"), header=T)
-    prs2=merge(fam, prs2_all, by = "FID")
+    prs2_all=read.table(paste0(tempdir(), slash, "gxe_score"), header=T)
+    prs2=merge(fam, prs2_all, by = "FID", sort=F)
     m1 <- match(dat$IID, prs2$IID.x)
     ps2=scale(prs2$PRS)
     out = fam$PHENOTYPE[m1]
@@ -125,7 +133,7 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
     rownames(out1) <- c("E", "PRS_trd", "PRS_trd x E")
     out1 <- as.matrix(out1)
-    out2 <- cbind(fam$FID[m1], fam$IID[m1], m_fit)
+    out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
     out2 <- as.matrix(out2)
     out_all <- list(out1, out2)
@@ -159,7 +167,7 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
     rownames(out1) <- c("E", "PRS_add", "PRS_add x E")
     out1 <- as.matrix(out1)
-    out2 <- cbind(fam$FID[m1], fam$IID[m1], m_fit)
+    out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
     out2 <- as.matrix(out2)
     out_all <- list(out1, out2)
@@ -193,7 +201,7 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
     rownames(out1) <- c("E", "PRS_add", "PRS_gxe x E")
     out1 <- as.matrix(out1)
-    out2 <- cbind(fam$FID[m1], fam$IID[m1], m_fit)
+    out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
     out2 <- as.matrix(out2)
     out_all <- list(out1, out2)
@@ -229,7 +237,7 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
     rownames(out1) <- c("E", "PRS_add", "PRS_gxe", "PRS_gxe x E")
     out1 <- as.matrix(out1)
-    out2 <- cbind(fam$FID[m1], fam$IID[m1], m_fit)
+    out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
     out2 <- as.matrix(out2)
     out_all <- list(out1, out2)
@@ -267,7 +275,7 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
     rownames(out1) <- c("E", "E squared", "PRS_add", "PRS_gxe", "PRS_gxe x E")
     out1 <- as.matrix(out1)
-    out2 <- cbind(fam$FID[m1], fam$IID[m1], m_fit)
+    out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
     out2 <- as.matrix(out2)
     out_all <- list(out1, out2)
@@ -275,4 +283,3 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, trd_score = NULL, a
   }
   return(out_all)
 }
-

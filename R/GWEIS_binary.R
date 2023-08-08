@@ -45,6 +45,12 @@
 #' x$INTERACTION_P #to extract the p values of interaction SNP effects
 #' }
 GWEIS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thread = 20){
+  os_name <- Sys.info()["sysname"]
+   if (startsWith(os_name, "Win")) {
+     slash <- paste0("\\")
+   } else {
+     slash <- paste0("/")
+   }
   cov_file <- read.table(Bcov_discovery)
   n_confounders = ncol(cov_file) - 4
   if(n_confounders > 0){
@@ -62,16 +68,24 @@ GWEIS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thr
                 " --parameters ", param_vec, 
                 " --allow-no-sex --threads ", 
                 thread,
-                " --out ", tempdir(),"/B_gweis"))
-  plink_output <- read.table(paste0(tempdir(), "/B_gweis.PHENO1.glm.logistic.hybrid"), header = FALSE)
-  filtered_output <- as.data.frame(plink_output[(plink_output$V8=="ADD"),])
-  filtered_output$V10 = log(filtered_output$V10)
-  colnames(filtered_output) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "FIRTH", "TEST", "OBS_CT", "ADD_OR", "ADD_LOG_OR_SE", "ADD_Z_STAT", "ADD_P", "ADD_ERRCODE")
-  filtered_output2 <- plink_output[(plink_output$V8=="ADDxCOVAR1"),]
-  filtered_output2$V10 <- log(filtered_output2$V10)
-  colnames(filtered_output2) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "FIRTH", "TEST", "OBS_CT", "INTERACTION_OR", "INTERACTION_LOG_OR_SE", "INTERACTION_Z_STAT", "INTERACTION_P", "INTERACTION_ERRCODE")
-  out <- cbind(filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "ADD_OR", "ADD_LOG_OR_SE", "ADD_Z_STAT", "ADD_P")], filtered_output2[c("INTERACTION_OR", "INTERACTION_LOG_OR_SE", "INTERACTION_Z_STAT", "INTERACTION_P")])
+                " --out ", tempdir(), slash, "B_gweis"))
+  first_line <- readLines(paste0(tempdir(), slash, "B_gweis.PHENO1.glm.logistic.hybrid"), n = 1)
+  col_names <- strsplit(first_line, "\t")[[1]]
+  col_names[1] <- sub("#", "", col_names[1])
+  plink_output <- read.table(paste0(tempdir(), slash, "B_gweis.PHENO1.glm.logistic.hybrid"), skip = 1, col.names = col_names, sep = "\t")
+  filtered_output <- as.data.frame(plink_output[(plink_output$TEST=="ADD"),])
+  filtered_output$OR = log(filtered_output$OR)
+  colnames(filtered_output)[c(grep("^\\bOR\\b$", colnames(filtered_output)), grep("^LOG", colnames(filtered_output)), 
+                           grep("Z_STAT", colnames(filtered_output)), grep("^\\bP\\b$", colnames(filtered_output)), 
+                           grep("ERRCODE", colnames(filtered_output)))] <- c("ADD_OR", "ADD_LOG_OR_SE", "ADD_Z_STAT", "ADD_P", "ADD_ERRCODE")
+  filtered_output2 <- plink_output[(plink_output$TEST=="ADDxCOVAR1"),]
+  filtered_output2$OR <- log(filtered_output2$OR)
+  colnames(filtered_output2)[c(grep("^\\bOR\\b$", colnames(filtered_output2)), grep("^LOG", colnames(filtered_output2)), 
+                           grep("Z_STAT", colnames(filtered_output2)), grep("^\\bP\\b$", colnames(filtered_output2)), 
+                           grep("ERRCODE", colnames(filtered_output2)))] <- c("INTERACTION_OR", "INTERACTION_LOG_OR_SE", "INTERACTION_Z_STAT", 
+										"INTERACTION_P", "INTERACTION_ERRCODE")
+  out <- cbind(filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "ADD_OR", "ADD_LOG_OR_SE", "ADD_Z_STAT", "ADD_P")], 
+              filtered_output2[c("INTERACTION_OR", "INTERACTION_LOG_OR_SE", "INTERACTION_Z_STAT", "INTERACTION_P")])
   rownames(out) <- NULL 
   return(out)
  }
-

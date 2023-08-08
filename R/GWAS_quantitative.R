@@ -32,6 +32,12 @@
 #' x$P #to extract the p values 
 #' }
 GWAS_quantitative <- function(plink_path, b_file, Qphe_discovery, Qcov_discovery, thread = 20){  
+  os_name <- Sys.info()["sysname"]
+   if (startsWith(os_name, "Win")) {
+     slash <- paste0("\\")
+   } else {
+     slash <- paste0("/")
+   }
   cov_file <- read.table(Qcov_discovery)
   n_confounders = ncol(cov_file) - 4
   if(n_confounders > 0){
@@ -49,11 +55,14 @@ GWAS_quantitative <- function(plink_path, b_file, Qphe_discovery, Qcov_discovery
                   " --parameters ", param_vec, 
                   " --allow-no-sex --threads ", 
                   thread,
-                  " --out ", tempdir(),"/Q_gwas"))
-  plink_output <- read.table(paste0(tempdir(), "/Q_gwas.PHENO1.glm.linear"), header = FALSE)
-  filtered_output <- plink_output[(plink_output$V7=="ADD"),]
-  colnames(filtered_output) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "TEST", "OBS_CT", "BETA", "SE", "T_STAT", "P", "ERRCODE")
+                  " --out ", tempdir(), slash, "Q_gwas"))
+  first_line <- readLines(paste0(tempdir(), slash, "Q_gwas.PHENO1.glm.linear"), n = 1)
+  col_names <- strsplit(first_line, "\t")[[1]]
+  col_names[1] <- sub("#", "", col_names[1])
+  plink_output <- read.table(paste0(tempdir(), slash, "Q_gwas.PHENO1.glm.linear"), , skip = 1, col.names = col_names, sep = "\t")
+  filtered_output <- plink_output[(plink_output$TEST=="ADD"),]
   Q_out.trd.sum <- filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "BETA", "SE", "T_STAT", "P")]
+  colnames(Q_out.trd.sum) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "BETA", "SE", "T_STAT", "P")
   rownames(Q_out.trd.sum) <- NULL
   return(Q_out.trd.sum)
 }
