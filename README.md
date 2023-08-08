@@ -429,11 +429,12 @@ Note: For demonstration, we used Model = 5 situation:
 **Output**
 ```
             Coefficient Std.Error Test.Statistic    pvalue
-E             0.1124979 0.4249779      0.2647148 0.7912292
-E squared    -0.2551330 0.6295491     -0.4052630 0.6852842
-PRS_add      -1.3230379 0.8678414     -1.5245159 0.1273799
-PRS_gxe      -1.5046168 1.0769799     -1.3970704 0.1623924
-PRS_gxe x E   0.2247446 0.5025321      0.4472244 0.6547131
+E            0.10324092 0.4322434     0.23884906 0.8112226
+E squared    0.04255961 0.4434101     0.09598248 0.9235345
+PRS_add     -1.32972343 0.9151400    -1.45302727 0.1462162
+PRS_gxe     -1.79547662 1.1971366    -1.49980932 0.1336638
+PRS_gxe x E  0.31121844 0.5955648     0.52256013 0.6012804
+
 ```
 ```z$summary``` contains the target regular model summary output, when the outcome is binary. 
 
@@ -444,10 +445,10 @@ PRS_gxe x E   0.2247446 0.5025321      0.4472244 0.6547131
 
 ```
   FID      IID      Risk.Values
-1 "ID_802" "ID_802" "0.142584993327248"
-2 "ID_803" "ID_803" "0.00944707783426451"
-3 "ID_804" "ID_804" "0.314374300730685"
-4 "ID_805" "ID_805" "0.0401077327720606"
+1 "ID_801" "ID_801" "0.328602143945709"
+2 "ID_802" "ID_802" "0.178590231862973"
+3 "ID_803" "ID_803" "0.00732537258032875"
+4 "ID_804" "ID_804" "0.285956066373666"
 ```
 ```z$risk.values``` contains all the calculated individual risk scores using the target dataset (e.g. Model 5), when the outcome is binary. The columns denote the following in order.
 * z$risk.values[,"FID"] : family IDs of the target dataset
@@ -654,11 +655,11 @@ Note: For demonstration, we used Model = 4 situation:
 
 **Output**
 ```
-              Coefficient  Std.Error Test.Statistic    pvalue
-E           -0.0157672060 0.07447570    -0.21170939 0.8325720
-PRS_add     -0.0488254674 0.07119371    -0.68581155 0.4937094
-PRS_gxe      0.0746073293 0.07257499     1.02800329 0.3053201
-PRS_gxe x E  0.0009011353 0.07866089     0.01145595 0.9908723
+            Coefficient  Std.Error Test.Statistic    pvalue
+E           -0.01197670 0.07255330     -0.1650745 0.8690696
+PRS_add     -0.04674501 0.07235187     -0.6460788 0.5190466
+PRS_gxe     -0.02716207 0.07516492     -0.3613663 0.7182471
+PRS_gxe x E -0.01731705 0.07376728     -0.2347525 0.8146662
 ```
 ```y$summary``` contains the target regular model summary output, when the outcome is quantitative. 
 
@@ -669,10 +670,10 @@ PRS_gxe x E  0.0009011353 0.07866089     0.01145595 0.9908723
   
 ```
   FID      IID      Risk.Values
-1 "ID_802" "ID_802" "-0.180057820294863"
-2 "ID_803" "ID_803" "0.402506322498664"
-3 "ID_804" "ID_804" "0.424579119997805"
-4 "ID_805" "ID_805" "0.583828103567573"
+1 "ID_801" "ID_801" "-0.250074266216069"
+2 "ID_802" "ID_802" "-0.0219033515829476"
+3 "ID_803" "ID_803" "0.188098265142081"
+4 "ID_804" "ID_804" "0.214732615239066"
 ```
 ```y$risk.values``` contains all the calculated individual risk scores using the target dataset (e.g. Model 4), when the outcome is quantitative. The columns denote the following in order.
 * y$risk.values[,"FID"] : family IDs of the target dataset
