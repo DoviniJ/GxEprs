@@ -41,14 +41,14 @@ summary_permuted_binary <- function(Bphe_target, Bcov_target, iterations = 1000,
   prs1_all=read.table(paste0(tempdir(), slash, "add_score"), header=T)
   colnames(prs1_all)[1] <- "FID"
   colnames(prs1_all)[2] <- "IID"
-  prs1=merge(fam, prs1_all, by = "FID")
+  prs1=merge(fam, prs1_all, by = "FID", sort=F)
   sink(paste0(tempdir(), slash, "gxe_score"))
   write.table(gxe_score, sep = " ", row.names = FALSE, quote = FALSE)
   sink()
   prs2_all=read.table(paste0(tempdir(), slash, "gxe_score"), header=T)
   colnames(prs2_all)[1] <- "FID"
   colnames(prs2_all)[2] <- "IID"
-  prs2=merge(fam, prs2_all, by = "FID")
+  prs2=merge(fam, prs2_all, by = "FID", sort=F)
   m1 <- match(dat$IID, prs1$IID.x)
   out = fam$PHENOTYPE[m1]
   cov=scale(dat$V3[m1])
