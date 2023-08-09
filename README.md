@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 # GxEprs
-The 'GxEprs' is an R package to detect and estimate GxE. It uses a novel PRS model that can enhance the prediction accuracy by utilising GxE effects. Firstly it performs Genome Wide Association Studies (GWAS)  and Genome Wide Environment Interaction Studies (GWEIS) using the discovery dataset (see functions ```GWAS_binary()```,```GWAS_quantitative()```, ```GWEIS_binary()```, ```GWEIS_quantitative()```). See the section $\color{red}{IMPORTANT}$ for the discovery models used. Secondly, it uses the GWAS and GWEIS summary statistics generated from the fucntions above to obtain polygenic risk scores (PRSs) (see functions ```PRS_binary()``` and ```PRS_quantitative()```) for the target sample. Finally it predicts the risk values of each individual in the target sample (see functions ```summary_regular_binary()``` and ```summary_regular_quantitative()```). Note that the users can fit 4 different models when the outcome is a quantitative trait, and 5 different models when the outcome is a binary disease trait. See the section $\color{red} {IMPORTANT}$ for the target models used. Finally, it is recommended to check the p-value from permutations using Model 4 (see function ```summary_permuted_quantitative()```), and Model 5 (see function```summary_permuted_binary()```), to make sure that the significance of GxE is not spurious due to model misspecification (see references).
+The 'GxEprs' is an R package to detect and estimate GxE. It uses a novel PRS model that can enhance the prediction accuracy by utilising GxE effects. Firstly it performs Genome Wide Association Studies (GWAS)  and Genome Wide Environment Interaction Studies (GWEIS) using the discovery dataset (see functions ```GWAS_binary()```,```GWAS_quantitative()```, ```GWEIS_binary()```, ```GWEIS_quantitative()```). See the section $\color{red}{IMPORTANT}$ for the discovery models used. Secondly, it uses the GWAS and GWEIS summary statistics generated from the fucntions above to obtain polygenic risk scores (PRSs) (see functions ```PRS_binary()``` and ```PRS_quantitative()```) for the target sample. Finally it predicts the risk values of each individual in the target sample (see functions ```summary_regular_binary()``` and ```summary_regular_quantitative()```). Note that the users can fit 4 different models when the outcome is a quantitative trait, and 5 different models when the outcome is a binary disease trait. See the section $\color{red} {IMPORTANT}$ for the target models used. Finally, it is recommended to check the p-value from permutations using Model 4 (see function ```summary_permuted_quantitative()```), and Model 5 (see function```summary_permuted_binary()```), to make sure that the significance of GxE is not spurious due to model misspecification (see Jayasinghe et. al.).
 
 # Package installation
 The current GitHub version of **GxEprs** can be installed via:
@@ -402,7 +402,7 @@ x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 4)
 z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)
 ```
-“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. 
+“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If the user choses to use own PRSs stored previously, then read the respective files (having column names as FID, IID and PRS) to data objects before using as inputs to ```summary_regular_binary()``` function (see examples.R script file). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. 
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -424,7 +424,7 @@ x <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score =
 y <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 4)
 z <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 5)
 ```
-Note: For demonstration, we used Model = 5 situation:
+Note: For demonstration, we used Model = 5:
 
 **Output**
 ```
@@ -455,7 +455,7 @@ PRS_gxe x E  0.31121844 0.5955648     0.52256013 0.6012804
 * z$risk.values[,"IID"] : individual IDs of the target dataset
 * z$risk.values[,"Risk.Values] : estimated risk values of the target dataset
 
-Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)``` and ```summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 5) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 5, and insignificant in Model 5* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
+Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)``` and ```summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 5) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 5, and insignificant in Model 5* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). See Figure 5 in Jayasinghe et.al. 
 
 See the topic summary_regular_binary (page 19) in manual.pdf for examples.
 
@@ -466,7 +466,7 @@ add <- a[c("ID", "A1", "ADD_OR")]
 gxe <- a[c("ID", "A1", "INTERACTION_OR")]
 p <- PRS_binary(plink_path, "mydata", summary_input = add)
 q <- PRS_binary(plink_path, "mydata", summary_input = gxe)
-summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = p, gxe_score = q)
+x <- summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = p, gxe_score = q)
 ```
 
 To perform the same on embedded data:
@@ -476,10 +476,10 @@ add <- a[c("ID", "A1", "ADD_OR")]
 gxe <- a[c("ID", "A1", "INTERACTION_OR")]
 p <- PRS_binary(plink_path, DummyData, summary_input = add)
 q <- PRS_binary(plink_path, DummyData, summary_input = gxe)
-summary_permuted_binary(Bphe_target, Bcov_target, iterations = 1000, add_score = p, gxe_score = q)
+x <- summary_permuted_binary(Bphe_target, Bcov_target, iterations = 1000, add_score = p, gxe_score = q)
 ```
 
-This outputs the p value of the fitted **permuted** model for **binary** outcome.
+```x``` outputs the p value of the fitted **permuted** model for **binary** outcome.
 
 
 
@@ -630,7 +630,7 @@ w <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 2
 x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
 ```
-“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. 
+“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If the user choses to use own PRSs stored previously, then read the respective files (having column names as FID, IID and PRS) to data objects before using as inputs to ```summary_regular_quantitative()``` function (see examples.R script file). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. 
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -651,7 +651,7 @@ w <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, Model
 x <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, gxe_score = r, Model = 4)
 ```
-Note: For demonstration, we used Model = 4 situation:
+Note: For demonstration, we used Model = 4:
 
 **Output**
 ```
@@ -680,7 +680,7 @@ PRS_gxe x E -0.01731705 0.07376728     -0.2347525 0.8146662
 * y$risk.values[,"IID"] : individual IDs of the target dataset
 * y$risk.values[,"Risk.Values] : estimated risk values of the target dataset
 
-Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)``` and ```summary_permuted_quantitative("Qpt.txt", "Qct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 4) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 4, and insignificant in Model 4* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). 
+Note: It is recommended to fit both regular and permuted models and obtain the summary of both fitted models (using ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)``` and ```summary_permuted_quantitative("Qpt.txt", "Qct.txt", iterations = 1000, add_score = q, gxe_score = r)```), if you choose to fit 'PRS_gxe x E' interaction component (i.e. novel proposed model, Model 4) when generating risk scores. If the 'PRS_gxe x E' term is significant in Model 4, and insignificant in Model 4* (permuted p value), consider that the 'PRS_gxe x E' interaction component is actually insignificant (always give priority to the p value obtained from the permuted model). See Figure 3 in Jayasinghe et. al.
 
 See the topic summary_regular_quantitative (page 21) in manual.pdf for examples.
 
@@ -691,7 +691,7 @@ add <- a[c("ID", "A1", "ADD_BETA")]
 gxe <- a[c("ID", "A1", "INTERACTION_BETA")]
 p <- PRS_quantitative(plink_path, "mydata", summary_input = add)
 q <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
-summary_permuted_quantitative("Qpt.txt", "Qct.txt", iterations = 1000, add_score = p, gxe_score = q)
+x <- summary_permuted_quantitative("Qpt.txt", "Qct.txt", iterations = 1000, add_score = p, gxe_score = q)
 ```
 
 To perform the same on embedded data:
@@ -701,9 +701,9 @@ add <- a[c("ID", "A1", "ADD_BETA")]
 gxe <- a[c("ID", "A1", "INTERACTION_BETA")]
 p <- PRS_quantitative(plink_path, DummyData, summary_input = add)
 q <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
-summary_permuted_quantitative(Qphe_target, Qcov_target, iterations = 1000, add_score = p, gxe_score = q)
+x <- summary_permuted_quantitative(Qphe_target, Qcov_target, iterations = 1000, add_score = p, gxe_score = q)
 ```
-This outputs the p value of the fitted **permuted** model for **quantitative** outcome.
+```x``` outputs the p value of the fitted **permuted** model for **quantitative** outcome.
 
 
 ## $$\color{red}{IMPORTANT}$$
@@ -732,11 +732,15 @@ The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", tr
 
 where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.
 
-When deciding on the number of permutations to be used, always get an idea from the p value obtained from either Model 4 or 5 (accordingly). If that p value is insignificant, you can use any number of permututations (e.g. 1000), but if that p value is highly significant (p value is very small and very close to zero), it is recommended to increase the number of permutations for better results. For example assume that the p value obtained from Model 4 is 0.000154, then it is recommended to use at least 10,000 iterations in the permutation model.
+
+To address the potential issue of spurious GxE signals that may arise from unknown relationships between the quantitative outcome variable (y) and covariate (E), we implemented a permutation procedure on the term  PRS_gxe in the interaction component in Model 4 and denoted it as Model 4*. The purpose of this permutation was to maintain
+the correlation structure between the outcome variable and other model components while specifically permuting the interaction component. Similarly, in Model 5 for binary outcome, we performed the same permutation on the PRS_gxe term in the interaction component and denoted it as Model 5*. It’s important to note that the number of permutations
+performed in Models 4* or 5* was determined based on the p value obtained in Models 4 or 5 to ensure an adequate number of permutations (with a minimum of 1000). By selectively permuting the interaction term while preserving the correlation structure, we aimed to assess the robustness of the GxE effects in our models and mitigate the risk of spurious signals. This approach allowed us to obtain more reliable results and evaluate the significance of the observed GxE interactions.
+
 
 
 # Contact 
 Please contact Dovini Jayasinghe (dovini.jayasinghe@mymail.unisa.edu.au) or Md Moksedul Momin (md_moksedul.momin@mymail.unisa.edu.au) or Hong Lee (hong.lee@unisa.edu.au) for queries.
 
 # Reference
-https://www.biorxiv.org/content/10.1101/2023.07.20.549816v1
+Dovini Jayasinghe, Md. Moksedul Momin, Kerri Beckmann, Elina Hypponen, Beben Benyamin, S. Hong Lee bioRxiv 2023.07.20.549816; doi: https://doi.org/10.1101/2023.07.20.549816
