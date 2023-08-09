@@ -56,3 +56,20 @@ x$risk.values
 
 summary_permuted_quantitative("qpt.txt", "qct.txt", iterations = 1000, add_score = p, gxe_score = q)
 
+
+
+###########
+#Example 3: Steps to estimate risk values for individuals in the target dataset by using your own PRSs
+###########
+
+#outcome variable: Quantitative trait
+#target model: 4
+
+p <- read.table("add_prs.txt", header = T) #read the PRSs generated using additive SNP effects (columns should contain family IDs, individual IDs and PRSs and the column names should be "FID", "IID" and "PRS")
+q <- read.table("gxe_prs.txt", header = T) #read the PRSs generated using interaction SNP effects (columns should contain family IDs, individual IDs and PRSs and the column names should be "FID", "IID" and "PRS")
+
+x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = p, gxe_score = q, Model = 4) 
+x$summary 
+x$risk.values  
+
+summary_permuted_quantitative("qpt.txt", "qct.txt", iterations = 1000, add_score = p, gxe_score = q)
