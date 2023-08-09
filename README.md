@@ -318,12 +318,12 @@ See the topic GWEIS_binary (page 9) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
- <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_binary(plink_path, "mydata", summary_input = )
+x <- PRS_binary(plink_path, "mydata", summary_input = trd)
 y <- PRS_binary(plink_path, "mydata", summary_input = add)
 z <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 ```
@@ -333,12 +333,12 @@ As explained above, “mydata” is the prefix of the PLINK format files, , add 
 To perform the same on embedded data
 ```
 a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
- <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_binary(plink_path, DummyData, summary_input = )
+x <- PRS_binary(plink_path, DummyData, summary_input = trd)
 y <- PRS_binary(plink_path, DummyData, summary_input = add)
 z <- PRS_binary(plink_path, DummyData, summary_input = gxe)
 ```
@@ -387,11 +387,11 @@ See the topic PRS_binary (page 12) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
- <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
-p <- PRS_binary(plink_path, "mydata", summary_input = )
+p <- PRS_binary(plink_path, "mydata", summary_input = trd)
 q <- PRS_binary(plink_path, "mydata", summary_input = add)
 r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 
@@ -410,11 +410,11 @@ z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 To perform the same on embedded data:
 ```
 a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
- <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
-p <- PRS_binary(plink_path, DummyData, summary_input = )
+p <- PRS_binary(plink_path, DummyData, summary_input = trd)
 q <- PRS_binary(plink_path, DummyData, summary_input = add)
 r <- PRS_binary(plink_path, DummyData, summary_input = gxe)
 
@@ -548,12 +548,12 @@ See the topic GWEIS_quantitative (page 10) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
- <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_quantitative(plink_path, "mydata", summary_input = )
+x <- PRS_quantitative(plink_path, "mydata", summary_input = trd)
 y <- PRS_quantitative(plink_path, "mydata", summary_input = add)
 z <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
 ```
@@ -563,12 +563,12 @@ As explained above, “mydata” is the prefix of the PLINK format files, , add 
 To perform the same on embedded data
 ```
 a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
- <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "OR")]
 b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_quantitative(plink_path, DummyData, summary_input = )
+x <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
 y <- PRS_quantitative(plink_path, DummyData, summary_input = add)
 z <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 ```
@@ -618,11 +618,11 @@ See the topic PRS_quantitative (page 13) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
- <- a[c("ID", "A1", "BETA")]
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
-p <- PRS_quantitative(plink_path, "mydata", summary_input = )
+p <- PRS_quantitative(plink_path, "mydata", summary_input = trd)
 q <- PRS_quantitative(plink_path, "mydata", summary_input = add)
 r <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
 
@@ -640,11 +640,11 @@ y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score
 To perform the same on embedded data:
 ```
 a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
- <- a[c("ID", "A1", "BETA")]
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
-p <- PRS_quantitative(plink_path, DummyData, summary_input = )
+p <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
 q <- PRS_quantitative(plink_path, DummyData, summary_input = add)
 r <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 
