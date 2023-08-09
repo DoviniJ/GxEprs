@@ -1,8 +1,7 @@
 ---
-title: "GxEprs"
-author: "Dovini Jayasinghe, Md Moksedul Momin and Hong Lee"
-last updated: "09-08-2023"
-output: pdf_document
+Title: "GxEprs"
+Authors: "Dovini Jayasinghe, Md Moksedul Momin and Hong Lee"
+Last updated: "09-08-2023"
 ---
 
 # GxEprs
