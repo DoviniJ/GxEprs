@@ -1,7 +1,7 @@
 ---
 title: "GxEprs"
 author: "Dovini Jayasinghe, Md Moksedul Momin and Hong Lee"
-date: "09-08-2023"
+last updated: "09-08-2023"
 output: pdf_document
 ---
 
@@ -319,27 +319,27 @@ See the topic GWEIS_binary (page 9) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-trd <- a[c("ID", "A1", "OR")]
+ <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_binary(plink_path, "mydata", summary_input = trd)
+x <- PRS_binary(plink_path, "mydata", summary_input = )
 y <- PRS_binary(plink_path, "mydata", summary_input = add)
 z <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 ```
-As explained above, “mydata” is the prefix of the PLINK format files, trd, add and gxe are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
+As explained above, “mydata” is the prefix of the PLINK format files, , add and gxe are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
 
 
 To perform the same on embedded data
 ```
 a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-trd <- a[c("ID", "A1", "OR")]
+ <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_binary(plink_path, DummyData, summary_input = trd)
+x <- PRS_binary(plink_path, DummyData, summary_input = )
 y <- PRS_binary(plink_path, DummyData, summary_input = add)
 z <- PRS_binary(plink_path, DummyData, summary_input = gxe)
 ```
@@ -388,15 +388,16 @@ See the topic PRS_binary (page 12) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-trd <- a[c("ID", "A1", "OR")]
+ <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
-p <- PRS_binary(plink_path, "mydata", summary_input = trd)
+p <- PRS_binary(plink_path, "mydata", summary_input = )
 q <- PRS_binary(plink_path, "mydata", summary_input = add)
 r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 
-v <- summary_regular_binary("Bpt.txt", "Bct.txt", trd_score = p, Model = 1)
+u <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = p, Model = 0)
+v <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = p, Model = 1)
 w <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, Model = 2)
 x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 4)
@@ -410,15 +411,16 @@ z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 To perform the same on embedded data:
 ```
 a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-trd <- a[c("ID", "A1", "OR")]
+ <- a[c("ID", "A1", "OR")]
 b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
-p <- PRS_binary(plink_path, DummyData, summary_input = trd)
+p <- PRS_binary(plink_path, DummyData, summary_input = )
 q <- PRS_binary(plink_path, DummyData, summary_input = add)
 r <- PRS_binary(plink_path, DummyData, summary_input = gxe)
 
-v <- summary_regular_binary(Bphe_target, Bcov_target, trd_score = p, Model = 1)
+u <- summary_regular_binary(Bphe_target, Bcov_target, add_score = p, Model = 0)
+v <- summary_regular_binary(Bphe_target, Bcov_target, add_score = p, Model = 1)
 w <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, Model = 2)
 x <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 4)
@@ -547,27 +549,27 @@ See the topic GWEIS_quantitative (page 10) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
-trd <- a[c("ID", "A1", "OR")]
+ <- a[c("ID", "A1", "OR")]
 b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_quantitative(plink_path, "mydata", summary_input = trd)
+x <- PRS_quantitative(plink_path, "mydata", summary_input = )
 y <- PRS_quantitative(plink_path, "mydata", summary_input = add)
 z <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
 ```
-As explained above, “mydata” is the prefix of the PLINK format files, trd, add and gxe are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
+As explained above, “mydata” is the prefix of the PLINK format files, , add and gxe are summary statistics generated from previous functions and used as an input for this function to construct PRS. These commands compute polygenic risk scores for each individual in the target dataset and outputs the PRSs of all individuals.
 
 
 To perform the same on embedded data
 ```
 a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
-trd <- a[c("ID", "A1", "OR")]
+ <- a[c("ID", "A1", "OR")]
 b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
 add <- b[c("ID", "A1", "ADD_OR")]
 gxe <- b[c("ID", "A1", "INTERACTION_OR")]
 
-x <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
+x <- PRS_quantitative(plink_path, DummyData, summary_input = )
 y <- PRS_quantitative(plink_path, DummyData, summary_input = add)
 z <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 ```
@@ -617,15 +619,16 @@ See the topic PRS_quantitative (page 13) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
-trd <- a[c("ID", "A1", "BETA")]
+ <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
-p <- PRS_quantitative(plink_path, "mydata", summary_input = trd)
+p <- PRS_quantitative(plink_path, "mydata", summary_input = )
 q <- PRS_quantitative(plink_path, "mydata", summary_input = add)
 r <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
 
-v <- summary_regular_quantitative("Qpt.txt", "Qct.txt", trd_score = p, Model = 1)
+u <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = p, Model = 0)
+v <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = p, Model = 1)
 w <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 2)
 x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
@@ -638,15 +641,16 @@ y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score
 To perform the same on embedded data:
 ```
 a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
-trd <- a[c("ID", "A1", "BETA")]
+ <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
 add <- b[c("ID", "A1", "ADD_BETA")]
 gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
-p <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
+p <- PRS_quantitative(plink_path, DummyData, summary_input = )
 q <- PRS_quantitative(plink_path, DummyData, summary_input = add)
 r <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 
-v <- summary_regular_quantitative(Qphe_target, Qcov_target, trd_score = p, Model = 1)
+u <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = p, Model = 0)
+v <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = p, Model = 1)
 w <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, Model = 2)
 x <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, gxe_score = r, Model = 4)
@@ -707,7 +711,7 @@ x <- summary_permuted_quantitative(Qphe_target, Qcov_target, iterations = 1000, 
 
 
 ## $$\color{red}{IMPORTANT}$$
-The discovery model used in ```GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20, summary_output = "B_trd.sum")``` or ```GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20)``` is as follows:
+The discovery model used in ```GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt", thread = 20)``` or ```GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt", thread = 20)``` is as follows:
 * y = b_trd.W + error
  where y is the outcome variable, b_trd is the estimated SNP effect and W is the SNP genotype.
  
@@ -720,8 +724,9 @@ The discovery model used in ```GWEIS_quantitative(plink_path, "mydata", "Qpd.txt
 where y is the outcome variable, b_add is the estimated additive SNP effect, E is the covariate, W is the SNP genotype, b_cov is the estimated effect of the covariate and b_gxe is the estimated effect of the Hadamard product of WxE.
 
 
-The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", trd_score = NULL, add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", trd_score = NULL, add_score = NULL, gxe_score = NULL, Model)``` are as follows:
+The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = NULL, gxe_score = NULL, Model)``` are as follows:
 
+* Model 0: y = PRS_trd + confounders + error
 * Model 1: y = PRS_trd + E + PRS_trd x E + confounders + error
 * Model 2: y = PRS_add + E + PRS_add x E + confounders + error
 * Model 3: y = PRS_add + E + PRS_gxe x E + confounders + error
