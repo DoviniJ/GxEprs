@@ -743,4 +743,4 @@ performed in Models 4* or 5* was determined based on the p value obtained in Mod
 Please contact Dovini Jayasinghe (dovini.jayasinghe@mymail.unisa.edu.au) or Md Moksedul Momin (md_moksedul.momin@mymail.unisa.edu.au) or Hong Lee (hong.lee@unisa.edu.au) for queries.
 
 # Reference
-Dovini Jayasinghe, Md. Moksedul Momin, Kerri Beckmann, Elina Hypponen, Beben Benyamin, S. Hong Lee bioRxiv 2023.07.20.549816; doi: https://doi.org/10.1101/2023.07.20.549816
+Dovini Jayasinghe, Md. Moksedul Momin, Kerri Beckmann, Elina Hypponen, Beben Benyamin, S. Hong Lee _bioRxiv_ 2023.07.20.549816; doi: https://doi.org/10.1101/2023.07.20.549816
