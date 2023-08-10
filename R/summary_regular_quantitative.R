@@ -62,6 +62,8 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
   dat=read.table(Qcov_target, header=F)
   colnames(dat)[1] <- "FID"
   colnames(dat)[2] <- "IID"
+  dd=merge(fam, dat[,-c(3,4)], by = "IID", sort=F)
+  dd=na.omit(dd)
   df=merge(fam, dat, by = "IID", sort=F)
   df=na.omit(df)
   if(!is.null(add_score)){
@@ -112,7 +114,7 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
     rownames(out1) <- c("PRS_trd")
     out1 <- as.matrix(out1)
-    out2 <- cbind(df$FID.x, df$IID, m_fit)
+    out2 <- cbind(dd$FID.x, dd$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
     out2 <- as.matrix(out2)
     out_all <- list(out1, out2)
