@@ -1,6 +1,6 @@
 #' Covariate data file of the discovery dataset when the outcome is quantitative
 #' This contains covariate information of the individuals in the discovery dataset following confounders
-#' @format A dataframe with 6426 rows and 18 columns
+#' @format A dataframe with 800 rows and 18 columns
 #' \describe{
 #'  \item{Column 1}{Family ID}
 #'  \item{Column 2}{Individual ID}
