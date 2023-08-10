@@ -589,10 +589,10 @@ z <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 
 ```
    FID  IID          PRS
-1 ID_1 ID_1 -0.007288410
-2 ID_2 ID_2  0.029843100
-3 ID_3 ID_3 -0.000156035
-4 ID_4 ID_4 -0.007454570
+1 ID_1 ID_1 -0.004212720
+2 ID_2 ID_2  0.001379120
+3 ID_3 ID_3  0.001609970
+4 ID_4 ID_4 -0.000112026
 ```
 ```y``` contains the the following columns in order.
 * y$FID : family IDs of the full dataset
