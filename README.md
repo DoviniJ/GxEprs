@@ -548,10 +548,10 @@ See the topic GWEIS_quantitative (page 10) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
-trd <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_quantitative(plink_path, "mydata", "Qpd.txt", "Qcd.txt")
-add <- b[c("ID", "A1", "ADD_OR")]
-gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 
 x <- PRS_quantitative(plink_path, "mydata", summary_input = trd)
 y <- PRS_quantitative(plink_path, "mydata", summary_input = add)
@@ -563,10 +563,10 @@ As explained above, “mydata” is the prefix of the PLINK format files, , add 
 To perform the same on embedded data
 ```
 a <- GWAS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
-trd <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery)
-add <- b[c("ID", "A1", "ADD_OR")]
-gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 
 x <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
 y <- PRS_quantitative(plink_path, DummyData, summary_input = add)
