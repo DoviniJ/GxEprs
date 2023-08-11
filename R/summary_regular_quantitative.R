@@ -110,9 +110,9 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
       m_fit <- fitted.values(m)
     }
     s <- summary(m)
-    out1 <- rbind(s$coefficients[2,])
+    out1 <- rbind(s$coefficients[2,], s$coefficients[3,])
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
-    rownames(out1) <- c("PRS_trd")
+    rownames(out1) <- c("E", "PRS_trd")
     out1 <- as.matrix(out1)
     out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
