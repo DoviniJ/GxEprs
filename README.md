@@ -402,7 +402,7 @@ x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 4)
 z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)
 ```
-“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_binary()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. 
+“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_binary()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. Note that the same function is used to generate different outputs to each model, by passing different inputs for the arguments, add_score and gxe_score. For example, Model 1 and Model 2 different based on the input passed to add_score.
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -632,7 +632,7 @@ w <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 2
 x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
 ```
-“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_quantitative()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. 
+“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_quantitative()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. Note that the same function is used to generate different outputs to each model, by passing different inputs for the arguments, add_score and gxe_score. For example, Model 1 and Model 2 different based on the input passed to add_score.
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -725,7 +725,7 @@ where y is the outcome variable, b_add is the estimated additive SNP effect, E i
 
 The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = NULL, gxe_score = NULL, Model)``` are as follows:
 
-* Model 0: y = PRS_trd + confounders + error
+* Model 0: y = PRS_trd + E + confounders + error
 * Model 1: y = PRS_trd + E + PRS_trd x E + confounders + error
 * Model 2: y = PRS_add + E + PRS_add x E + confounders + error
 * Model 3: y = PRS_add + E + PRS_gxe x E + confounders + error
@@ -735,9 +735,6 @@ The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", ad
 * Model 5*: permuted Model 5
 
 where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.
-
-
-It is worth noting that Models 1 and 2 are the same, since they both use additive SNP effects to compute PRSs. We introduce those in separate models to clearly distinguish between the use of summary statistics in PRS computation. PRSs used in Model 1 are computed using additive SNP effects from GWAS summary statistics, while the latter is computed using additive SNP effects from GWEIS summary statistics.
 
 
 To address the potential issue of spurious GxE signals that may arise from unknown relationships between the quantitative outcome variable (y) and covariate (E), we implemented a permutation procedure on the term  PRS_gxe in the interaction component in Model 4 and denoted it as Model 4*. The purpose of this permutation was to maintain
