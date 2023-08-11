@@ -4,7 +4,7 @@
 #' @param Bcov_target Covariate file containing family ID, individual ID, standardized covariate, square of standardized covariate, and/or confounders of the target dataset as columns, without heading
 #' @param add_score PRSs generated using additive SNP effects of GWAS/GWEIS summary statistics
 #' @param gxe_score PRSs generated using interaction SNP effects of GWEIS summary statistics
-#' @param Model Specify the model number (0: y = PRS_trd + confounders, 1: y = PRS_trd + E + PRS_trd x E + confounders, 2: y = PRS_add + E + PRS_add x E + confounders, 3: y = PRS_add + E + PRS_gxe x E + confounders, 4: y = PRS_add + E + PRS_gxe + PRS_gxe x E + confounders, 5: y = PRS_add + E + E^2 + PRS_gxe + PRS_gxe x E + confounders, where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.)
+#' @param Model Specify the model number (0: y = PRS_trd + E + confounders, 1: y = PRS_trd + E + PRS_trd x E + confounders, 2: y = PRS_add + E + PRS_add x E + confounders, 3: y = PRS_add + E + PRS_gxe x E + confounders, 4: y = PRS_add + E + PRS_gxe + PRS_gxe x E + confounders, 5: y = PRS_add + E + E^2 + PRS_gxe + PRS_gxe x E + confounders, where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.)
 #' @keywords regression summary risk scores
 #' @export 
 #' @importFrom stats binomial fitted.values glm lm na.omit
@@ -66,8 +66,6 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, add_score = NULL, g
   dat=read.table(Bcov_target, header=F)
   colnames(dat)[1] <- "FID"
   colnames(dat)[2] <- "IID"
-  dd=merge(fam, dat[,-c(3,4)], by = "IID", sort=F)
-  dd=na.omit(dd)
   df=merge(fam, dat, by = "IID", sort=F)
   df=na.omit(df)
   if(!is.null(add_score)){
@@ -98,9 +96,10 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, add_score = NULL, g
   }
   if(Model == 0){
     if(n_confounders == 0){
-      df_new <- as.data.frame(cbind(out, ps1))
+      df_new <- as.data.frame(cbind(out, cov, ps1))
       colnames(df_new)[1] <- "out"
-      colnames(df_new)[2] <- "PRS_trd"
+      colnames(df_new)[2] <- "E"
+      colnames(df_new)[3] <- "PRS_trd"
       m = glm(out ~., data = df_new, family = binomial(link = logit))
       m_fit <- fitted.values(m)
     }else{
@@ -109,9 +108,10 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, add_score = NULL, g
         conf_var[, k] <- as.numeric(dat[, k+4])
       }
       conf_var <- conf_var[m1,]
-      df_new <- as.data.frame(cbind(out, ps1, conf_var))
+      df_new <- as.data.frame(cbind(out, cov, ps1, conf_var))
       colnames(df_new)[1] <- "out"
-      colnames(df_new)[2] <- "PRS_trd"
+      colnames(df_new)[2] <- "E"
+      colnames(df_new)[3] <- "PRS_trd"
       m = glm(out ~., data = df_new, family = binomial(link = logit))
       m_fit <- fitted.values(m)
     }
@@ -120,7 +120,7 @@ summary_regular_binary <- function(Bphe_target, Bcov_target, add_score = NULL, g
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
     rownames(out1) <- c("PRS_trd")
     out1 <- as.matrix(out1)
-    out2 <- cbind(dd$FID.x, dd$IID, m_fit)
+    out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
     out2 <- as.matrix(out2)
     out_all <- list(out1, out2)
