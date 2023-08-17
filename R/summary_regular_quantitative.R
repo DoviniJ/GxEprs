@@ -7,7 +7,7 @@
 #' @param Model Specify the model number (0: y = PRS_trd + E + confounders, 1: y = PRS_trd + E + PRS_trd x E + confounders, 2: y = PRS_add + E + PRS_add x E + confounders, 3: y = PRS_add + E + PRS_gxe x E + confounders, 4: y = PRS_add + E + PRS_gxe + PRS_gxe x E + confounders, where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.)
 #' @keywords regression summary risk scores
 #' @export 
-#' @importFrom stats binomial fitted.values glm lm na.omit
+#' @importFrom stats binomial fitted.values glm lm na.omit sd
 #' @importFrom utils read.table write.table 
 #' @return This function will output
 #' \item{Qsummary.txt}{the summary of the fitted model}
@@ -71,10 +71,20 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
     prs1_all=read.table(paste0(tempdir(), slash, "add_score"), header=T)
     prs1=merge(fam, prs1_all, by = "FID", sort=F)
     m1 <- match(dat$IID, prs1$IID.x)
+    ps1=prs1$PRS
+   if(sd(na.omit(ps1)) != 0){
     ps1=scale(prs1$PRS)
+   }
     out = scale(fam$PHENOTYPE[m1])
+    cov=dat$V3[m1]
+   if(sd(na.omit(cov)) != 0){
     cov=scale(dat$V3[m1])
+   }
     xv1=scale(prs1$PRS*cov)
+   cov2=dat$V4[m1]
+   if(sd(na.omit(cov2)) != 0){
+    cov2=scale(dat$V4[m1])
+   }
   }
   if(!is.null(gxe_score)){
     sink(paste0(tempdir(), slash, "gxe_score"))
@@ -83,17 +93,28 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
     prs2_all=read.table(paste0(tempdir(), slash, "gxe_score"), header=T)
     prs2=merge(fam, prs2_all, by = "FID", sort=F)
     m1 <- match(dat$IID, prs2$IID.x)
+    ps2=prs2$PRS
+   if(sd(na.omit(ps2)) != 0){
     ps2=scale(prs2$PRS)
+   }
     out = scale(fam$PHENOTYPE[m1])
+    cov=dat$V3[m1]
+   if(sd(na.omit(cov)) != 0){
     cov=scale(dat$V3[m1])
+   }
     xv2=scale(prs2$PRS*cov)
+   cov2=dat$V4[m1]
+   if(sd(na.omit(cov2)) != 0){
+    cov2=scale(cov^2)
+   }
   }
   if(Model == 0){
     if(n_confounders == 0){
-      df_new <- as.data.frame(cbind(out, cov, ps1))
+      df_new <- as.data.frame(cbind(out, cov, ps1, ps2))
       colnames(df_new)[1] <- "out"
       colnames(df_new)[2] <- "E"
-      colnames(df_new)[3] <- "PRS_trd"
+      colnames(df_new)[3] <- "PRS_trd/add"
+      colnames(df_new)[4] <- "PRS_gxe"
       m = lm(out ~., data = df_new)
       m_fit <- fitted.values(m)
     }else{
@@ -102,17 +123,20 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
         conf_var[, k] <- as.numeric(dat[, k+4])
       }
       conf_var <- conf_var[m1,]
-      df_new <- as.data.frame(cbind(out, cov, ps1, conf_var))
+      df_new <- as.data.frame(cbind(out, cov, ps1, ps2, conf_var))
       colnames(df_new)[1] <- "out"
       colnames(df_new)[2] <- "E"
-      colnames(df_new)[3] <- "PRS_trd"
+      colnames(df_new)[3] <- "PRS_trd/add"
+      colnames(df_new)[4] <- "PRS_gxe"
+      for(b in 1:n_confounders){
+	colnames(df_new)[4+b] <- paste0("Confounder ", b)
+      }
       m = lm(out ~., data = df_new)
       m_fit <- fitted.values(m)
     }
     s <- summary(m)
-    out1 <- rbind(s$coefficients[2,], s$coefficients[3,])
+    out1 <- s$coefficients
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
-    rownames(out1) <- c("E", "PRS_trd")
     out1 <- as.matrix(out1)
     out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
@@ -140,13 +164,15 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
       colnames(df_new)[2] <- "E"
       colnames(df_new)[3] <- "PRS_trd"
       colnames(df_new)[4] <- "PRS_trd x E"
+      for(b in 1:n_confounders){
+	colnames(df_new)[4+b] <- paste0("Confounder ", b)
+      }
       m = lm(out ~., data = df_new)
       m_fit <- fitted.values(m)
     }
     s <- summary(m)
-    out1 <- rbind(s$coefficients[2,], s$coefficients[3,], s$coefficients[4,])
+    out1 <- s$coefficients
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
-    rownames(out1) <- c("E", "PRS_trd", "PRS_trd x E")
     out1 <- as.matrix(out1)
     out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
@@ -174,13 +200,15 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
       colnames(df_new)[2] <- "E"
       colnames(df_new)[3] <- "PRS_add"
       colnames(df_new)[4] <- "PRS_add x E"
+      for(b in 1:n_confounders){
+	colnames(df_new)[4+b] <- paste0("Confounder ", b)
+      }
       m = lm(out ~., data = df_new)
       m_fit <- fitted.values(m)
     }
     s <- summary(m)
-    out1 <- rbind(s$coefficients[2,], s$coefficients[3,], s$coefficients[4,])
+    out1 <- s$coefficients
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
-    rownames(out1) <- c("E", "PRS_add", "PRS_add x E")
     out1 <- as.matrix(out1)
     out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
@@ -208,13 +236,15 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
       colnames(df_new)[2] <- "E"
       colnames(df_new)[3] <- "PRS_add"
       colnames(df_new)[4] <- "PRS_gxe x E"
+      for(b in 1:n_confounders){
+	colnames(df_new)[4+b] <- paste0("Confounder ", b)
+      }
       m = lm(out ~., data = df_new)
       m_fit <- fitted.values(m)
     }
     s <- summary(m)
-    out1 <- rbind(s$coefficients[2,], s$coefficients[3,], s$coefficients[4,])
+    out1 <- s$coefficients
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
-    rownames(out1) <- c("E", "PRS_add", "PRS_gxe x E")
     out1 <- as.matrix(out1)
     out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")
@@ -244,13 +274,15 @@ summary_regular_quantitative <- function(Qphe_target, Qcov_target, add_score = N
       colnames(df_new)[3] <- "PRS_add"
       colnames(df_new)[4] <- "PRS_gxe"
       colnames(df_new)[5] <- "PRS_gxe x E"
+      for(b in 1:n_confounders){
+	colnames(df_new)[5+b] <- paste0("Confounder ", b)
+      }
       m = lm(out ~., data = df_new)
       m_fit <- fitted.values(m)
     }
     s <- summary(m)
-    out1 <- rbind(s$coefficients[2,], s$coefficients[3,], s$coefficients[4,], s$coefficients[5,])
+    out1 <- s$coefficients
     colnames(out1) <- c("Coefficient", "Std.Error", "Test.Statistic", "pvalue")
-    rownames(out1) <- c("E", "PRS_add", "PRS_gxe", "PRS_gxe x E")
     out1 <- as.matrix(out1)
     out2 <- cbind(df$FID.x, df$IID, m_fit)
     colnames(out2) <- c("FID", "IID", "Risk.Values")

@@ -5,7 +5,7 @@
 #' @param Qphe_discovery Phenotype file containing family ID, individual ID and phenotype of the discovery dataset as columns, without heading
 #' @param Qcov_discovery Covariate file containing family ID, individual ID, standardized covariate, square of standardized covariate, and/or confounders of the discovery dataset as columns, without heading
 #' @param thread Number of threads used
-#' @keywords gwies interaction gxe
+#' @keywords gweis interaction gxe
 #' @export 
 #' @importFrom stats binomial fitted.values glm lm
 #' @importFrom utils read.table 

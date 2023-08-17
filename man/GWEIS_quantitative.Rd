@@ -68,6 +68,6 @@ x$INTERACTION_P #to extract the p values of interaction
 SNP effects
 }
 }
-\keyword{gwies}
+\keyword{gweis}
 \keyword{gxe}
 \keyword{interaction}
