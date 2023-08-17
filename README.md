@@ -779,9 +779,10 @@ p <- PRS_binary(plink_path, "mydata", summary_input = trd)
 r <- as.data.frame(cbind(p$FID, p$IID, p$PRS/p$PRS)) #this will create columns of FID, IID and 1's. This is passed to the argument gxe_score in summary_regular_binary() function, to make the unwanted PRSxE variable neutral in the model
 colnames(r) <- c("FID", "IID", "PRS") #to make the correct file format
 
+
 Bct <- read.table("Bct.txt", header = FALSE) #read the covariate file
-Bct$V3 <- Bct$V3/Bct$V3 #the 3rd column of Bct.txt file is the covariate term. Then assign a vector of same values (e.g. 1) to make the unwanted E variable neutral in the model
-Bct$V4 <- Bct$V4/Bct$V4 #the 4th column of Bct.txt file is the covariate term. Then assign a vector of same values (e.g. 1) to make the unwanted E^2 variable neutral in the model
+Bct$V3 <- rep(1, length(Bct$V3)) #the 3rd column of Bct.txt file is the covariate term. Then assign a vector of same values (e.g. 1) to make the unwanted E variable neutral in the model
+Bct$V4 <- rep(1, length(Bct$V4)) #the 4th column of Bct.txt file is the covariate term. Then assign a vector of same values (e.g. 1) to make the unwanted E^2 variable neutral in the model
 sink("Bct_new.txt") #create a new covariate file where E and E^2 have all 1's
 write.table(Bct, row.names=F, col.names=F, quote=F)
 sink()
