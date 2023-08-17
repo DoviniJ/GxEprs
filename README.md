@@ -1,7 +1,7 @@
 ---
 Title: "GxEprs"
 Authors: "Dovini Jayasinghe, Md Moksedul Momin and Hong Lee"
-Last updated: "11-08-2023"
+Last updated: "17-08-2023"
 ---
 
 # GxEprs
@@ -725,7 +725,6 @@ where y is the outcome variable, b_add is the estimated additive SNP effect, E i
 
 The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = NULL, gxe_score = NULL, Model)``` are as follows:
 
-* Model 0: y = PRS_trd + E + confounders + error
 * Model 1: y = PRS_trd + E + PRS_trd x E + confounders + error
 * Model 2: y = PRS_add + E + PRS_add x E + confounders + error
 * Model 3: y = PRS_add + E + PRS_gxe x E + confounders + error
@@ -736,6 +735,65 @@ The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", ad
 
 where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.
 
+* Model 0: We denote the reduced model of each of the above models as Model 0 in general. For example, the reduced model of Model 1 will be y = PRS_trd + E + confounders + error. In case if the users are not interested to fit the PRSxE component they can use Model 0. By this approach, they can use this option to make comparisons across each full model and reduced model, to evaluate the significance of the PRSxE component of the model of interest (givem that they are nested models). Additionally, if the users are interested to fit only the additive model (for example y = PRS_trd + confounders + error) they can use Model 0 option available in ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = NULL, gxe_score = NULL, Model)```. However, in this instance, users are required to provide the input files appropriately.
+
+
+Example 1:
+```
+#Model 0: y = PRS_trd + confounders + error and assume y is a binary trait
+
+a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+trd <- a[c("ID", "A1", "OR")]
+
+p <- PRS_binary(plink_path, "mydata", summary_input = trd)
+
+r <- as.data.frame(cbind(p$FID, p$IID, p$PRS/p$PRS)) #this will create columns of FID, IID and 1's. This is passed to the argument gxe_score in summary_regular_binary() function, to make the unwanted PRSxE variable neutral in the model
+colnames(r) <- c("FID", "IID", "PRS") #to make the correct file format
+
+Bct <- read.table("Bct.txt", header = FALSE) #read the covariate file
+Bct$V3 <- Bct$V3/Bct$V3 #the 3rd column of Bct.txt file is the covariate term. Then assign a vector of same values (e.g. 1) to make the unwanted E variable neutral in the model
+Bct$V4 <- Bct$V4/Bct$V4 #the 4th column of Bct.txt file is the covariate term. Then assign a vector of same values (e.g. 1) to make the unwanted E^2 variable neutral in the model
+sink("Bct_new.txt") #create a new covariate file where E and E^2 have all 1's
+write.table(Bct, row.names=F, col.names=F, quote=F)
+sink()
+
+y0 <- summary_regular_binary("Bpt.txt", "Bct_new.txt", add_score = p, gxe_score = r, Model = 0) #finally fit Model 0
+```
+
+Example 2:
+```
+#Model 0: y = PRS_add + PRS_gxe + confounders + error and assume y is a binary trait
+
+a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+add <- a[c("ID", "A1", "ADD_OR")]
+gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+
+p <- PRS_binary(plink_path, "mydata", summary_input = add)
+r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
+
+Bct <- read.table("Bct.txt", header = FALSE) #read the covariate file
+Bct$V3 <- Bct$V3/Bct$V3 #the 3rd column of Bct.txt file is the covariate term. Then assign a vector of same values (e.g. 1) to make the unwanted E variable neutral in the model
+Bct$V4 <- Bct$V4/Bct$V4 #the 4th column of Bct.txt file is the covariate term. Then assign a vector of same values (e.g. 1) to make the unwanted E^2 variable neutral in the model
+sink("Bct_new.txt") #create a new covariate file where E and E^2 have all 1's
+write.table(Bct, row.names=F, col.names=F, quote=F)
+sink()
+
+y0 <- summary_regular_binary("Bpt.txt", "Bct_new.txt", add_score = p, gxe_score = r, Model = 0) #finally fit Model 0
+```
+
+Example 3:
+```
+#Model 0: y = PRS_add + PRS_gxe + E + E^2 confounders + error and assume y is a binary trait
+
+a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
+add <- a[c("ID", "A1", "ADD_OR")]
+gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+
+p <- PRS_binary(plink_path, "mydata", summary_input = add)
+r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
+
+y0 <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = p, gxe_score = r, Model = 0) #finally fit Model 0
+```
 
 To address the potential issue of spurious GxE signals that may arise from unknown relationships between the quantitative outcome variable (y) and covariate (E), we implemented a permutation procedure on the term  PRS_gxe in the interaction component in Model 4 and denoted it as Model 4*. The purpose of this permutation was to maintain
 the correlation structure between the outcome variable and other model components while specifically permuting the interaction component. Similarly, in Model 5 for binary outcome, we performed the same permutation on the PRS_gxe term in the interaction component and denoted it as Model 5*. It’s important to note that the number of permutations
