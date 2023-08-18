@@ -395,7 +395,7 @@ p <- PRS_binary(plink_path, "mydata", summary_input = trd)
 q <- PRS_binary(plink_path, "mydata", summary_input = add)
 r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 
-u <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = p, Model = 0)
+u <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = p, gxe_score = r, Model = 0) #see section IMPORTANT for details
 v <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = p, Model = 1)
 w <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, Model = 2)
 x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 3)
@@ -418,7 +418,7 @@ p <- PRS_binary(plink_path, DummyData, summary_input = trd)
 q <- PRS_binary(plink_path, DummyData, summary_input = add)
 r <- PRS_binary(plink_path, DummyData, summary_input = gxe)
 
-u <- summary_regular_binary(Bphe_target, Bcov_target, add_score = p, Model = 0)
+u <- summary_regular_binary(Bphe_target, Bcov_target, add_score = p, gxe_score = r, Model = 0) #see section IMPORTANT for details
 v <- summary_regular_binary(Bphe_target, Bcov_target, add_score = p, Model = 1)
 w <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, Model = 2)
 x <- summary_regular_binary(Bphe_target, Bcov_target, add_score = q, gxe_score = r, Model = 3)
@@ -640,7 +640,7 @@ p <- PRS_quantitative(plink_path, "mydata", summary_input = trd)
 q <- PRS_quantitative(plink_path, "mydata", summary_input = add)
 r <- PRS_quantitative(plink_path, "mydata", summary_input = gxe)
 
-u <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = p, Model = 0)
+u <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = p, gxe_score = r, Model = 0) #see section IMPORTANT for details
 v <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = p, Model = 1)
 w <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 2)
 x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
@@ -662,7 +662,7 @@ p <- PRS_quantitative(plink_path, DummyData, summary_input = trd)
 q <- PRS_quantitative(plink_path, DummyData, summary_input = add)
 r <- PRS_quantitative(plink_path, DummyData, summary_input = gxe)
 
-u <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = p, Model = 0)
+u <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = p, gxe_score = r, Model = 0) #see section IMPORTANT for details
 v <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = p, Model = 1)
 w <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, Model = 2)
 x <- summary_regular_quantitative(Qphe_target, Qcov_target, add_score = q, gxe_score = r, Model = 3)
@@ -764,7 +764,7 @@ The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", ad
 
 where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.
 
-* Model 0: We denote the reduced model of each of the above models as Model 0 in general. For example, the reduced model of Model 1 will be y = PRS_trd + E + confounders + error. In case if the users are not interested to fit the PRSxE component they can use Model 0. By this approach, they can use this option to make comparisons across each full model and reduced model, to evaluate the significance of the PRSxE component of the model of interest (givem that they are nested models). Additionally, if the users are interested to fit only the additive model (for example y = PRS_trd + confounders + error) they can use Model 0 option available in ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = NULL, gxe_score = NULL, Model)```. However, in this instance, users are required to provide the input files appropriately.
+* Model 0: We denote the reduced model of each of the above models as Model 0 in general. For example, the reduced model of Model 1 will be y = PRS_trd + E + confounders + error. In case if the users are not interested to fit the PRSxE component they can use Model 0. By this approach, they can use this option to make comparisons across each full model and reduced model, to evaluate the significance of the PRSxE component of the model of interest (given that they are nested models). Additionally, if the users are interested to fit only the additive model (for example y = PRS_trd + confounders + error) they can use Model 0 option available in ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = NULL, gxe_score = NULL, Model)```. However, in this instance, users are required to provide the input files appropriately.
 
 
 Example 1:
