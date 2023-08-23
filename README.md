@@ -402,7 +402,7 @@ x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 4)
 z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)
 ```
-“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_binary()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. Note that Model 1 and 2 will give the same output unless add_score is properly specified. Assume the user passed p as add_score and 2 as Model. This will automatically lead to fitting Model 1. Similarly, if the user passed q as add_score and 1 as Model. This will automatically lead to fitting Model 2. Therefore, make sure to use correct inputs as explained in the section $\color{red}{IMPORTANT}$ to avoid potential misuses.
+“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_binary()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. Note that if the input for add_score is provided the same, output of fitting Model 1 and Model 2 will be equivalent. For example, ```summary_regular_binary("Qpt.txt", "Qct.txt", add_score = p, Model = 1)``` is equivalent to ```summary_regular_binary("Qpt.txt", "Qct.txt", add_score = p, Model = 2)``` where both functions will output the results after fitting Model 1 (as the input for add_score is p). Similarly, ```summary_regular_binary("Qpt.txt", "Qct.txt", add_score = q, Model = 1)``` is equivalent to ```summary_regular_binary("Qpt.txt", "Qct.txt", add_score = q, Model = 2)``` where both functions will output the results after fitting Model 2 (as the input for add_score is q).
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -646,7 +646,7 @@ w <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 2
 x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
 ```
-“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_quantitative()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. Note that Model 1 and 2 will give the same output unless add_score is properly specified. Assume the user passed p as add_score and 2 as Model. This will automatically lead to fitting Model 1. Similarly, if the user passed q as add_score and 1 as Model. This will automatically lead to fitting Model 2. Therefore, make sure to use correct inputs as explained in the section $\color{red}{IMPORTANT}$ to avoid potential misuses.
+“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_quantitative()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. Note that if the input for add_score is provided the same, output of fitting Model 1 and Model 2 will be equivalent. For example, ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = p, Model = 1)``` is equivalent to ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = p, Model = 2)``` where both functions will output the results after fitting Model 1 (as the input for add_score is p). Similarly, ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 1)``` is equivalent to ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 2)``` where both functions will output the results after fitting Model 2 (as the input for add_score is q).
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -769,7 +769,7 @@ where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS
 
 Example 1:
 ```
-#Model 0: y = PRS_trd + confounders + error and assume y is a binary trait. Note that the confounders are optional. Can use any number of confounders to adjust the phenotype upon user requirement.
+#Model 0: y = PRS_trd + confounders + error and assume y is a binary trait. Note that the data columns in covariate file for confounders are optional. See 7. in "Input Files".
 
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 trd <- a[c("ID", "A1", "OR")]
@@ -792,7 +792,7 @@ y0 <- summary_regular_binary("Bpt.txt", "Bct_new.txt", add_score = p, gxe_score 
 
 Example 2:
 ```
-#Model 0: y = PRS_add + PRS_gxe + confounders + error and assume y is a binary trait. Note that the confounders are optional. Can use any number of confounders to adjust the phenotype upon user requirement.
+#Model 0: y = PRS_add + PRS_gxe + confounders + error and assume y is a binary trait. Note that the data columns in covariate file for confounders are optional. See 7. in "Input Files".
 
 a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- a[c("ID", "A1", "ADD_OR")]
@@ -813,7 +813,7 @@ y0 <- summary_regular_binary("Bpt.txt", "Bct_new.txt", add_score = p, gxe_score 
 
 Example 3:
 ```
-#Model 0: y = PRS_add + PRS_gxe + E + E^2 confounders + error and assume y is a binary trait. Note that the confounders are optional. Can use any number of confounders to adjust the phenotype upon user requirement.
+#Model 0: y = PRS_add + PRS_gxe + E + E^2 confounders + error and assume y is a binary trait. Note that the data columns in covariate file for confounders are optional. See 7. in "Input Files".
 
 a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- a[c("ID", "A1", "ADD_OR")]
