@@ -73,7 +73,7 @@ ID_5 ID_5 1
 * IID 
 * standardized covariate 
 * square of the standardized covariate (Note: This column is required to address model misspecification, if present. See reference for details.) 
-* 14 confounders of the discovery sample
+* 14 confounders of the discovery sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
 
 ```
 ID_1 ID_1 0.787403812314451 0.620004763647331 -3.04026 45 -12.048 2.17634 -0.940322 -0.446351 -5.45685 -2.53161 -2.13435 -1.95623 -3.82792 -0.380636 0 10
@@ -101,7 +101,7 @@ ID_805 ID_805 1
 * IID 
 * standardized covariate 
 * square of the standardized covariate  (Note: This column is required to address model misspecification, if present. See reference for details.)
-* 14 confounders of the target sample
+* 14 confounders of the target sample (Note: These columns are optional. Can use any number of columns as confounders to adjust the phenotype upon user requirement.)
 
 ```
 ID_801 ID_801 -0.420822976931972 0.177091977913887 -4.12263 57 -13.5185 5.40198 -4.81994 0.664494 -4.92217 -0.451329 3.14677 0.42704 0.821306 -2.77705 1 7
@@ -402,7 +402,7 @@ x <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 y <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 4)
 z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, Model = 5)
 ```
-“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_binary()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. Note that the same function is used to generate different outputs to each model, by passing different inputs for the arguments, add_score and gxe_score. For example, output of v and w are different based on the input passed to add_score.
+“Bpt.txt” is binary phenotype file of the target sample, "Bct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_binary()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **binary** outcome and all the calculated individual risk scores of the fitted **regular** model for **binary** outcome. Note that Model 1 and 2 will give the same output unless add_score is properly specified. Assume the user passed p as add_score and 2 as Model. This will automatically lead to fitting Model 1. Similarly, if the user passed q as add_score and 1 as Model. This will automatically lead to fitting Model 2. Therefore, make sure to use correct inputs as explained in the section $\color{red}{IMPORTANT}$ to avoid potential misuses.
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -646,7 +646,7 @@ w <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, Model = 2
 x <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 3)
 y <- summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = q, gxe_score = r, Model = 4)
 ```
-“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_quantitative()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. Note that the same function is used to generate different outputs to each model, by passing different inputs for the arguments, add_score and gxe_score. For example, output of v and w are different based on the input passed to add_score.
+“Qpt.txt” is quantitative phenotype file of the target sample, "Qct.txt" is the covariate file of the target sample, p, q and r are the PRSs generated. If users choose to use their own PRSs stored previously, then they should create their own files (having column names as FID, IID and PRS) to use as inputs to ```summary_regular_quantitative()``` function (see examples.R script file attached to this repository). Depending on the model used, the input should be varied. (See section $\color{red}{IMPORTANT}$ for the target models.) This function outputs both the summary of the fitted **regular** model for **quantitative** outcome and all the calculated individual risk scores of the fitted **regular** model for **quantitative** outcome. Note that Model 1 and 2 will give the same output unless add_score is properly specified. Assume the user passed p as add_score and 2 as Model. This will automatically lead to fitting Model 1. Similarly, if the user passed q as add_score and 1 as Model. This will automatically lead to fitting Model 2. Therefore, make sure to use correct inputs as explained in the section $\color{red}{IMPORTANT}$ to avoid potential misuses.
 
 ##### Refer to the section $\color{red}{IMPORTANT}$ at the end of this document for details about models fitted at this step.
 
@@ -764,7 +764,7 @@ The fitted (target) models in ```summary_regular_binary("Bpt.txt", "Bct.txt", ad
 
 where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS_add are the polygenic risk scores computed using additive SNP effects of GWAS and GWEIS summary statistics respectively, and PRS_gxe is the polygenic risk scores computed using GxE interaction SNP effects of GWEIS summary statistics.
 
-* Model 0: We denote the reduced model of each of the above models as Model 0 in general. For example, the reduced model of Model 1 will be y = PRS_trd + E + confounders + error. In case if the users are not interested to fit the PRSxE component they can use Model 0. By this approach, they can use this option to make comparisons across each full model and reduced model, to evaluate the significance of the PRSxE component of the model of interest (given that they are nested models). Additionally, if the users are interested to fit only the additive model (for example y = PRS_trd + confounders + error) they can use Model 0 option available in ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = NULL, gxe_score = NULL, Model)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = NULL, gxe_score = NULL, Model)```. However, in this instance, users are required to provide the input files appropriately.
+* Model 0: We denote the reduced model of each of the above models as Model 0 in general. For example, the reduced model of Model 1 will be y = PRS_trd + E + confounders + error. In case if the users are not interested to fit the PRSxE component they can use Model 0. By this approach, they can use this option to make comparisons across each full model and reduced model, to evaluate the significance of the PRSxE component of the model of interest (given that they are nested models). Additionally, if the users are interested to fit only the additive model (for example y = PRS_trd + confounders + error) they can use Model 0 option available in ```summary_regular_binary("Bpt.txt", "Bct.txt", add_score = NULL, gxe_score = NULL, Model = 0)``` or ```summary_regular_quantitative("Qpt.txt", "Qct.txt", add_score = NULL, gxe_score = NULL, Model = 0)```. However, in this instance, users are required to provide the input files appropriately.
 
 
 Example 1:
