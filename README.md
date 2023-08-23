@@ -769,7 +769,7 @@ where y is the outcome variable, E is the covariate of interest, PRS_trd and PRS
 
 Example 1:
 ```
-#Model 0: y = PRS_trd + confounders + error and assume y is a binary trait
+#Model 0: y = PRS_trd + confounders + error and assume y is a binary trait. Note that the confounders are optional. Can use any number of confounders to adjust the phenotype upon user requirement.
 
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 trd <- a[c("ID", "A1", "OR")]
@@ -792,7 +792,7 @@ y0 <- summary_regular_binary("Bpt.txt", "Bct_new.txt", add_score = p, gxe_score 
 
 Example 2:
 ```
-#Model 0: y = PRS_add + PRS_gxe + confounders + error and assume y is a binary trait
+#Model 0: y = PRS_add + PRS_gxe + confounders + error and assume y is a binary trait. Note that the confounders are optional. Can use any number of confounders to adjust the phenotype upon user requirement.
 
 a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- a[c("ID", "A1", "ADD_OR")]
@@ -813,7 +813,7 @@ y0 <- summary_regular_binary("Bpt.txt", "Bct_new.txt", add_score = p, gxe_score 
 
 Example 3:
 ```
-#Model 0: y = PRS_add + PRS_gxe + E + E^2 confounders + error and assume y is a binary trait
+#Model 0: y = PRS_add + PRS_gxe + E + E^2 confounders + error and assume y is a binary trait. Note that the confounders are optional. Can use any number of confounders to adjust the phenotype upon user requirement.
 
 a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
 add <- a[c("ID", "A1", "ADD_OR")]
