@@ -22,8 +22,8 @@
 #' write.table(x[c("ID", "A1", "INTERACTION_BETA")], sep = " ", 
 #' row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
-#' head(x) #to extract the head of all columns in GWEIS summary statistics of 
-#' additive and interaction SNP effects 
+#' head(x) #to extract the head of all columns in GWEIS summary  
+#' #statistics of additive and interaction SNP effects 
 #' x$CHROM #to extract the chromosome number 
 #' x$POS #to extract the base pair position
 #' x$ID #to extract the SNP ID
@@ -33,17 +33,17 @@
 #' x$OBS_CT #to extract the number of allele observations 
 #' x$ADD_BETA #to extract the additive SNP effects
 #' x$ADD_SE #to extract the standard errors of the 
-#' additive SNP effects
+#' #additive SNP effects
 #' x$ADD_T_STAT #to extract the test statistics of additive 
-#' SNP effects
+#' #SNP effects
 #' x$ADD_P #to extract the p values of additive SNP effects
 #' x$INTERACTION_BETA #to extract the interaction SNP effects
 #' x$INTERACTION_SE #to extract the standard errors of the 
-#' interaction SNP effects
+#' #interaction SNP effects
 #' x$INTERACTION_T_STAT #to extract the test statistics of 
-#' interaction SNP effects
+#' #interaction SNP effects
 #' x$INTERACTION_P #to extract the p values of interaction 
-#' SNP effects
+#' #SNP effects
 #' }
 GWEIS_quantitative <- function(plink_path, b_file, Qphe_discovery, Qcov_discovery, thread = 20){
   os_name <- Sys.info()["sysname"]

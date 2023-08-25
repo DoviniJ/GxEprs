@@ -38,8 +38,8 @@ sink("B_out.gxe.sum") #to create a file in the working directory
 write.table(x[c("ID", "A1", "INTERACTION_OR")], sep = " ", 
 row.names = FALSE, quote = FALSE) #to write the output
 sink() #to save the output
-head(x) #to extract the head of all columns in GWEIS summary statistics of 
-additive and interaction SNP effects 
+head(x) #to extract the head of all columns in GWEIS summary  
+#statistics of additive and interaction SNP effects 
 x$CHROM #to extract the chromosome number 
 x$POS #to extract the base pair position
 x$ID #to extract the SNP ID
@@ -48,17 +48,19 @@ x$ALT #to extract the alternate allele
 x$A1 #to extract the minor allele
 x$OBS_CT #to extract the number of allele observations 
 x$ADD_OR #to extract the odds ratios of additive SNP effects
-x$ADD_LOG_OR_SE #to extract the standard errors of log odds of 
-additive SNP effects
-x$ADD_Z_STAT #to extract the test statistics of additive SNP effects
+x$ADD_LOG_OR_SE #to extract the standard errors of log  
+#odds of additive SNP effects
+x$ADD_Z_STAT #to extract the test statistics of additive 
+#SNP effects
 x$ADD_P #to extract the p values of additive SNP effects
-x$INTERACTION_OR #to extract the odds ratios of the SNP effects of 
-interaction SNP effects
-x$INTERACTION_LOG_OR_SE #to extract the standard errors of log odds 
-of interaction SNP effects
-x$INTERACTION_Z_STAT #to extract the test statistics of interaction 
-SNP effects
-x$INTERACTION_P #to extract the p values of interaction SNP effects
+x$INTERACTION_OR #to extract the odds ratios of  
+#interaction SNP effects
+x$INTERACTION_LOG_OR_SE #to extract the standard errors of  
+#log odds of interaction SNP effects
+x$INTERACTION_Z_STAT #to extract the test statistics of  
+#interaction SNP effects
+x$INTERACTION_P #to extract the p values of interaction 
+#SNP effects
 }
 }
 \keyword{gweis}
