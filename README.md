@@ -1,7 +1,7 @@
 ---
 Title: "GxEprs"
 Authors: "Dovini Jayasinghe, Md Moksedul Momin and Hong Lee"
-Last updated: "23-08-2023"
+Last updated: "28-08-2023"
 ---
 
 # GxEprs
@@ -12,6 +12,10 @@ The current GitHub version of **GxEprs** can be installed via:
 ```
 library(devtools)
 install_github("DoviniJ/GxEprs") 
+```
+or the CRAN version via:
+```
+install.packages("GxEprs") 
 ```
 # Load the library
 ```
