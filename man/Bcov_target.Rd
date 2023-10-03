@@ -3,8 +3,8 @@
 \docType{data}
 \name{Bcov_target}
 \alias{Bcov_target}
-\title{Covariate data file of the target dataset when the outcome is binary
-This contains covariate information of the individuals in the target dataset following confounders}
+\title{Covariate data file of the target dataset when the outcome is binary.
+This contains covariate information of the individuals in the target dataset following confounders.}
 \format{
 A dataframe with 200 rows and 18 columns
 \describe{
@@ -32,7 +32,7 @@ A dataframe with 200 rows and 18 columns
 Bcov_target
 }
 \description{
-Covariate data file of the target dataset when the outcome is binary
-This contains covariate information of the individuals in the target dataset following confounders
+Covariate data file of the target dataset when the outcome is binary.
+This contains covariate information of the individuals in the target dataset following confounders.
 }
 \keyword{datasets}

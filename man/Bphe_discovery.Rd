@@ -3,8 +3,8 @@
 \docType{data}
 \name{Bphe_discovery}
 \alias{Bphe_discovery}
-\title{Phenotype data file of the discovery dataset when the outcome is binary
-This contains phenotype information of the individuals in the discovery dataset}
+\title{Phenotype data file of the discovery dataset when the outcome is binary.
+This contains phenotype information of the individuals in the discovery dataset.}
 \format{
 A dataframe with 800 rows and 3 columns
 \describe{
@@ -17,7 +17,7 @@ A dataframe with 800 rows and 3 columns
 Bphe_discovery
 }
 \description{
-Phenotype data file of the discovery dataset when the outcome is binary
-This contains phenotype information of the individuals in the discovery dataset
+Phenotype data file of the discovery dataset when the outcome is binary.
+This contains phenotype information of the individuals in the discovery dataset.
 }
 \keyword{datasets}

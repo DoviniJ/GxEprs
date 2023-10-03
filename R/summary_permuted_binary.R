@@ -76,7 +76,7 @@ summary_permuted_binary <- function(Bphe_target, Bcov_target, iterations = 1000,
     colnames(df_new)[5] <- "PRS_gxe"
     colnames(df_new)[6] <- "PRS_gxe x E"
     m = glm(out ~., data = df_new, family = binomial(link = logit))
-    if (regular_p < summary(m)$coefficients[6,4]) pp_gxe_x_E=pp_gxe_x_E+1
+    if (regular_p > summary(m)$coefficients[6,4]) pp_gxe_x_E=pp_gxe_x_E+1
     }
     }else{
     pn=iterations; pp_gxe_x_E=0
@@ -101,7 +101,7 @@ summary_permuted_binary <- function(Bphe_target, Bcov_target, iterations = 1000,
       colnames(df_new)[5] <- "PRS_gxe"
       colnames(df_new)[6] <- "PRS_gxe x E"
       m = glm(out ~., data = df_new, family = binomial(link = logit))
-      if (regular_p < summary(m)$coefficients[6,4]) pp_gxe_x_E=pp_gxe_x_E+1
+      if (regular_p > summary(m)$coefficients[6,4]) pp_gxe_x_E=pp_gxe_x_E+1
     }
   }
   cat("\n")

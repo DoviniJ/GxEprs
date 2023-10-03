@@ -75,7 +75,7 @@ summary_permuted_quantitative <- function(Qphe_target, Qcov_target, iterations =
     colnames(df_new)[4] <- "PRS_gxe"
     colnames(df_new)[5] <- "PRS_gxe x E"
     m = lm(out ~., data = df_new)
-    if (regular_p < summary(m)$coefficients[5,4]) pp_gxe_x_E=pp_gxe_x_E+1
+    if (regular_p > summary(m)$coefficients[5,4]) pp_gxe_x_E=pp_gxe_x_E+1
     }
     }else{
     pn=iterations; pp_gxe_x_E=0
@@ -99,7 +99,7 @@ summary_permuted_quantitative <- function(Qphe_target, Qcov_target, iterations =
       colnames(df_new)[4] <- "PRS_gxe"
       colnames(df_new)[5] <- "PRS_gxe x E"
       m = lm(out ~., data = df_new)
-      if (regular_p < summary(m)$coefficients[5,4]) pp_gxe_x_E=pp_gxe_x_E+1
+      if (regular_p > summary(m)$coefficients[5,4]) pp_gxe_x_E=pp_gxe_x_E+1
     }
   }
   cat("\n")

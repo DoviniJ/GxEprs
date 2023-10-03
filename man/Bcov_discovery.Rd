@@ -3,8 +3,8 @@
 \docType{data}
 \name{Bcov_discovery}
 \alias{Bcov_discovery}
-\title{Covariate data file of the discovery dataset when the outcome is binary
-This contains covariate information of the individuals in the discovery dataset following confounders}
+\title{Covariate data file of the discovery dataset when the outcome is binary.
+This contains covariate information of the individuals in the discovery dataset following confounders.}
 \format{
 A dataframe with 800 rows and 18 columns
 \describe{
@@ -32,7 +32,7 @@ A dataframe with 800 rows and 18 columns
 Bcov_discovery
 }
 \description{
-Covariate data file of the discovery dataset when the outcome is binary
-This contains covariate information of the individuals in the discovery dataset following confounders
+Covariate data file of the discovery dataset when the outcome is binary.
+This contains covariate information of the individuals in the discovery dataset following confounders.
 }
 \keyword{datasets}

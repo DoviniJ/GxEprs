@@ -1,6 +1,6 @@
 Package: GxEprs
 Title: Genotype-by-Environment Interaction in Polygenic Score Models
-Version: 1.0
+Version: 1.1
 Authors@R: c(person("Dovini", "Jayasinghe", role = c("aut", "cre","cph"), email = "dovini.jayasinghe@mymail.unisa.edu.au"),
              person("Hong", "Lee", role = c("aut","cph"),email = "Hong.Lee@unisa.edu.au"),
              person("Moksedul", "Momin", role = c("aut","cph"), email = "md_moksedul.momin@mymail.unisa.edu.au"))
