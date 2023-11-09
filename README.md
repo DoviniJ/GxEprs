@@ -1,7 +1,7 @@
 ---
 Title: "GxEprs"
 Authors: "Dovini Jayasinghe, Md Moksedul Momin and Hong Lee"
-Last updated: "28-08-2023"
+Last updated: "09-11-2023"
 ---
 
 # GxEprs
@@ -560,6 +560,21 @@ x <- GWEIS_quantitative(plink_path, DummyData, Qphe_discovery, Qcov_discovery, t
 ```
 ```x``` contains GWEIS summary statistics of all additive and interaction SNP effects, when the outcome is quantitative. 
 
+* x$CHROM : chromosome number 
+* x$POS : base pair position
+* x$ID : SNP ID
+* x$REF : reference allele
+* x$ALT : alternate allele 
+* x$A1 : minor allele
+* x$OBS_CT : number of allele observations 
+* x$ADD_BETA : effects of additive SNP effects
+* x$ADD_SE : standard errors of the effects of additive SNP effects
+* x$ADD_T_STAT : test statistics of additive SNP effects
+* x$ADD_P : p values of additive SNP effects
+* x$INTERACTION_BETA : interaction SNP effects
+* x$INTERACTION_SE : standard errors of interaction SNP effects
+* x$INTERACTION_T_STAT : test statistics of interaction SNP effects
+* x$INTERACTION_P : p values of interaction SNP effects
 
 See the topic GWEIS_quantitative (page 10) in manual.pdf for examples.
 
