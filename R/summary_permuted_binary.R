@@ -80,14 +80,20 @@ summary_permuted_binary <- function(Bphe_target, Bcov_target, iterations = 1000,
     }
     }else{
     pn=iterations; pp_gxe_x_E=0
-    df_regular_new <- as.data.frame(cbind(out, cov, cov2, ps1, ps2, xv2))
-    regular_m = glm(out ~., data = df_regular_new, family = binomial(link = logit))
-    regular_p = summary(regular_m)$coefficients[6,4]
     conf_var <- matrix(ncol = n_confounders, nrow = nrow(dat))
     for (k in 1:n_confounders) {
       conf_var[, k] <- as.numeric(dat[, k+4])
     }
     conf_var <- conf_var[m1,]
+    df_regular_new <- as.data.frame(cbind(out, cov, cov2, ps1, ps2, xv2, conf_var))
+      colnames(df_regular_new)[1] <- "out"
+      colnames(df_regular_new)[2] <- "E"
+      colnames(df_regular_new)[3] <- "E squared"
+      colnames(df_regular_new)[4] <- "PRS_add"
+      colnames(df_regular_new)[5] <- "PRS_gxe"
+      colnames(df_regular_new)[6] <- "PRS_gxe x E"
+    regular_m = glm(out ~., data = df_regular_new, family = binomial(link = logit))
+    regular_p = summary(regular_m)$coefficients[6,4]
     for(i in 1:pn){
     percentage <- (i / iterations) * 100
     cat(sprintf("\rProgress: %3.0f%%", percentage))

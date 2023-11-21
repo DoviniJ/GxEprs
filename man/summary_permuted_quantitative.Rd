@@ -26,7 +26,7 @@ summary_permuted_quantitative(
 }
 \value{
 This function will output
-\item{Q_permuted_p.txt}{the p value of the permuted model}
+\item{Q_permuted_p}{the p value of the permuted model}
 }
 \description{
 summary_permuted_quantitative function
