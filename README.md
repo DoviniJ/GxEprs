@@ -854,4 +854,4 @@ performed in Models 4* or 5* was determined based on the p value obtained in Mod
 Please contact Dovini Jayasinghe (dovini.jayasinghe@mymail.unisa.edu.au), Md Moksedul Momin (md_moksedul.momin@mymail.unisa.edu.au) or Hong Lee (hong.lee@unisa.edu.au) for queries.
 
 # Reference
-Jayasinghe, D., Momin, M., Beckmann, K., Hypponen, E., Benyamin, B. and Lee, S.H., 2023. GxE PRS: Genotype-environment interaction in polygenic risk score models for quantitative and binary traits. _bioRxiv_, pp.2023-07.
+Jayasinghe, D., Momin, M. M., Beckmann, K., Hyppönen, E., Benyamin, B., & Lee, S. H. (2024). Mitigating type 1 error inflation and power loss in GxE PRS: Genotype–environment interaction in polygenic risk score models. Genetic Epidemiology.
