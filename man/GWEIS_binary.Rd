@@ -31,11 +31,11 @@ This function performs GWEIS using plink2 and outputs the GWEIS summary statisti
 x <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, 
 thread = 20)
 sink("B_out.add.sum") #to create a file in the working directory
-write.table(x[c("ID", "A1", "ADD_OR")], sep = " ", 
+write.table(x[c("ID", "A1", "ADD_BETA")], sep = " ", 
 row.names = FALSE, quote = FALSE) #to write the output
 sink() #to save the output
 sink("B_out.gxe.sum") #to create a file in the working directory
-write.table(x[c("ID", "A1", "INTERACTION_OR")], sep = " ", 
+write.table(x[c("ID", "A1", "INTERACTION_BETA")], sep = " ", 
 row.names = FALSE, quote = FALSE) #to write the output
 sink() #to save the output
 head(x) #to extract the head of all columns in GWEIS summary  
@@ -47,16 +47,15 @@ x$REF #to extract the reference allele
 x$ALT #to extract the alternate allele 
 x$A1 #to extract the minor allele
 x$OBS_CT #to extract the number of allele observations 
-x$ADD_OR #to extract the odds ratios of additive SNP effects
-x$ADD_LOG_OR_SE #to extract the standard errors of log  
-#odds of additive SNP effects
+x$ADD_BETA #to extract the additive SNP effects
+x$ADD_SE #to extract the standard errors of the  
+#additive SNP effects
 x$ADD_Z_STAT #to extract the test statistics of additive 
 #SNP effects
 x$ADD_P #to extract the p values of additive SNP effects
-x$INTERACTION_OR #to extract the odds ratios of  
+x$INTERACTION_BETA #to extract the interaction SNP effects
+x$INTERACTION_SE #to extract the standard errors of the  
 #interaction SNP effects
-x$INTERACTION_LOG_OR_SE #to extract the standard errors of  
-#log odds of interaction SNP effects
 x$INTERACTION_Z_STAT #to extract the test statistics of  
 #interaction SNP effects
 x$INTERACTION_P #to extract the p values of interaction 

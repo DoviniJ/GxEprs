@@ -31,7 +31,7 @@ This function performs GWAS using plink2 and outputs the GWAS summary statistics
 x <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, 
 thread = 20)
 sink("B_out.trd.sum") #to create a file in the working directory
-write.table(x[c("ID", "A1", "OR")], sep = " ", 
+write.table(x[c("ID", "A1", "BETA")], sep = " ", 
 row.names = FALSE, quote = FALSE) #to write the output
 sink() #to save the output
 head(x) #to obtain the head of GWAS summary statistics of additive SNP effects
@@ -42,8 +42,8 @@ x$REF #to extract the reference allele
 x$ALT #to extract the alternate allele 
 x$A1 #to extract the minor allele 
 x$OBS_CT #to extract the number of allele observations 
-x$OR #to extract the odds ratios of the SNP effects
-x$LOG_OR_SE #to extract the standard errors of log odds 
+x$BETA #to extract the SNP effects
+x$SE #to extract the standard errors of the SNP effects 
 x$Z_STAT #to extract the test statistics 
 x$P #to extract the p values 
 }

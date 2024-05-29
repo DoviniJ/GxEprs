@@ -15,7 +15,7 @@
 #' x <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, 
 #' thread = 20)
 #' sink("B_out.trd.sum") #to create a file in the working directory
-#' write.table(x[c("ID", "A1", "OR")], sep = " ", 
+#' write.table(x[c("ID", "A1", "BETA")], sep = " ", 
 #' row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
 #' head(x) #to obtain the head of GWAS summary statistics of additive SNP effects
@@ -26,8 +26,8 @@
 #' x$ALT #to extract the alternate allele 
 #' x$A1 #to extract the minor allele 
 #' x$OBS_CT #to extract the number of allele observations 
-#' x$OR #to extract the odds ratios of the SNP effects
-#' x$LOG_OR_SE #to extract the standard errors of log odds 
+#' x$BETA #to extract the SNP effects
+#' x$SE #to extract the standard errors of the SNP effects 
 #' x$Z_STAT #to extract the test statistics 
 #' x$P #to extract the p values 
 #' }
@@ -63,7 +63,7 @@ GWAS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thre
   filtered_output <- plink_output[(plink_output$TEST=="ADD"),]
   filtered_output$OR = log(filtered_output$OR)
   B_out.trd.sum <- filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "OR", colnames(filtered_output)[grep("^LOG", colnames(filtered_output))], "Z_STAT", "P")]
-  colnames(B_out.trd.sum) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "OR", "LOG_OR_SE", "Z_STAT", "P")
+  colnames(B_out.trd.sum) <- c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "BETA", "SE", "Z_STAT", "P")
   rownames(B_out.trd.sum) <- NULL
   return(B_out.trd.sum)
 }

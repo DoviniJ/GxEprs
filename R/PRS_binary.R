@@ -11,10 +11,10 @@
 #' \item{prs.sscore}{PRSs for each individual}
 #' @examples \dontrun{ 
 #' a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-#' trd <- a[c("ID", "A1", "OR")]
+#' trd <- a[c("ID", "A1", "BETA")]
 #' b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-#' add <- b[c("ID", "A1", "ADD_OR")]
-#' gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+#' add <- b[c("ID", "A1", "ADD_BETA")]
+#' gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 #' x <- PRS_binary(plink_path, DummyData, summary_input = trd)
 #' sink("B_trd.sscore") #to create a file in the working directory
 #' write.table(x, sep = " ", row.names = FALSE, quote = FALSE) #to write the output

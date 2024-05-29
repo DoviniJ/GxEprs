@@ -15,11 +15,11 @@
 #' x <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, 
 #' thread = 20)
 #' sink("B_out.add.sum") #to create a file in the working directory
-#' write.table(x[c("ID", "A1", "ADD_OR")], sep = " ", 
+#' write.table(x[c("ID", "A1", "ADD_BETA")], sep = " ", 
 #' row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
 #' sink("B_out.gxe.sum") #to create a file in the working directory
-#' write.table(x[c("ID", "A1", "INTERACTION_OR")], sep = " ", 
+#' write.table(x[c("ID", "A1", "INTERACTION_BETA")], sep = " ", 
 #' row.names = FALSE, quote = FALSE) #to write the output
 #' sink() #to save the output
 #' head(x) #to extract the head of all columns in GWEIS summary  
@@ -31,16 +31,15 @@
 #' x$ALT #to extract the alternate allele 
 #' x$A1 #to extract the minor allele
 #' x$OBS_CT #to extract the number of allele observations 
-#' x$ADD_OR #to extract the odds ratios of additive SNP effects
-#' x$ADD_LOG_OR_SE #to extract the standard errors of log  
-#' #odds of additive SNP effects
+#' x$ADD_BETA #to extract the additive SNP effects
+#' x$ADD_SE #to extract the standard errors of the  
+#' #additive SNP effects
 #' x$ADD_Z_STAT #to extract the test statistics of additive 
 #' #SNP effects
 #' x$ADD_P #to extract the p values of additive SNP effects
-#' x$INTERACTION_OR #to extract the odds ratios of  
+#' x$INTERACTION_BETA #to extract the interaction SNP effects
+#' x$INTERACTION_SE #to extract the standard errors of the  
 #' #interaction SNP effects
-#' x$INTERACTION_LOG_OR_SE #to extract the standard errors of  
-#' #log odds of interaction SNP effects
 #' x$INTERACTION_Z_STAT #to extract the test statistics of  
 #' #interaction SNP effects
 #' x$INTERACTION_P #to extract the p values of interaction 
@@ -79,15 +78,15 @@ GWEIS_binary <- function(plink_path, b_file, Bphe_discovery, Bcov_discovery, thr
   filtered_output$OR = log(filtered_output$OR)
   colnames(filtered_output)[c(grep("^\\bOR\\b$", colnames(filtered_output)), grep("^LOG", colnames(filtered_output)), 
                            grep("Z_STAT", colnames(filtered_output)), grep("^\\bP\\b$", colnames(filtered_output)), 
-                           grep("ERRCODE", colnames(filtered_output)))] <- c("ADD_OR", "ADD_LOG_OR_SE", "ADD_Z_STAT", "ADD_P", "ADD_ERRCODE")
+                           grep("ERRCODE", colnames(filtered_output)))] <- c("ADD_BETA", "ADD_SE", "ADD_Z_STAT", "ADD_P", "ADD_ERRCODE")
   filtered_output2 <- plink_output[(plink_output$TEST=="ADDxCOVAR1"),]
   filtered_output2$OR <- log(filtered_output2$OR)
   colnames(filtered_output2)[c(grep("^\\bOR\\b$", colnames(filtered_output2)), grep("^LOG", colnames(filtered_output2)), 
                            grep("Z_STAT", colnames(filtered_output2)), grep("^\\bP\\b$", colnames(filtered_output2)), 
-                           grep("ERRCODE", colnames(filtered_output2)))] <- c("INTERACTION_OR", "INTERACTION_LOG_OR_SE", "INTERACTION_Z_STAT", 
+                           grep("ERRCODE", colnames(filtered_output2)))] <- c("INTERACTION_BETA", "INTERACTION_SE", "INTERACTION_Z_STAT", 
 										"INTERACTION_P", "INTERACTION_ERRCODE")
-  out <- cbind(filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "ADD_OR", "ADD_LOG_OR_SE", "ADD_Z_STAT", "ADD_P")], 
-              filtered_output2[c("INTERACTION_OR", "INTERACTION_LOG_OR_SE", "INTERACTION_Z_STAT", "INTERACTION_P")])
+  out <- cbind(filtered_output[c("CHROM", "POS", "ID", "REF", "ALT", "A1", "OBS_CT", "ADD_BETA", "ADD_SE", "ADD_Z_STAT", "ADD_P")], 
+              filtered_output2[c("INTERACTION_BETA", "INTERACTION_SE", "INTERACTION_Z_STAT", "INTERACTION_P")])
   rownames(out) <- NULL 
   return(out)
  }
