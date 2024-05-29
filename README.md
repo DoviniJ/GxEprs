@@ -792,7 +792,7 @@ Example 1:
 #Model 0: y = PRS_trd + confounders + error and assume y is a binary trait. Note that the data columns in covariate file for confounders are optional. See 7. in "Input Files".
 
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-trd <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "BETA")]
 
 p <- PRS_binary(plink_path, "mydata", summary_input = trd)
 
@@ -815,8 +815,8 @@ Example 2:
 #Model 0: y = PRS_add + PRS_gxe + confounders + error and assume y is a binary trait. Note that the data columns in covariate file for confounders are optional. See 7. in "Input Files".
 
 a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-add <- a[c("ID", "A1", "ADD_OR")]
-gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+add <- a[c("ID", "A1", "ADD_BETA")]
+gxe <- a[c("ID", "A1", "INTERACTION_BETA")]
 
 p <- PRS_binary(plink_path, "mydata", summary_input = add)
 r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
@@ -836,8 +836,8 @@ Example 3:
 #Model 0: y = PRS_add + PRS_gxe + E + E^2 confounders + error and assume y is a binary trait. Note that the data columns in covariate file for confounders are optional. See 7. in "Input Files".
 
 a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-add <- a[c("ID", "A1", "ADD_OR")]
-gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+add <- a[c("ID", "A1", "ADD_BETA")]
+gxe <- a[c("ID", "A1", "INTERACTION_BETA")]
 
 p <- PRS_binary(plink_path, "mydata", summary_input = add)
 r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
