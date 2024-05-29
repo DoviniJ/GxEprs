@@ -1,7 +1,8 @@
 ---
 Title: "GxEprs"
 Authors: "Dovini Jayasinghe, Md Moksedul Momin and Hong Lee"
-Last updated: "09-11-2023"
+Last updated: "29-05-2024"
+Modification: "Column names of GWAS_binary and GWEIS_binary output files were modified (Eg. ADD_OR is replaced as ADD_BETA). Resulted no change in values."
 ---
 
 # GxEprs
