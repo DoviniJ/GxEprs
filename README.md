@@ -258,7 +258,7 @@ x <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, thread =
 
 **Output**
 ```
-  CHROM POS ID REF ALT A1 OBS_CT OR LOG_OR_SE Z_STAT P
+  CHROM POS ID REF ALT A1 OBS_CT BETA SE Z_STAT P
 1   1 768448 SNP_1 G A A 800 -0.0912494357966473 0.421016 -0.216738 0.828413
 2   1 853954 SNP_2 A C C 800 0.580991407122803 0.266219 2.18239 0.0290808
 3   1 880390 SNP_3 C A A 800 0.446184697385182 0.744786 0.599076 0.549122
@@ -273,8 +273,8 @@ x <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, thread =
 * x$ALT : alternate allele 
 * x$A1 : minor allele
 * x$OBS_CT : number of allele observations 
-* x$OR : odds ratios of SNP effects
-* x$LOG_OR_SE : standard errors of log odds of SNP effects
+* x$BETA : SNP effects
+* x$SE : standard errors the SNP effects
 * x$Z_STAT : test statistics of SNP effects
 * x$P : p values of SNP effects
 
@@ -294,7 +294,7 @@ x <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, thread 
 
 **Output**
 ```
-  CHROM POS ID REF ALT A1 OBS_CT ADD_OR ADD_LOG_OR_SE ADD_Z_STAT ADD_P INTERACTION_OR INTERACTION_LOG_OR_SE INTERACTION_Z_STAT INTERACTION_P
+  CHROM POS ID REF ALT A1 OBS_CT ADD_BETA ADD_SE ADD_Z_STAT ADD_P INTERACTION_BETA INTERACTION_SE INTERACTION_Z_STAT INTERACTION_P
 1   1 768448 SNP_1 G A A 800 -0.0429377728682119 0.546246 -0.0786059 0.937346 -0.15253365458422 0.37862 -0.402868 0.687045
 2   1 853954 SNP_2 A C C 800 0.691871367055893 0.338615 2.04325 0.0410281 -0.114150142610688 0.211225 -0.540423 0.588905
 3   1 880390 SNP_3 C A A 800 -0.0243828605684827 1.27677 -0.0190971 0.984764 0.612983215535033 0.936868 0.654292 0.512924
@@ -309,12 +309,12 @@ x <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery, thread 
 * x$ALT : alternate allele 
 * x$A1 : minor allele
 * x$OBS_CT : number of allele observations 
-* x$ADD_OR : odds ratios of additive SNP effects
-* x$ADD_LOG_OR_SE : standard errors of log odds of additive SNP effects
+* x$ADD_BETA : additive SNP effects
+* x$ADD_SE : standard errors of the additive SNP effects
 * x$ADD_Z_STAT : test statistics of additive SNP effects
 * x$ADD_P : p values of additive SNP effects
-* x$INTERACTION_OR : odds ratios of the SNP effect of interaction SNP effects
-* x$INTERACTION_LOG_OR_SE : standard errors of log odds of interaction SNP effects
+* x$INTERACTION_BETA : SNP effect of interaction SNP effects
+* x$INTERACTION_SE : standard errors of the interaction SNP effects
 * x$INTERACTION_Z_STAT : test statistics of interaction SNP effects
 * x$INTERACTION_P : p values of interaction SNP effects
 
@@ -323,10 +323,10 @@ See the topic GWEIS_binary (page 9) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-trd <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-add <- b[c("ID", "A1", "ADD_OR")]
-gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 
 x <- PRS_binary(plink_path, "mydata", summary_input = trd)
 y <- PRS_binary(plink_path, "mydata", summary_input = add)
@@ -338,10 +338,10 @@ As explained above, “mydata” is the prefix of the PLINK format files, , add 
 To perform the same on embedded data
 ```
 a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-trd <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-add <- b[c("ID", "A1", "ADD_OR")]
-gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 
 x <- PRS_binary(plink_path, DummyData, summary_input = trd)
 y <- PRS_binary(plink_path, DummyData, summary_input = add)
@@ -392,10 +392,10 @@ See the topic PRS_binary (page 12) in manual.pdf for examples.
 **Command**
 ```
 a <- GWAS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-trd <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-add <- b[c("ID", "A1", "ADD_OR")]
-gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 p <- PRS_binary(plink_path, "mydata", summary_input = trd)
 q <- PRS_binary(plink_path, "mydata", summary_input = add)
 r <- PRS_binary(plink_path, "mydata", summary_input = gxe)
@@ -415,10 +415,10 @@ z <- summary_regular_binary("Bpt.txt", "Bct.txt", add_score = q, gxe_score = r, 
 To perform the same on embedded data:
 ```
 a <- GWAS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-trd <- a[c("ID", "A1", "OR")]
+trd <- a[c("ID", "A1", "BETA")]
 b <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-add <- b[c("ID", "A1", "ADD_OR")]
-gxe <- b[c("ID", "A1", "INTERACTION_OR")]
+add <- b[c("ID", "A1", "ADD_BETA")]
+gxe <- b[c("ID", "A1", "INTERACTION_BETA")]
 p <- PRS_binary(plink_path, DummyData, summary_input = trd)
 q <- PRS_binary(plink_path, DummyData, summary_input = add)
 r <- PRS_binary(plink_path, DummyData, summary_input = gxe)
@@ -482,8 +482,8 @@ See the topic summary_regular_binary (page 19) in manual.pdf for examples.
 **Command**
 ```
 a <- GWEIS_binary(plink_path, "mydata", "Bpd.txt", "Bcd.txt")
-add <- a[c("ID", "A1", "ADD_OR")]
-gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+add <- a[c("ID", "A1", "ADD_BETA")]
+gxe <- a[c("ID", "A1", "INTERACTION_BETA")]
 p <- PRS_binary(plink_path, "mydata", summary_input = add)
 q <- PRS_binary(plink_path, "mydata", summary_input = gxe)
 x <- summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score = p, gxe_score = q)
@@ -492,8 +492,8 @@ x <- summary_permuted_binary("Bpt.txt", "Bct.txt", iterations = 1000, add_score 
 To perform the same on embedded data:
 ```
 a <- GWEIS_binary(plink_path, DummyData, Bphe_discovery, Bcov_discovery)
-add <- a[c("ID", "A1", "ADD_OR")]
-gxe <- a[c("ID", "A1", "INTERACTION_OR")]
+add <- a[c("ID", "A1", "ADD_BETA")]
+gxe <- a[c("ID", "A1", "INTERACTION_BETA")]
 p <- PRS_binary(plink_path, DummyData, summary_input = add)
 q <- PRS_binary(plink_path, DummyData, summary_input = gxe)
 x <- summary_permuted_binary(Bphe_target, Bcov_target, iterations = 1000, add_score = p, gxe_score = q)
