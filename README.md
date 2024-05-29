@@ -1,9 +1,17 @@
 ---
 Title: "GxEprs"
 Authors: "Dovini Jayasinghe, Md Moksedul Momin and Hong Lee"
-Last updated: "29-05-2024"
-Modification: "Column names of GWAS_binary and GWEIS_binary output files were modified (Eg. ADD_OR is replaced as ADD_BETA). Resulted no change in values."
 ---
+
+**Last updated**: 29-05-2024
+
+
+**Modification**: 
+A set of column names of GWAS_binary() and GWEIS_binary() outputs were renamed appropriately. 
+In GWAS_binary() output dataframe, OR is replaced as BETA and LOG_OR_SE is replaced as SE. 
+In GWEIS_binary() output dataframe, ADD_OR is replaced as ADD_BETA, INTERACTION_OR is replaced as INTERACTION_BETA, ADD_LOG_OR_SE is replaced as ADD_SE and INTERACTION_LOG_OR_SE is replaced as INTERACTION_SE. 
+Resulted no change in values.
+
 
 # GxEprs
 The 'GxEprs' is an R package to detect and estimate GxE. It uses a novel PRS model that can enhance the prediction accuracy by utilising GxE effects. Firstly it performs Genome Wide Association Studies (GWAS)  and Genome Wide Environment Interaction Studies (GWEIS) using the discovery dataset (see functions ```GWAS_binary()```,```GWAS_quantitative()```, ```GWEIS_binary()```, ```GWEIS_quantitative()```). See the section $\color{red}{IMPORTANT}$ for the discovery models used. Secondly, it uses the GWAS and GWEIS summary statistics generated from the fucntions above to obtain polygenic risk scores (PRSs) (see functions ```PRS_binary()``` and ```PRS_quantitative()```) for the target sample. Finally it predicts the risk values of each individual in the target sample (see functions ```summary_regular_binary()``` and ```summary_regular_quantitative()```). Note that the users can fit 4 different models when the outcome is a quantitative trait, and 5 different models when the outcome is a binary disease trait. See the section $\color{red} {IMPORTANT}$ for the target models used. Finally, it is recommended to check the p-value from permutations using Model 4 (see function ```summary_permuted_quantitative()```), and Model 5 (see function```summary_permuted_binary()```), to make sure that the significance of GxE is not spurious due to model misspecification (Jayasinghe et. al.).
