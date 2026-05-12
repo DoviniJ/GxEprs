@@ -181,7 +181,7 @@ ID_805 ID_805 0.280205519375899 0.0785151330887172 -3.33164 67 -11.8637 5.88272 
 ```
 
 # Quick start
-We will illustrate the usage of **GxEprs** using a few example datasets downloaded and white labelled from UK biobank. Follow the step wise process:
+We will illustrate the usage of **GxEprs** using a few example datasets. Follow the step wise process:
 
 ##### Step 1: Download and install plink2 in your machine. The package supports both Linux and Windows version.
 Link: https://www.cog-genomics.org/plink/2.0/
